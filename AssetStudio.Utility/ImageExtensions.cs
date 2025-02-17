@@ -2,6 +2,7 @@
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Tga;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -45,11 +46,11 @@ namespace AssetStudio
 
         public static byte[] ConvertToBytes<TPixel>(this Image<TPixel> image) where TPixel : unmanaged, IPixel<TPixel>
         {
-            if (image.DangerousTryGetSinglePixelMemory(out var pixelSpan))
+            using (image)
             {
-                return MemoryMarshal.AsBytes(pixelSpan.Span).ToArray();
+                Span<byte> imageSpan = new byte[image.Width * image.Height * 4];
+                return MemoryMarshal.AsBytes(imageSpan).ToArray();
             }
-            return null;
         }
     }
 }
