@@ -9,7 +9,7 @@ namespace AssetStudio
     {
         public string m_Name;
 
-        protected NamedObject() { }
+        public override string Name => m_Name;
 
         protected NamedObject(ObjectReader reader) : base(reader)
         {

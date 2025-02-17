@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace AssetStudio
 {
@@ -16,5 +13,18 @@ namespace AssetStudio
 
         public long m_PathID;
         public SerializedType serializedType;
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"byteStart: 0x{byteStart:X8} | ");
+            sb.Append($"byteSize: 0x{byteSize:X8} | ");
+            sb.Append($"typeID: {typeID} | ");
+            sb.Append($"classID: {classID} | ");
+            sb.Append($"isDestroyed: {isDestroyed} | ");
+            sb.Append($"stripped: {stripped} | ");
+            sb.Append($"PathID: {m_PathID}");
+            return sb.ToString();
+        }
     }
 }

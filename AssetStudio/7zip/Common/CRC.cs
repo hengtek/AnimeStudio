@@ -1,5 +1,7 @@
 // Common/CRC.cs
 
+using System.Text;
+
 namespace SevenZip
 {
 	public class CRC
@@ -22,26 +24,26 @@ namespace SevenZip
 			}
 		}
 
-		private uint _value = 0xFFFFFFFF;
+		uint _value = 0xFFFFFFFF;
 
 		public void Init() { _value = 0xFFFFFFFF; }
 
 		public void UpdateByte(byte b)
 		{
-			_value = Table[(byte)_value ^ b] ^ (_value >> 8);
+			_value = Table[(((byte)(_value)) ^ b)] ^ (_value >> 8);
 		}
 
 		public void Update(byte[] data, uint offset, uint size)
 		{
 			for (uint i = 0; i < size; i++)
-				_value = Table[(byte)_value ^ data[offset + i]] ^ (_value >> 8);
+				_value = Table[(((byte)(_value)) ^ data[offset + i])] ^ (_value >> 8);
 		}
 
 		public uint GetDigest() { return _value ^ 0xFFFFFFFF; }
 
-		public static uint CalculateDigest(byte[] data, uint offset, uint size)
+		static uint CalculateDigest(byte[] data, uint offset, uint size)
 		{
-			var crc = new CRC();
+			CRC crc = new CRC();
 			// crc.Init();
 			crc.Update(data, offset, size);
 			return crc.GetDigest();
@@ -49,7 +51,29 @@ namespace SevenZip
 
 		static bool VerifyDigest(uint digest, byte[] data, uint offset, uint size)
 		{
-			return CalculateDigest(data, offset, size) == digest;
+			return (CalculateDigest(data, offset, size) == digest);
 		}
-	}
+
+        public static uint CalculateDigestAscii(string data)
+        {
+            var bytes = Encoding.ASCII.GetBytes(data);
+            return CalculateDigest(bytes, 0, (uint)bytes.Length);
+        }
+
+        public static uint CalculateDigestUTF8(string data)
+        {
+            var bytes = Encoding.UTF8.GetBytes(data);
+            return CalculateDigest(bytes, 0, (uint)bytes.Length);
+        }
+
+        public static bool VerifyDigestUTF8(string data, uint digest)
+        {
+            return CalculateDigestUTF8(data) == digest;
+        }
+
+        public static bool Verify28DigestUTF8(string data, uint digest)
+        {
+            return (CalculateDigestUTF8(data) & 0xFFFFFFF) == digest;
+        }
+    }
 }

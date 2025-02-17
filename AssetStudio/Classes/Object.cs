@@ -1,8 +1,5 @@
-﻿using System.Collections.Specialized;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Collections.Specialized;
 
 namespace AssetStudio
 {
@@ -12,36 +9,22 @@ namespace AssetStudio
         public SerializedFile assetsFile;
         [JsonIgnore]
         public ObjectReader reader;
+        [JsonIgnore]
         public long m_PathID;
         [JsonIgnore]
-        public UnityVersion version;
+        public int[] version;
+        [JsonIgnore]
+        protected BuildType buildType;
         [JsonIgnore]
         public BuildTarget platform;
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonIgnore]
         public ClassIDType type;
         [JsonIgnore]
         public SerializedType serializedType;
-        public int classID;
-        public uint byteSize;
         [JsonIgnore]
-        public string Name;
-        private static readonly JsonSerializerOptions jsonOptions;
+        public uint byteSize;
 
-        static Object()
-        {
-            jsonOptions = new JsonSerializerOptions
-            {
-                Converters = { new JsonConverterHelper.FloatConverter() },
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                ReferenceHandler = ReferenceHandler.IgnoreCycles,
-                PropertyNameCaseInsensitive = true,
-                IncludeFields = true,
-                WriteIndented = true,
-            };
-        }
-
-        public Object() { }
+        public virtual string Name => string.Empty;
 
         public Object(ObjectReader reader)
         {
@@ -51,10 +34,12 @@ namespace AssetStudio
             type = reader.type;
             m_PathID = reader.m_PathID;
             version = reader.version;
+            buildType = reader.buildType;
             platform = reader.platform;
             serializedType = reader.serializedType;
-            classID = reader.classID;
             byteSize = reader.byteSize;
+
+            Logger.Verbose($"Attempting to read object {type} with {m_PathID} in file {assetsFile.fileName}, starting from offset 0x{reader.byteStart:X8} with size of 0x{byteSize:X8} !!");
 
             if (platform == BuildTarget.NoTarget)
             {
@@ -62,59 +47,45 @@ namespace AssetStudio
             }
         }
 
-        public string DumpObject()
+        public string Dump()
         {
-            string str = null;
-            try
+            if (serializedType?.m_Type != null)
             {
-                str = JsonSerializer.Deserialize<JsonObject>(JsonSerializer.SerializeToUtf8Bytes(this, GetType(), jsonOptions))
-                    .ToJsonString(jsonOptions).Replace("  ", "    ");
+                return TypeTreeHelper.ReadTypeString(serializedType.m_Type, reader);
             }
-            catch
-            {
-                //ignore
-            }
-            return str;
+            return null;
         }
 
-        public string Dump(TypeTree m_Type = null)
+        public string Dump(TypeTree m_Type)
         {
-            m_Type = m_Type ?? serializedType?.m_Type;
-            if (m_Type == null)
-                return null;
-
-            return TypeTreeHelper.ReadTypeString(m_Type, reader);
-        }
-
-        public OrderedDictionary ToType(TypeTree m_Type = null)
-        {
-            m_Type = m_Type ?? serializedType?.m_Type;
-            if (m_Type == null)
-                return null;
-
-            return TypeTreeHelper.ReadType(m_Type, reader);
-        }
-
-        public JsonDocument ToJsonDoc(TypeTree m_Type = null)
-        {
-            var typeDict = ToType(m_Type);
-            try
+            if (m_Type != null)
             {
-                if (typeDict != null)
-                {
-                    return JsonSerializer.SerializeToDocument(typeDict);
-                }
-                return JsonSerializer.SerializeToDocument(this, GetType(), jsonOptions);
+                return TypeTreeHelper.ReadTypeString(m_Type, reader);
             }
-            catch
+            return null;
+        }
+
+        public OrderedDictionary ToType()
+        {
+            if (serializedType?.m_Type != null)
             {
-                //ignore
+                return TypeTreeHelper.ReadType(serializedType.m_Type, reader);
+            }
+            return null;
+        }
+
+        public OrderedDictionary ToType(TypeTree m_Type)
+        {
+            if (m_Type != null)
+            {
+                return TypeTreeHelper.ReadType(m_Type, reader);
             }
             return null;
         }
 
         public byte[] GetRawData()
         {
+            Logger.Verbose($"Dumping raw bytes of the object with {m_PathID} in file {assetsFile.fileName}...");
             reader.Reset();
             return reader.ReadBytes((int)byteSize);
         }

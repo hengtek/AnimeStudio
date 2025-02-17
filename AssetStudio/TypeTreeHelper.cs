@@ -3,51 +3,29 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace AssetStudio
 {
     public static class TypeTreeHelper
     {
-        private static readonly JsonSerializerOptions JsonOptions;
-        static TypeTreeHelper()
-        {
-            JsonOptions = new JsonSerializerOptions
-            {
-                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                ReferenceHandler = ReferenceHandler.IgnoreCycles,
-                IncludeFields = true,
-            };
-        }
-
         public static string ReadTypeString(TypeTree m_Type, ObjectReader reader)
         {
             reader.Reset();
-            var readed = 0L;
             var sb = new StringBuilder();
             var m_Nodes = m_Type.m_Nodes;
-            try
+            for (int i = 0; i < m_Nodes.Count; i++)
             {
-                for (int i = 0; i < m_Nodes.Count; i++)
-                {
-                    ReadStringValue(sb, m_Nodes, reader, ref i);
-                }
-                readed = reader.Position - reader.byteStart;
+                ReadStringValue(sb, m_Nodes, reader, ref i);
             }
-            catch (Exception)
-            {
-                //Ignore
-            }
+            var readed = reader.Position - reader.byteStart;
             if (readed != reader.byteSize)
             {
-                Logger.Info($"Failed to read type, read {readed} bytes but expected {reader.byteSize} bytes");
+                Logger.Info($"Error while read type, read {readed} bytes but expected {reader.byteSize} bytes");
             }
-
             return sb.ToString();
         }
 
-        private static void ReadStringValue(StringBuilder sb, List<TypeTreeNode> m_Nodes, BinaryReader reader, ref int i)
+        private static void ReadStringValue(StringBuilder sb, List<TypeTreeNode> m_Nodes, EndianBinaryReader reader, ref int i)
         {
             var m_Node = m_Nodes[i];
             var level = m_Node.m_Level;
@@ -138,7 +116,7 @@ namespace AssetStudio
                     {
                         append = false;
                         var size = reader.ReadInt32();
-                        reader.BaseStream.Position += size;
+                        reader.ReadBytes(size);
                         i += 2;
                         sb.AppendFormat("{0}{1} {2}\r\n", (new string('\t', level)), varTypeStr, varNameStr);
                         sb.AppendFormat("{0}{1} {2} = {3}\r\n", (new string('\t', level)), "int", "size", size);
@@ -185,45 +163,30 @@ namespace AssetStudio
                 reader.AlignStream();
         }
 
-        public static byte[] ReadTypeByteArray(TypeTree m_Types, ObjectReader reader)
-        {
-            var type = ReadType(m_Types, reader);
-            var bytes = JsonSerializer.SerializeToUtf8Bytes(type, JsonOptions);
-            type.Clear();
-            return bytes;
-        }
-
         public static OrderedDictionary ReadType(TypeTree m_Types, ObjectReader reader)
         {
             reader.Reset();
             var obj = new OrderedDictionary();
             var m_Nodes = m_Types.m_Nodes;
-            var readed = 0L;
-            try
+            for (int i = 1; i < m_Nodes.Count; i++)
             {
-                for (int i = 1; i < m_Nodes.Count; i++)
-                {
-                    var m_Node = m_Nodes[i];
-                    var varNameStr = m_Node.m_Name;
-                    obj[varNameStr] = ReadValue(m_Nodes, reader, ref i);
-                }
-                readed = reader.Position - reader.byteStart;
+                var m_Node = m_Nodes[i];
+                var varNameStr = m_Node.m_Name;
+                obj[varNameStr] = ReadValue(m_Nodes, reader, ref i);
             }
-            catch (Exception)
-            {
-                //Ignore
-            }
+            var readed = reader.Position - reader.byteStart;
             if (readed != reader.byteSize)
             {
-                Logger.Info($"Failed to read type, read {readed} bytes but expected {reader.byteSize} bytes");
+                Logger.Info($"Error while read type, read {readed} bytes but expected {reader.byteSize} bytes");
             }
             return obj;
         }
 
-        private static object ReadValue(List<TypeTreeNode> m_Nodes, BinaryReader reader, ref int i)
+        private static object ReadValue(List<TypeTreeNode> m_Nodes, EndianBinaryReader reader, ref int i)
         {
             var m_Node = m_Nodes[i];
             var varTypeStr = m_Node.m_Type;
+            Logger.Verbose($"Reading {m_Node.m_Name} of type {varTypeStr}");
             object value;
             var align = (m_Node.m_MetaFlag & 0x4000) != 0;
             switch (varTypeStr)
@@ -287,7 +250,7 @@ namespace AssetStudio
                         var next = 4 + first.Count;
                         var second = GetNodes(map, next);
                         var size = reader.ReadInt32();
-                        var dic = new List<KeyValuePair<object, object>>(size);
+                        var dic = new List<KeyValuePair<object, object>>();
                         for (int j = 0; j < size; j++)
                         {
                             int tmp1 = 0;
@@ -300,13 +263,7 @@ namespace AssetStudio
                 case "TypelessData":
                     {
                         var size = reader.ReadInt32();
-                        var dic = new OrderedDictionary
-                        {
-                            { "Offset", reader.BaseStream.Position },
-                            { "Size", size }
-                        };
-                        value = dic;
-                        reader.BaseStream.Position += size;
+                        value = reader.ReadBytes(size);
                         i += 2;
                         break;
                     }
@@ -319,13 +276,13 @@ namespace AssetStudio
                             var vector = GetNodes(m_Nodes, i);
                             i += vector.Count - 1;
                             var size = reader.ReadInt32();
-                            var array = new object[size];
+                            var list = new List<object>();
                             for (int j = 0; j < size; j++)
                             {
                                 int tmp = 3;
-                                array[j] = ReadValue(vector, reader, ref tmp);
+                                list.Add(ReadValue(vector, reader, ref tmp));
                             }
-                            value = array;
+                            value = list;
                             break;
                         }
                         else //Class

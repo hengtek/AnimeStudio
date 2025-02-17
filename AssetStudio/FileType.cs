@@ -14,6 +14,12 @@ namespace AssetStudio
         ResourceFile,
         GZipFile,
         BrotliFile,
-        ZipFile
+        ZipFile,
+        BlkFile,
+        MhyFile,
+        Blb2File,
+        Blb3File,
+        ENCRFile,
+        BlockFile
     }
 }

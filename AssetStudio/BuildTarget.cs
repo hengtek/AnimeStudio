@@ -1,4 +1,9 @@
-﻿namespace AssetStudio
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace AssetStudio
 {
     public enum BuildTarget
     {
@@ -48,17 +53,6 @@
         PS5,
         EmbeddedLinux,
         QNX,
-        VisionOS,
         UnknownPlatform = 9999
-    }
-
-    public enum TuanjieBuildTarget
-    {
-        WeixinMiniGame = 47,
-        OpenHarmony,
-        HMIAndroid,
-        ArmLinux,
-        ArmLinuxServer,
-        VisionOS,
     }
 }

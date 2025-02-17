@@ -23,7 +23,7 @@ namespace AssetStudio
         public Limit(ObjectReader reader)
         {
             var version = reader.version;
-            if (version >= (5, 4))//5.4 and up
+            if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))//5.4 and up
             {
                 m_Min = reader.ReadVector3();
                 m_Max = reader.ReadVector3();
@@ -50,7 +50,7 @@ namespace AssetStudio
             var version = reader.version;
             m_PreQ = reader.ReadVector4();
             m_PostQ = reader.ReadVector4();
-            if (version >= (5, 4)) //5.4 and up
+            if (version[0] > 5 || (version[0] == 5 && version[1] >= 4)) //5.4 and up
             {
                 m_Sgn = reader.ReadVector3();
             }
@@ -66,43 +66,37 @@ namespace AssetStudio
 
     public class Skeleton
     {
-        public Node[] m_Node;
+        public List<Node> m_Node;
         public uint[] m_ID;
-        public Axes[] m_AxesArray;
-
+        public List<Axes> m_AxesArray;
 
         public Skeleton(ObjectReader reader)
         {
             int numNodes = reader.ReadInt32();
-            m_Node = new Node[numNodes];
+            m_Node = new List<Node>();
             for (int i = 0; i < numNodes; i++)
             {
-                m_Node[i] = new Node(reader);
+                m_Node.Add(new Node(reader));
             }
 
             m_ID = reader.ReadUInt32Array();
 
             int numAxes = reader.ReadInt32();
-            m_AxesArray = new Axes[numAxes];
+            m_AxesArray = new List<Axes>();
             for (int i = 0; i < numAxes; i++)
             {
-                m_AxesArray[i] = new Axes(reader);
+                m_AxesArray.Add(new Axes(reader));
             }
         }
     }
 
     public class SkeletonPose
     {
-        public xform[] m_X;
+        public XForm[] m_X;
 
         public SkeletonPose(ObjectReader reader)
         {
-            int numXforms = reader.ReadInt32();
-            m_X = new xform[numXforms];
-            for (int i = 0; i < numXforms; i++)
-            {
-                m_X[i] = new xform(reader);
-            }
+            m_X = reader.ReadXFormArray();
         }
     }
 
@@ -118,13 +112,13 @@ namespace AssetStudio
 
     public class Handle
     {
-        public xform m_X;
+        public XForm m_X;
         public uint m_ParentHumanIndex;
         public uint m_ID;
 
         public Handle(ObjectReader reader)
         {
-            m_X = new xform(reader);
+            m_X = reader.ReadXForm();
             m_ParentHumanIndex = reader.ReadUInt32();
             m_ID = reader.ReadUInt32();
         }
@@ -132,7 +126,7 @@ namespace AssetStudio
 
     public class Collider
     {
-        public xform m_X;
+        public XForm m_X;
         public uint m_Type;
         public uint m_XMotionType;
         public uint m_YMotionType;
@@ -144,7 +138,7 @@ namespace AssetStudio
 
         public Collider(ObjectReader reader)
         {
-            m_X = new xform(reader);
+            m_X = reader.ReadXForm();
             m_Type = reader.ReadUInt32();
             m_XMotionType = reader.ReadUInt32();
             m_YMotionType = reader.ReadUInt32();
@@ -158,13 +152,13 @@ namespace AssetStudio
 
     public class Human
     {
-        public xform m_RootX;
+        public XForm m_RootX;
         public Skeleton m_Skeleton;
         public SkeletonPose m_SkeletonPose;
         public Hand m_LeftHand;
         public Hand m_RightHand;
-        public Handle[] m_Handles;
-        public Collider[] m_ColliderArray;
+        public List<Handle> m_Handles;
+        public List<Collider> m_ColliderArray;
         public int[] m_HumanBoneIndex;
         public float[] m_HumanBoneMass;
         public int[] m_ColliderIndex;
@@ -183,26 +177,26 @@ namespace AssetStudio
         public Human(ObjectReader reader)
         {
             var version = reader.version;
-            m_RootX = new xform(reader);
+            m_RootX = reader.ReadXForm();
             m_Skeleton = new Skeleton(reader);
             m_SkeletonPose = new SkeletonPose(reader);
             m_LeftHand = new Hand(reader);
             m_RightHand = new Hand(reader);
 
-            if (version < (2018, 2)) //2018.2 down
+            if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) //2018.2 down
             {
                 int numHandles = reader.ReadInt32();
-                m_Handles = new Handle[numHandles];
+                m_Handles = new List<Handle>();
                 for (int i = 0; i < numHandles; i++)
                 {
-                    m_Handles[i] = new Handle(reader);
+                    m_Handles.Add(new Handle(reader));
                 }
 
                 int numColliders = reader.ReadInt32();
-                m_ColliderArray = new Collider[numColliders];
+                m_ColliderArray = new List<Collider>(numColliders);
                 for (int i = 0; i < numColliders; i++)
                 {
-                    m_ColliderArray[i] = new Collider(reader);
+                    m_ColliderArray.Add(new Collider(reader));
                 }
             }
 
@@ -210,7 +204,7 @@ namespace AssetStudio
 
             m_HumanBoneMass = reader.ReadSingleArray();
 
-            if (version < (2018, 2)) //2018.2 down
+            if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) //2018.2 down
             {
                 m_ColliderIndex = reader.ReadInt32Array();
             }
@@ -225,7 +219,7 @@ namespace AssetStudio
             m_FeetSpacing = reader.ReadSingle();
             m_HasLeftHand = reader.ReadBoolean();
             m_HasRightHand = reader.ReadBoolean();
-            if (version >= (5, 2)) //5.2 and up
+            if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) //5.2 and up
             {
                 m_HasTDoF = reader.ReadBoolean();
             }
@@ -243,7 +237,7 @@ namespace AssetStudio
         public int[] m_HumanSkeletonIndexArray;
         public int[] m_HumanSkeletonReverseIndexArray;
         public int m_RootMotionBoneIndex;
-        public xform m_RootMotionBoneX;
+        public XForm m_RootMotionBoneX;
         public Skeleton m_RootMotionSkeleton;
         public SkeletonPose m_RootMotionSkeletonPose;
         public int[] m_RootMotionSkeletonIndexArray;
@@ -254,7 +248,7 @@ namespace AssetStudio
             m_AvatarSkeleton = new Skeleton(reader);
             m_AvatarSkeletonPose = new SkeletonPose(reader);
 
-            if (version >= (4, 3)) //4.3 and up
+            if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) //4.3 and up
             {
                 m_DefaultPose = new SkeletonPose(reader);
 
@@ -265,15 +259,15 @@ namespace AssetStudio
 
             m_HumanSkeletonIndexArray = reader.ReadInt32Array();
 
-            if (version >= (4, 3)) //4.3 and up
+            if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) //4.3 and up
             {
                 m_HumanSkeletonReverseIndexArray = reader.ReadInt32Array();
             }
 
             m_RootMotionBoneIndex = reader.ReadInt32();
-            m_RootMotionBoneX = new xform(reader);
+            m_RootMotionBoneX = reader.ReadXForm();
 
-            if (version >= (4, 3)) //4.3 and up
+            if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) //4.3 and up
             {
                 m_RootMotionSkeleton = new Skeleton(reader);
                 m_RootMotionSkeletonPose = new SkeletonPose(reader);
@@ -287,7 +281,7 @@ namespace AssetStudio
     {
         public uint m_AvatarSize;
         public AvatarConstant m_Avatar;
-        public KeyValuePair<uint, string>[] m_TOS;
+        public Dictionary<uint, string> m_TOS;
 
         public Avatar(ObjectReader reader) : base(reader)
         {
@@ -295,10 +289,10 @@ namespace AssetStudio
             m_Avatar = new AvatarConstant(reader);
 
             int numTOS = reader.ReadInt32();
-            m_TOS = new KeyValuePair<uint, string>[numTOS];
+            m_TOS = new Dictionary<uint, string>();
             for (int i = 0; i < numTOS; i++)
             {
-                m_TOS[i] = new KeyValuePair<uint, string>(reader.ReadUInt32(), reader.ReadAlignedString());
+                m_TOS.Add(reader.ReadUInt32(), reader.ReadAlignedString());
             }
 
             //HumanDescription m_HumanDescription 2019 and up
@@ -306,7 +300,8 @@ namespace AssetStudio
 
         public string FindBonePath(uint hash)
         {
-            return m_TOS.FirstOrDefault(pair => pair.Key == hash).Value;
+            m_TOS.TryGetValue(hash, out string path);
+            return path;
         }
     }
 }

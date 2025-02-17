@@ -35,9 +35,6 @@ bld/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
-# Launch Settings
-*launchSettings.json
-
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -341,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/AssetStudioCLI/Properties/launchSettings.json
+/AssetStudioGUI/Properties/launchSettings.json

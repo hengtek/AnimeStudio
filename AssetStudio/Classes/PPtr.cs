@@ -1,61 +1,70 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+using System.IO;
+using System.Collections.Generic;
 
 namespace AssetStudio
 {
-    public sealed class PPtr<T> where T : Object
+    public sealed class PPtr<T> : IYAMLExportable where T : Object
     {
         public int m_FileID;
         public long m_PathID;
-        public string Name => _assetsFile != null && TryGet(out var result) ? result.Name : string.Empty;
 
-        private int _index = -2; //-2 - Prepare, -1 - Missing
-        private SerializedFile _assetsFile;
-        [JsonIgnore]
-        public SerializedFile AssetsFile
+        private SerializedFile assetsFile;
+        private int index = -2; //-2 - Prepare, -1 - Missing
+        
+        public string Name => TryGet(out var obj) ? obj.Name : string.Empty;
+
+        public PPtr(int m_FileID,  long m_PathID, SerializedFile assetsFile)
         {
-            get => _assetsFile;
-            set => _assetsFile = value;
+            this.m_FileID = m_FileID;
+            this.m_PathID = m_PathID;
+            this.assetsFile = assetsFile;
         }
 
         public PPtr(ObjectReader reader)
         {
             m_FileID = reader.ReadInt32();
             m_PathID = reader.m_Version < SerializedFileFormatVersion.Unknown_14 ? reader.ReadInt32() : reader.ReadInt64();
-            _assetsFile = reader.assetsFile;
+            assetsFile = reader.assetsFile;
         }
 
-        public PPtr() { }
+        public YAMLNode ExportYAML(int[] version)
+        {
+            var node = new YAMLMappingNode();
+            node.Style = MappingStyle.Flow;
+            node.Add("fileID", m_FileID);
+            return node;
+        }
 
         private bool TryGetAssetsFile(out SerializedFile result)
         {
             result = null;
             if (m_FileID == 0)
             {
-                result = _assetsFile;
+                result = assetsFile;
                 return true;
             }
 
-            if (m_FileID > 0 && m_FileID - 1 < _assetsFile.m_Externals.Count)
+            if (m_FileID > 0 && m_FileID - 1 < assetsFile.m_Externals.Count)
             {
-                var assetsManager = _assetsFile.assetsManager;
+                var assetsManager = assetsFile.assetsManager;
                 var assetsFileList = assetsManager.assetsFileList;
                 var assetsFileIndexCache = assetsManager.assetsFileIndexCache;
 
-                if (_index == -2)
+                if (index == -2)
                 {
-                    var m_External = _assetsFile.m_Externals[m_FileID - 1];
+                    var m_External = assetsFile.m_Externals[m_FileID - 1];
                     var name = m_External.fileName;
-                    if (!assetsFileIndexCache.TryGetValue(name, out _index))
+                    if (!assetsFileIndexCache.TryGetValue(name, out index))
                     {
-                        _index = assetsFileList.FindIndex(x => x.fileName.Equals(name, StringComparison.OrdinalIgnoreCase));
-                        assetsFileIndexCache.Add(name, _index);
+                        index = assetsFileList.FindIndex(x => x.fileName.Equals(name, StringComparison.OrdinalIgnoreCase));
+                        assetsFileIndexCache.Add(name, index);
                     }
                 }
 
-                if (_index >= 0)
+                if (index >= 0)
                 {
-                    result = assetsFileList[_index];
+                    result = assetsFileList[index];
                     return true;
                 }
             }
@@ -63,10 +72,9 @@ namespace AssetStudio
             return false;
         }
 
-        public bool TryGet(out T result, SerializedFile assetsFile = null)
+        public bool TryGet(out T result)
         {
-            _assetsFile = _assetsFile ?? assetsFile;
-            if (!IsNull && TryGetAssetsFile(out var sourceFile))
+            if (TryGetAssetsFile(out var sourceFile))
             {
                 if (sourceFile.ObjectsDic.TryGetValue(m_PathID, out var obj))
                 {
@@ -82,10 +90,9 @@ namespace AssetStudio
             return false;
         }
 
-        public bool TryGet<T2>(out T2 result, SerializedFile assetsFile = null) where T2 : Object
+        public bool TryGet<T2>(out T2 result) where T2 : Object
         {
-            _assetsFile = _assetsFile ?? assetsFile;
-            if (!IsNull && TryGetAssetsFile(out var sourceFile))
+            if (TryGetAssetsFile(out var sourceFile))
             {
                 if (sourceFile.ObjectsDic.TryGetValue(m_PathID, out var obj))
                 {
@@ -104,20 +111,20 @@ namespace AssetStudio
         public void Set(T m_Object)
         {
             var name = m_Object.assetsFile.fileName;
-            if (string.Equals(_assetsFile.fileName, name, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(assetsFile.fileName, name, StringComparison.OrdinalIgnoreCase))
             {
                 m_FileID = 0;
             }
             else
             {
-                m_FileID = _assetsFile.m_Externals.FindIndex(x => string.Equals(x.fileName, name, StringComparison.OrdinalIgnoreCase));
+                m_FileID = assetsFile.m_Externals.FindIndex(x => string.Equals(x.fileName, name, StringComparison.OrdinalIgnoreCase));
                 if (m_FileID == -1)
                 {
-                    _assetsFile.m_Externals.Add(new FileIdentifier
+                    assetsFile.m_Externals.Add(new FileIdentifier
                     {
                         fileName = m_Object.assetsFile.fileName
                     });
-                    m_FileID = _assetsFile.m_Externals.Count;
+                    m_FileID = assetsFile.m_Externals.Count;
                 }
                 else
                 {
@@ -125,17 +132,22 @@ namespace AssetStudio
                 }
             }
 
-            var assetsManager = _assetsFile.assetsManager;
+            var assetsManager = assetsFile.assetsManager;
             var assetsFileList = assetsManager.assetsFileList;
             var assetsFileIndexCache = assetsManager.assetsFileIndexCache;
 
-            if (!assetsFileIndexCache.TryGetValue(name, out _index))
+            if (!assetsFileIndexCache.TryGetValue(name, out index))
             {
-                _index = assetsFileList.FindIndex(x => x.fileName.Equals(name, StringComparison.OrdinalIgnoreCase));
-                assetsFileIndexCache.Add(name, _index);
+                index = assetsFileList.FindIndex(x => x.fileName.Equals(name, StringComparison.OrdinalIgnoreCase));
+                assetsFileIndexCache.Add(name, index);
             }
 
             m_PathID = m_Object.m_PathID;
+        }
+
+        public PPtr<T2> Cast<T2>() where T2 : Object
+        {
+            return new PPtr<T2>(m_FileID, m_PathID, assetsFile);
         }
 
         public bool IsNull => m_PathID == 0 || m_FileID < 0;

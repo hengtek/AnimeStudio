@@ -7,31 +7,25 @@ namespace AssetStudio
         private bool needSearch;
         private string path;
         private SerializedFile assetsFile;
+        private long offset;
         private long size;
         private BinaryReader reader;
 
-        public int Size
-        {
-            get => (int)size;
-            set => size = value;
-        }
-        public long Offset { get; set; }
-
-        public ResourceReader() { }
+        public int Size { get => (int)size; }
 
         public ResourceReader(string path, SerializedFile assetsFile, long offset, long size)
         {
             needSearch = true;
             this.path = path;
             this.assetsFile = assetsFile;
-            this.Offset = offset;
+            this.offset = offset;
             this.size = size;
         }
 
         public ResourceReader(BinaryReader reader, long offset, long size)
         {
             this.reader = reader;
-            this.Offset = offset;
+            this.offset = offset;
             this.size = size;
         }
 
@@ -58,10 +52,6 @@ namespace AssetStudio
                 if (File.Exists(resourceFilePath))
                 {
                     needSearch = false;
-                    if (assetsFile.assetsManager.resourceFileReaders.TryGetValue(resourceFileName, out reader))
-                    {
-                        return reader;
-                    }
                     reader = new BinaryReader(File.OpenRead(resourceFilePath));
                     assetsFile.assetsManager.resourceFileReaders.TryAdd(resourceFileName, reader);
                     return reader;
@@ -77,28 +67,21 @@ namespace AssetStudio
         public byte[] GetData()
         {
             var binaryReader = GetReader();
-            lock (binaryReader)
-            {
-                binaryReader.BaseStream.Position = Offset;
-                return binaryReader.ReadBytes((int)size);
-            }
+            binaryReader.BaseStream.Position = offset;
+            return binaryReader.ReadBytes((int)size);
         }
 
-        public void GetData(byte[] buff, out int read, int startIndex = 0)
+        public void GetData(byte[] buff)
         {
-            read = -1;
             var binaryReader = GetReader();
-            lock (binaryReader)
-            {
-                binaryReader.BaseStream.Position = Offset;
-                read = binaryReader.Read(buff, startIndex, (int)size);
-            }
+            binaryReader.BaseStream.Position = offset;
+            binaryReader.Read(buff, 0, (int)size);
         }
 
         public void WriteData(string path)
         {
             var binaryReader = GetReader();
-            binaryReader.BaseStream.Position = Offset;
+            binaryReader.BaseStream.Position = offset;
             using (var writer = File.OpenWrite(path))
             {
                 binaryReader.BaseStream.CopyTo(writer, size);

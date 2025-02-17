@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace AssetStudio
 {
@@ -8,7 +9,7 @@ namespace AssetStudio
         public long m_Offset; //ulong
         public long m_Size; //ulong
 
-        public StreamedResource(BinaryReader reader)
+        public StreamedResource(EndianBinaryReader reader)
         {
             m_Source = reader.ReadAlignedString();
             m_Offset = reader.ReadInt64();
@@ -21,43 +22,38 @@ namespace AssetStudio
         public ResourceReader m_VideoData;
         public string m_OriginalPath;
         public StreamedResource m_ExternalResources;
-        public uint Width;
-        public uint Height;
-        public double m_FrameRate;
-        public int m_Format;
-        public bool m_HasSplitAlpha;
 
         public VideoClip(ObjectReader reader) : base(reader)
         {
             m_OriginalPath = reader.ReadAlignedString();
             var m_ProxyWidth = reader.ReadUInt32();
             var m_ProxyHeight = reader.ReadUInt32();
-            Width = reader.ReadUInt32();
-            Height = reader.ReadUInt32();
-            if (version >= (2017, 2)) //2017.2 and up
+            var Width = reader.ReadUInt32();
+            var Height = reader.ReadUInt32();
+            if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) //2017.2 and up
             {
                 var m_PixelAspecRatioNum = reader.ReadUInt32();
                 var m_PixelAspecRatioDen = reader.ReadUInt32();
             }
-            m_FrameRate = reader.ReadDouble();
+            var m_FrameRate = reader.ReadDouble();
             var m_FrameCount = reader.ReadUInt64();
-            m_Format = reader.ReadInt32();
+            var m_Format = reader.ReadInt32();
             var m_AudioChannelCount = reader.ReadUInt16Array();
             reader.AlignStream();
             var m_AudioSampleRate = reader.ReadUInt32Array();
             var m_AudioLanguage = reader.ReadStringArray();
-            if (version >= 2020) //2020.1 and up
+            if (version[0] >= 2020) //2020.1 and up
             {
                 var m_VideoShadersSize = reader.ReadInt32();
-                var m_VideoShaders = new PPtr<Shader>[m_VideoShadersSize];
+                var m_VideoShaders = new List<PPtr<Shader>>();
                 for (int i = 0; i < m_VideoShadersSize; i++)
                 {
-                    m_VideoShaders[i] = new PPtr<Shader>(reader);
+                    m_VideoShaders.Add(new PPtr<Shader>(reader));
                 }
             }
             m_ExternalResources = new StreamedResource(reader);
-            m_HasSplitAlpha = reader.ReadBoolean();
-            if (version >= 2020) //2020.1 and up
+            var m_HasSplitAlpha = reader.ReadBoolean();
+            if (version[0] >= 2020) //2020.1 and up
             {
                 var m_sRGB = reader.ReadBoolean();
             }
