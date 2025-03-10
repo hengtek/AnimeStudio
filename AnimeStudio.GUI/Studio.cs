@@ -14,6 +14,13 @@ using static AnimeStudio.GUI.Exporter;
 
 namespace AnimeStudio.GUI
 {
+    internal enum GuiColorTheme
+    {
+        System,
+        Light,
+        Dark
+    }
+
     internal enum ExportFilter
     {
         All,

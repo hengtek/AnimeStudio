@@ -85,12 +85,18 @@ namespace AnimeStudio.GUI
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
-            Text = $"Studio v{Application.ProductVersion}";
+            ApplyTheme();
+            Text = $"AnimeStudio v{Application.ProductVersion}";
             InitializeExportOptions();
             InitializeProgressBar();
             InitializeLogger();
             InitalizeOptions();
             FMODinit();
+        }
+
+        private void ApplyTheme()
+        {
+            var currentTheme = Properties.Settings.Default.guiTheme;
         }
 
         private void InitializeExportOptions()
@@ -308,7 +314,7 @@ namespace AnimeStudio.GUI
                 }
             }
 
-            Text = $"Studio v{Application.ProductVersion} - {productName} - {assetsManager.assetsFileList[0].unityVersion} - {assetsManager.assetsFileList[0].m_TargetPlatform}";
+            Text = $"AnimeStudio v{Application.ProductVersion} - {productName} - {assetsManager.assetsFileList[0].unityVersion} - {assetsManager.assetsFileList[0].m_TargetPlatform}";
 
             assetListView.VirtualListSize = visibleAssets.Count;
 
@@ -1484,7 +1490,7 @@ namespace AnimeStudio.GUI
 
         public void ResetForm()
         {
-            Text = $"Studio v{Application.ProductVersion}";
+            Text = $"AnimeStudio v{Application.ProductVersion}";
             assetsManager.Clear();
             assemblyLoader.Clear();
             exportableAssets.Clear();
