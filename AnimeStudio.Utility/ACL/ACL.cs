@@ -94,7 +94,10 @@ namespace ACLLibs
             var dbAligned = new IntPtr(16 * (((long)dbPtr + 15) / 16));
             Marshal.Copy(db, 0, dbAligned, db.Length);
 
-            DecompressTracks(dataAligned, dbAligned, IntPtr.Zero, ref decompressedClip);
+            // as long as m_ClipData is passed to acl_db.dll without the rest it should be fine
+            // m_databaseData doesn't seem to be used. For now
+            var streamer = new IntPtr(0);
+            DecompressTracks(dataAligned, dbAligned, streamer, ref decompressedClip);
 
             Marshal.FreeHGlobal(dataPtr);
             Marshal.FreeHGlobal(dbPtr);

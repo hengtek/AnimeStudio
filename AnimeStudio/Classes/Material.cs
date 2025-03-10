@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace AnimeStudio
@@ -77,6 +78,8 @@ namespace AnimeStudio
 
     public sealed class Material : NamedObject
     {
+        private static bool HasEnabledPassMask(SerializedType type) => type.Match("6BDB1CD05E80C82ABB24930CD37AEE88");
+
         public PPtr<Shader> m_Shader;
         public UnityPropertySheet m_SavedProperties;
 
@@ -108,6 +111,7 @@ namespace AnimeStudio
             {
                 var m_EnableInstancingVariants = reader.ReadBoolean();
                 //var m_DoubleSidedGI = a_Stream.ReadBoolean(); //2017 and up
+                //var m_HighShadingRate -> boolean //ZZZ
                 reader.AlignStream();
             }
 
@@ -139,6 +143,11 @@ namespace AnimeStudio
             if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) //5.6 and up
             {
                 var disabledShaderPasses = reader.ReadStringArray();
+            }
+
+            if (reader.Game.Type.IsZZZ() && HasEnabledPassMask(reader.serializedType))
+            {
+                var enabledPassMask = reader.ReadUInt32();
             }
 
             m_SavedProperties = new UnityPropertySheet(reader);
