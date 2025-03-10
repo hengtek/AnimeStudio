@@ -19,10 +19,10 @@
   	<None Update="Keys.json">
   		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   	</None>
-  	<None Update="oo2core_9_win64.dll">
+  	<None Update="oodle.dll">
   	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   	</None>
-  	<None Update="UnityPlayer.dll">
+  	<None Update="hk4e.dll">
   	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   	</None>
   </ItemGroup>

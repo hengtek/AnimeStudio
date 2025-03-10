@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace AnimeStudio;
 public static class OodleHelper
 {
-    [DllImport(@"oo2core_9_win64.dll")]
+    [DllImport(@"oodle.dll")]
     static extern int OodleLZ_Decompress(ref byte compressedBuffer, int compressedBufferSize, ref byte decompressedBuffer, int decompressedBufferSize, int fuzzSafe, int checkCRC, int verbosity, IntPtr rawBuffer, int rawBufferSize, IntPtr fpCallback, IntPtr callbackUserData, IntPtr decoderMemory, IntPtr decoderMemorySize, int threadPhase);
 
     public static int Decompress(Span<byte> compressed, Span<byte> decompressed)

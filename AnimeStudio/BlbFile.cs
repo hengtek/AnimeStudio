@@ -14,7 +14,7 @@ namespace AnimeStudio
         private List<BundleFile.Node> m_DirectoryInfo;
         private byte[] Header;
 
-        private static string ModuleName = "UnityPlayer.dll";
+        private static string ModuleName = "hk4e.dll";
 
         public BundleFile.Header m_Header;
         public List<StreamFile> fileList;
