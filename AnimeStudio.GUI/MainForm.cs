@@ -20,6 +20,7 @@ using OpenTK.Graphics;
 using OpenTK.Mathematics;
 using System.Text.RegularExpressions;
 using OpenTK.Audio.OpenAL;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AnimeStudio.GUI
 {
@@ -85,18 +86,89 @@ namespace AnimeStudio.GUI
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
-            ApplyTheme();
+            ApplyTheme(this);
             Text = $"AnimeStudio v{Application.ProductVersion}";
             InitializeExportOptions();
             InitializeProgressBar();
             InitializeLogger();
             InitalizeOptions();
             FMODinit();
+
+            UseImmersiveDarkMode(this.Handle, true);
         }
 
-        private void ApplyTheme()
+        // dark mode
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+
+        private static bool UseImmersiveDarkMode(IntPtr handle, bool enabled)
         {
+            if (IsWindows10OrGreater(17763))
+            {
+                var attribute = DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
+                if (IsWindows10OrGreater(18985))
+                {
+                    attribute = DWMWA_USE_IMMERSIVE_DARK_MODE;
+                }
+
+                int useImmersiveDarkMode = enabled ? 1 : 0;
+                return DwmSetWindowAttribute(handle, (int)attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
+            }
+
+            return false;
+        }
+
+        private static bool IsWindows10OrGreater(int build = -1)
+        {
+            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
+        }
+        private void ApplyTheme(Control control)
+        {
+            // todo, control the theme
             var currentTheme = Properties.Settings.Default.guiTheme;
+            var isDark = true;
+
+            control.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            control.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
+
+            // tabs
+            if (control is TabControl tabControl)
+            {
+                tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+                tabControl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+                tabControl.DrawItem += (s, e) =>
+                {
+                    bool isSelected = (e.Index == tabControl.SelectedIndex);
+                    System.Drawing.Color backColor = isSelected ? System.Drawing.Color.FromArgb(60, 60, 60) : System.Drawing.Color.FromArgb(40, 40, 40);
+                    using (SolidBrush brush = new SolidBrush(backColor))
+                        e.Graphics.FillRectangle(brush, e.Bounds);
+                    using (SolidBrush textBrush = new SolidBrush(System.Drawing.Color.White))
+                        e.Graphics.DrawString(tabControl.TabPages[e.Index].Text, tabControl.Font, textBrush, e.Bounds.X + 5, e.Bounds.Y + 5);
+                };
+
+                foreach (TabPage tabPage in tabControl.TabPages)
+                {
+                    tabPage.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+                    tabPage.ForeColor = System.Drawing.Color.White;
+                }
+            }
+
+            //
+            if (control is MenuStrip menuStrip)
+            {
+                menuStrip.BackColor = System.Drawing.Color.FromArgb(40, 40, 40);
+                menuStrip.ForeColor = System.Drawing.Color.White;
+
+                menuStrip.Renderer = new RendererEx();
+            }
+
+            foreach (Control child in control.Controls)
+            {
+                ApplyTheme(child);
+            }
         }
 
         private void InitializeExportOptions()
