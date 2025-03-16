@@ -21,6 +21,7 @@ using OpenTK.Mathematics;
 using System.Text.RegularExpressions;
 using OpenTK.Audio.OpenAL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Drawing.Drawing2D;
 
 namespace AnimeStudio.GUI
 {
@@ -93,8 +94,6 @@ namespace AnimeStudio.GUI
             InitializeLogger();
             InitalizeOptions();
             FMODinit();
-
-            //UseImmersiveDarkMode(this.Handle, true);
         }
 
         // dark mode
@@ -129,7 +128,9 @@ namespace AnimeStudio.GUI
         {
             // todo, control the theme
             var currentTheme = Properties.Settings.Default.guiTheme;
-            var isDark = true;
+            Logger.Info($"Theme : {currentTheme}");
+
+            UseImmersiveDarkMode(this.Handle, true);
 
             control.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             control.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
