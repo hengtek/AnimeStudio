@@ -380,15 +380,22 @@ namespace AnimeStudio
         {
             var version = reader.version;
 
-            m_NameIndex = reader.ReadInt32();
-            m_Index = reader.ReadInt32();
-            m_SamplerIndex = reader.ReadInt32();
-            if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 3)) //2017.3 and up
+            if (reader.Remaining > 0)
             {
-                var m_MultiSampled = reader.ReadBoolean();
+                m_NameIndex = reader.ReadInt32();
+                m_Index = reader.ReadInt32();
+                m_SamplerIndex = reader.ReadInt32();
+                if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 3)) //2017.3 and up
+                {
+                    var m_MultiSampled = reader.ReadBoolean();
+                }
+                m_Dim = reader.ReadSByte();
+                reader.AlignStream();
             }
-            m_Dim = reader.ReadSByte();
-            reader.AlignStream();
+            //} else
+            //{
+            //    Logger.Warning($"Cannot read texture parameters, no more bytes left for asset {reader.assetsFile.fileName} of {reader.assetsFile.originalPath} at path {reader.m_PathID}.");
+            //}
         }
     }
 
@@ -663,85 +670,95 @@ namespace AnimeStudio
             }
             else
             {
-                int numVectorParams = reader.ReadInt32();
-                m_VectorParams = new List<VectorParameter>();
-                for (int i = 0; i < numVectorParams; i++)
+                try
                 {
-                    m_VectorParams.Add(new VectorParameter(reader));
-                }
-
-                int numMatrixParams = reader.ReadInt32();
-                m_MatrixParams = new List<MatrixParameter>();
-                for (int i = 0; i < numMatrixParams; i++)
-                {
-                    m_MatrixParams.Add(new MatrixParameter(reader));
-                }
-
-                int numTextureParams = reader.ReadInt32();
-                m_TextureParams = new List<TextureParameter>();
-                for (int i = 0; i < numTextureParams; i++)
-                {
-                    m_TextureParams.Add(new TextureParameter(reader));
-                }
-
-                int numBufferParams = reader.ReadInt32();
-                m_BufferParams = new List<BufferBinding>();
-                for (int i = 0; i < numBufferParams; i++)
-                {
-                    m_BufferParams.Add(new BufferBinding(reader));
-                }
-
-                int numConstantBuffers = reader.ReadInt32();
-                m_ConstantBuffers = new List<ConstantBuffer>();
-                for (int i = 0; i < numConstantBuffers; i++)
-                {
-                    m_ConstantBuffers.Add(new ConstantBuffer(reader));
-                }
-
-                int numConstantBufferBindings = reader.ReadInt32();
-                m_ConstantBufferBindings = new List<BufferBinding>();
-                for (int i = 0; i < numConstantBufferBindings; i++)
-                {
-                    m_ConstantBufferBindings.Add(new BufferBinding(reader));
-                }
-
-                int numUAVParams = reader.ReadInt32();
-                m_UAVParams = new List<UAVParameter>();
-                for (int i = 0; i < numUAVParams; i++)
-                {
-                    m_UAVParams.Add(new UAVParameter(reader));
-                }
-
-                if (version[0] >= 2017) //2017 and up
-                {
-                    int numSamplers = reader.ReadInt32();
-                    m_Samplers = new List<SamplerParameter>();
-                    for (int i = 0; i < numSamplers; i++)
+                    int numVectorParams = reader.ReadInt32();
+                    m_VectorParams = new List<VectorParameter>();
+                    for (int i = 0; i < numVectorParams; i++)
                     {
-                        m_Samplers.Add(new SamplerParameter(reader));
+                        m_VectorParams.Add(new VectorParameter(reader));
+                    }
+
+                    int numMatrixParams = reader.ReadInt32();
+                    m_MatrixParams = new List<MatrixParameter>();
+                    for (int i = 0; i < numMatrixParams; i++)
+                    {
+                        m_MatrixParams.Add(new MatrixParameter(reader));
+                    }
+
+                    int numTextureParams = reader.ReadInt32();
+                    m_TextureParams = new List<TextureParameter>();
+                    for (int i = 0; i < numTextureParams; i++)
+                    {
+                        m_TextureParams.Add(new TextureParameter(reader));
+                    }
+
+                    int numBufferParams = reader.ReadInt32();
+                    m_BufferParams = new List<BufferBinding>();
+                    for (int i = 0; i < numBufferParams; i++)
+                    {
+                        m_BufferParams.Add(new BufferBinding(reader));
+                    }
+
+                    int numConstantBuffers = reader.ReadInt32();
+                    m_ConstantBuffers = new List<ConstantBuffer>();
+                    for (int i = 0; i < numConstantBuffers; i++)
+                    {
+                        m_ConstantBuffers.Add(new ConstantBuffer(reader));
+                    }
+
+                    int numConstantBufferBindings = reader.ReadInt32();
+                    m_ConstantBufferBindings = new List<BufferBinding>();
+                    for (int i = 0; i < numConstantBufferBindings; i++)
+                    {
+                        m_ConstantBufferBindings.Add(new BufferBinding(reader));
+                    }
+
+                    int numUAVParams = reader.ReadInt32();
+                    m_UAVParams = new List<UAVParameter>();
+                    for (int i = 0; i < numUAVParams; i++)
+                    {
+                        m_UAVParams.Add(new UAVParameter(reader));
+                    }
+
+                    if (version[0] >= 2017) //2017 and up
+                    {
+                        int numSamplers = reader.ReadInt32();
+                        m_Samplers = new List<SamplerParameter>();
+                        for (int i = 0; i < numSamplers; i++)
+                        {
+                            m_Samplers.Add(new SamplerParameter(reader));
+                        }
+                    }
+                } catch (System.IO.EndOfStreamException)
+                {
+                    Logger.Error($"Cannot parse shader, no more bytes left for asset {reader.assetsFile.fileName} of {reader.assetsFile.originalPath} at path {reader.m_PathID}.");
+                    return;
+                }
+            }
+
+            if (reader.Remaining > 0)
+            {
+                if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) //2017.2 and up
+                {
+                    if (version[0] >= 2021) //2021.1 and up
+                    {
+                        var m_ShaderRequirements = reader.ReadInt64();
+                    }
+                    else
+                    {
+                        var m_ShaderRequirements = reader.ReadInt32();
                     }
                 }
-            }
 
-            if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) //2017.2 and up
-            {
-                if (version[0] >= 2021) //2021.1 and up
+                if (HasInstancedStructuredBuffers(reader.serializedType))
                 {
-                    var m_ShaderRequirements = reader.ReadInt64();
-                }
-                else
-                {
-                    var m_ShaderRequirements = reader.ReadInt32();
-                }
-            }
-
-            if (HasInstancedStructuredBuffers(reader.serializedType))
-            {
-                int numInstancedStructuredBuffers = reader.ReadInt32();
-                var m_InstancedStructuredBuffers = new List<ConstantBuffer>();
-                for (int i = 0; i < numInstancedStructuredBuffers; i++)
-                {
-                    m_InstancedStructuredBuffers.Add(new ConstantBuffer(reader));
+                    int numInstancedStructuredBuffers = reader.ReadInt32();
+                    var m_InstancedStructuredBuffers = new List<ConstantBuffer>();
+                    for (int i = 0; i < numInstancedStructuredBuffers; i++)
+                    {
+                        m_InstancedStructuredBuffers.Add(new ConstantBuffer(reader));
+                    }
                 }
             }
         }
@@ -778,6 +795,11 @@ namespace AnimeStudio
         public SerializedProgram(ObjectReader reader)
         {
             var version = reader.version;
+
+            if (reader.Remaining < 4)
+            {
+                return;
+            }
 
             int numSubPrograms = reader.ReadInt32();
             m_SubPrograms = new List<SerializedSubProgram>();
@@ -1083,7 +1105,14 @@ namespace AnimeStudio
         {
             if (version[0] == 5 && version[1] >= 5 || version[0] > 5) //5.5 and up
             {
-                m_ParsedForm = new SerializedShader(reader);
+                try
+                {
+                    m_ParsedForm = new SerializedShader(reader);
+                } catch (System.IO.EndOfStreamException)
+                {
+                    Logger.Error($"Cannot parse shader, no more bytes left for asset {reader.assetsFile.fileName} of {reader.assetsFile.originalPath} at path {reader.m_PathID}.");
+                    return;
+                }
                 platforms = reader.ReadUInt32Array().Select(x => (ShaderCompilerPlatform)x).ToArray();
                 if (version[0] > 2019 || (version[0] == 2019 && version[1] >= 3)) //2019.3 and up
                 {

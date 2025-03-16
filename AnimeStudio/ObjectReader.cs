@@ -56,6 +56,11 @@ namespace AnimeStudio
             Position = byteStart;
         }
 
+        public int BytesLeft()
+        {
+            return (int)(byteSize - (Position - byteStart));
+        }
+
         public Vector3 ReadVector3()
         {
             if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
