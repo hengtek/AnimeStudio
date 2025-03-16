@@ -46,11 +46,12 @@ namespace AnimeStudio
 
         public static byte[] ConvertToBytes<TPixel>(this Image<TPixel> image) where TPixel : unmanaged, IPixel<TPixel>
         {
-            using (image)
+            if (image.DangerousTryGetSinglePixelMemory(out var pixelSpan))
             {
-                Span<byte> imageSpan = new byte[image.Width * image.Height * 4];
-                return MemoryMarshal.AsBytes(imageSpan).ToArray();
+                return MemoryMarshal.AsBytes(pixelSpan.Span).ToArray();
+
             }
+            return null;
         }
     }
 }

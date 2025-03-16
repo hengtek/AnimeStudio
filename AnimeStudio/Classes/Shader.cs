@@ -392,10 +392,6 @@ namespace AnimeStudio
                 m_Dim = reader.ReadSByte();
                 reader.AlignStream();
             }
-            //} else
-            //{
-            //    Logger.Warning($"Cannot read texture parameters, no more bytes left for asset {reader.assetsFile.fileName} of {reader.assetsFile.originalPath} at path {reader.m_PathID}.");
-            //}
         }
     }
 

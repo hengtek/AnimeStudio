@@ -86,7 +86,7 @@ namespace AnimeStudio.GUI
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
-            ApplyTheme(this);
+            //ApplyTheme(this);
             Text = $"AnimeStudio v{Application.ProductVersion}";
             InitializeExportOptions();
             InitializeProgressBar();
@@ -94,7 +94,7 @@ namespace AnimeStudio.GUI
             InitalizeOptions();
             FMODinit();
 
-            UseImmersiveDarkMode(this.Handle, true);
+            //UseImmersiveDarkMode(this.Handle, true);
         }
 
         // dark mode
@@ -637,7 +637,10 @@ namespace AnimeStudio.GUI
 
         private void assetListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = visibleAssets[e.ItemIndex];
+            if (e.ItemIndex < visibleAssets.Count)
+            {
+                e.Item = visibleAssets[e.ItemIndex];
+            }
         }
 
         private void tabPageSelected(object sender, TabControlEventArgs e)
