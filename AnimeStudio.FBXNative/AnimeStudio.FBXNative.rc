@@ -67,12 +67,12 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "FileDescription", "AssetStudio.FBXNative"
+            VALUE "FileDescription", "AnimeStudio.FBXNative"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "AssetStudio.FBXNative.dll"
-            VALUE "LegalCopyright", "Copyright (C) Perfare 2018-2020; Copyright (C) hozuki 2020"
-            VALUE "OriginalFilename", "AssetStudio.FBXNative.dll"
-            VALUE "ProductName", "AssetStudio.FBXNative"
+            VALUE "InternalName", "AnimeStudio.FBXNative.dll"
+            VALUE "LegalCopyright", "Copyright (C) Escartem 2025; Copyright (C) Perfare 2018-2020; Copyright (C) hozuki 2020"
+            VALUE "OriginalFilename", "AnimeStudio.FBXNative.dll"
+            VALUE "ProductName", "AnimeStudio.FBXNative"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
