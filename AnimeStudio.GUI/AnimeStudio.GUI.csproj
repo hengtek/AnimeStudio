@@ -90,6 +90,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ContentWithTargetPath Include="Libraries\x86\acldb_zzz.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>x86\acldb_zzz.dll</TargetPath>
+		</ContentWithTargetPath>
+		<ContentWithTargetPath Include="Libraries\x64\acldb_zzz.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>x64\acldb_zzz.dll</TargetPath>
+		</ContentWithTargetPath>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ContentWithTargetPath Include="Libraries\x86\HLSLDecompiler.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\HLSLDecompiler.dll</TargetPath>

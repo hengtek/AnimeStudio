@@ -22,7 +22,7 @@ namespace AnimeStudio
                     case MHYACLClip mhyaclClip:
                         if (game.Type.IsZZZ())
                         {
-                            DBACL.DecompressTracks(mhyaclClip.m_ClipData, mhyaclClip.m_databaseData, out values, out times);
+                            DBACL.DecompressTracks(mhyaclClip.m_ClipData, mhyaclClip.m_databaseData, out values, out times, true);
                         }
                         else
                         {
