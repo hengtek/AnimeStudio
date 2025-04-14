@@ -666,7 +666,11 @@ namespace AnimeStudio
                         using StreamWriter file = File.CreateText(filename);
                         var serializer = new JsonSerializer() { Formatting = Newtonsoft.Json.Formatting.Indented };
                         serializer.Converters.Add(new StringEnumConverter());
-                        serializer.Serialize(file, toExportAssets);
+                        serializer.Serialize(file, new
+                        {
+                            GameType = game.Type,
+                            AssetEntries = toExportAssets
+                        });
                     }
                     if (exportListType.HasFlag(ExportListType.MessagePack))
                     {

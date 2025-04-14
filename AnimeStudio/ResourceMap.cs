@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,8 +17,28 @@ namespace AnimeStudio
                 Logger.Info(string.Format("Parsing...."));
                 try
                 {
+                    var extension = Path.GetExtension(path).ToLower();
                     using var stream = File.OpenRead(path);
-                    Instance = MessagePackSerializer.Deserialize<AssetMap>(stream, MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray));
+                    
+                    if (extension == ".map")
+                    {
+                        // Deserialize map
+                        Instance = MessagePackSerializer.Deserialize<AssetMap>(stream, MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray));
+                    }
+                    else if (extension == ".json")
+                    {
+                        // Deserialize json
+                        using var reader = new StreamReader(stream);
+                        var jsonContent = reader.ReadToEnd();
+                        var parsed = JsonConvert.DeserializeObject<AssetMap>(jsonContent);
+
+                        Instance = new AssetMap
+                        {
+                            GameType = parsed.GameType,
+                            AssetEntries = parsed.AssetEntries
+                        };
+                    }
+                    
                 }
                 catch (Exception e)
                 {
