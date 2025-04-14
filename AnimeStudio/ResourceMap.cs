@@ -10,6 +10,7 @@ namespace AnimeStudio
     {
         private static AssetMap Instance = new() { GameType = GameType.Normal, AssetEntries = new List<AssetEntry>() };
         public static List<AssetEntry> GetEntries() => Instance.AssetEntries;
+        public static GameType GetGameType() => Instance.GameType;
         public static void FromFile(string path)
         {
             if (!string.IsNullOrEmpty(path))

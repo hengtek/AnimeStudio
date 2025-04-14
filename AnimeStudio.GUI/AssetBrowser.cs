@@ -36,36 +36,45 @@ namespace AnimeStudio.GUI
             var openFileDialog = new OpenFileDialog() { Multiselect = false, Filter = "MessagePack AssetMap File|*.map|JSON AssetMap File|*.json" };
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                var path = openFileDialog.FileName;
-                Logger.Info($"Loading AssetMap...");
-                await Task.Run(() => ResourceMap.FromFile(path));
-
-                _sortedColumn = null;
-
-                var names = typeof(AssetEntry).GetProperties().Select(x => x.Name);
-
-                _filters.Clear();
-                foreach(var name in names)
+                try
                 {
-                    _filters.Add(name, new Regex(""));
+                    var path = openFileDialog.FileName;
+                    Logger.Info($"Loading AssetMap...");
+                    await Task.Run(() => ResourceMap.FromFile(path));
+
+                    _sortedColumn = null;
+
+                    var names = typeof(AssetEntry).GetProperties().Select(x => x.Name);
+
+                    _filters.Clear();
+                    foreach (var name in names)
+                    {
+                        _filters.Add(name, new Regex(""));
+                    }
+
+                    _assetEntries.Clear();
+                    _assetEntries.AddRange(ResourceMap.GetEntries());
+
+                    assetDataGridView.Columns.Clear();
+                    assetDataGridView.Columns.AddRange(names.Select(x => new DataGridViewTextBoxColumn() { Name = x, HeaderText = x, SortMode = DataGridViewColumnSortMode.Programmatic }).ToArray());
+                    assetDataGridView.Columns.GetLastColumn(DataGridViewElementStates.None, DataGridViewElementStates.None).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                    assetDataGridView.Rows.Clear();
+                    assetDataGridView.RowCount = _assetEntries.Count;
+                    assetDataGridView.Refresh();
                 }
-
-                _assetEntries.Clear();
-                _assetEntries.AddRange(ResourceMap.GetEntries());
-
-                assetDataGridView.Columns.Clear();
-                assetDataGridView.Columns.AddRange(names.Select(x => new DataGridViewTextBoxColumn() { Name = x, HeaderText = x, SortMode = DataGridViewColumnSortMode.Programmatic }).ToArray());
-                assetDataGridView.Columns.GetLastColumn(DataGridViewElementStates.None, DataGridViewElementStates.None).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-                assetDataGridView.Rows.Clear();
-                assetDataGridView.RowCount = _assetEntries.Count;
-                assetDataGridView.Refresh();
+                catch (Exception ex)
+                {
+                    Logger.Error($"Failed to load map : {ex.ToString()}");
+                }
             }
             loadAssetMap.Enabled = true;
+            relocateSource.Enabled = true;
         }
         private void clear_Click(object sender, EventArgs e)
         {
             Clear();
+            relocateSource.Enabled = false;
             Logger.Info($"Cleared !!");
         }
         private void loadSelected_Click(object sender, EventArgs e)
@@ -392,6 +401,32 @@ namespace AnimeStudio.GUI
         {
             ResourceMap.Clear();
             assetDataGridView.Rows.Clear();
+        }
+
+        private void relocateSource_Click(object sender, EventArgs e)
+        {
+            using var dialog = new FolderBrowserDialog { Description = "Select your new folder" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var folder = dialog.SelectedPath;
+                var allFiles = Directory.GetFiles(folder, "*", SearchOption.AllDirectories)
+                                .ToDictionary(Path.GetFileName, x => x, StringComparer.OrdinalIgnoreCase);
+                int missing = 0;
+                foreach (var entry in _assetEntries)
+                {
+                    var filename = Path.GetFileName(entry.Source);
+                    if (allFiles.TryGetValue(filename, out var newPath))
+                    {
+                        entry.Source = newPath;
+                    } else
+                    {
+                        missing++;
+                    }
+                }
+
+                assetDataGridView.Refresh();
+                Logger.Info($"Relocated sources folder ! Unmoved assets because of missing file : {missing}.");
+            }
         }
     }
 }
