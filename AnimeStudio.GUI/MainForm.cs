@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using OpenTK.Audio.OpenAL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Drawing.Drawing2D;
+using static AnimeStudio.AssetsManager;
 
 namespace AnimeStudio.GUI
 {
@@ -273,15 +274,19 @@ namespace AnimeStudio.GUI
             var paths = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (paths.Length > 0)
             {
-                LoadPaths(paths);
+                LoadPaths(null, paths);
             }
         }
 
-        public async void LoadPaths(params string[] paths)
+        public async void LoadPaths(List<AssetFilterDataItem> filterData, params string[] paths)
         {
             ResetForm();
             assetsManager.SpecifyUnityVersion = specifyUnityVersion.Text;
             assetsManager.Game = Studio.Game;
+            if (filterData != null)
+            {
+                assetsManager.FilterData = new AssetFilterData { Items = filterData };
+            }
             if (paths.Length == 1 && Directory.Exists(paths[0]))
             {
                 await Task.Run(() => assetsManager.LoadFolder(paths[0]));

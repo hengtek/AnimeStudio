@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static AnimeStudio.AssetsManager;
 using static AnimeStudio.GUI.Studio;
 
 namespace AnimeStudio.GUI
@@ -79,17 +80,31 @@ namespace AnimeStudio.GUI
         }
         private void loadSelected_Click(object sender, EventArgs e)
         {
-            var files = assetDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(x => _assetEntries[x.Index]?.Source).ToHashSet();
-            var missingFiles = files.Where(x => !File.Exists(x));
+            var files = assetDataGridView.SelectedRows.Cast<DataGridViewRow>()
+            .Select(x => _assetEntries[x.Index])
+            .Where(entry => entry != null)
+            .Select(entry => new AssetFilterDataItem
+            {
+                Source = entry.Source,
+                Type = entry.Type,
+                Name = entry.Name,
+                PathID = entry.PathID
+            })
+            .ToList();
+
+            var filePaths = files.Select(x => x.Source).ToHashSet();
+
+            var missingFiles = filePaths.Where(x => !File.Exists(x));
             foreach (var file in missingFiles)
             {
                 Logger.Warning($"Unable to find file {file}, skipping...");
-                files.Remove(file);
+                filePaths.Remove(file);
+                files.RemoveAll(x => x.Source == file);
             }
-            if (files.Count != 0 && !files.Any(string.IsNullOrEmpty))
+            if (filePaths.Count != 0 && !filePaths.Any(string.IsNullOrEmpty))
             {
                 Logger.Info("Loading...");
-                _parent.Invoke(() => _parent.LoadPaths(files.ToArray()));
+                _parent.Invoke(() => _parent.LoadPaths(files, filePaths.ToArray()));
             }
         }
         private async void exportSelected_Click(object sender, EventArgs e)
@@ -405,6 +420,7 @@ namespace AnimeStudio.GUI
 
         private void relocateSource_Click(object sender, EventArgs e)
         {
+            // TODO: update file
             using var dialog = new FolderBrowserDialog { Description = "Select your new folder" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {

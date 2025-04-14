@@ -281,7 +281,21 @@ namespace AnimeStudio.GUI
                         Logger.Info("Building asset list has been cancelled !!");
                         return (string.Empty, Array.Empty<TreeNode>().ToList());
                     }
+
                     var assetItem = new AssetItem(asset);
+
+                    if (asset is not AssetBundle && asset is not ResourceManager)
+                    {
+                        if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
+                        x.Name == assetItem.Text &&
+                        x.PathID == assetItem.m_PathID &&
+                        x.Type == assetItem.Type))
+                            {
+                                Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
+                                continue;
+                            }
+                    }
+                    
                     objectAssetItemDic.Add(asset, assetItem);
                     assetItem.UniqueID = "#" + i;
                     var exportable = false;
@@ -377,7 +391,7 @@ namespace AnimeStudio.GUI
             {
                 if (assetsManager.tokenSource.IsCancellationRequested)
                 {
-                    Logger.Info("Processing asset namnes has been cancelled !!");
+                    Logger.Info("Processing asset names has been cancelled !!");
                     return (string.Empty, Array.Empty<TreeNode>().ToList());
                 }
                 if (pptr.TryGet<MiHoYoBinData>(out var obj))
@@ -402,7 +416,10 @@ namespace AnimeStudio.GUI
                     }
                     if (pptr.TryGet(out var obj))
                     {
-                        objectAssetItemDic[obj].Container = container;
+                        if (objectAssetItemDic.ContainsKey(obj))
+                        {
+                            objectAssetItemDic[obj].Container = container;
+                        }
                     }
                 }
                 containers.Clear();
@@ -446,6 +463,20 @@ namespace AnimeStudio.GUI
                             return (string.Empty, Array.Empty<TreeNode>().ToList());
                         }
 
+                        var assetItem = new AssetItem(obj);
+
+                        if (obj is not GameObject)
+                        {
+                            if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
+                            x.Name == assetItem.Text &&
+                            x.PathID == assetItem.m_PathID &&
+                            x.Type == assetItem.Type))
+                            {
+                                Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
+                                continue;
+                            }
+                        }
+
                         if (obj is GameObject m_GameObject)
                         {
                             if (!treeNodeDictionary.TryGetValue(m_GameObject, out var currentNode))
@@ -458,19 +489,29 @@ namespace AnimeStudio.GUI
                             {
                                 if (pptr.TryGet(out var m_Component))
                                 {
-                                    objectAssetItemDic[m_Component].TreeNode = currentNode;
+                                    if (objectAssetItemDic.ContainsKey(m_Component))
+                                    {
+                                        objectAssetItemDic[m_Component].TreeNode = currentNode;
+                                    }
+                                    
                                     if (m_Component is MeshFilter m_MeshFilter)
                                     {
                                         if (m_MeshFilter.m_Mesh.TryGet(out var m_Mesh))
                                         {
-                                            objectAssetItemDic[m_Mesh].TreeNode = currentNode;
+                                            if (objectAssetItemDic.ContainsKey(m_Mesh))
+                                            {
+                                                objectAssetItemDic[m_Mesh].TreeNode = currentNode;
+                                            }
                                         }
                                     }
                                     else if (m_Component is SkinnedMeshRenderer m_SkinnedMeshRenderer)
                                     {
                                         if (m_SkinnedMeshRenderer.m_Mesh.TryGet(out var m_Mesh))
                                         {
-                                            objectAssetItemDic[m_Mesh].TreeNode = currentNode;
+                                            if (objectAssetItemDic.ContainsKey(m_Mesh))
+                                            {
+                                                objectAssetItemDic[m_Mesh].TreeNode = currentNode;
+                                            }
                                         }
                                     }
                                 }
@@ -497,6 +538,8 @@ namespace AnimeStudio.GUI
                             parentNode.Nodes.Add(currentNode);
                         }
                     }
+
+                    // TODO: need to do proper cleaning of list to only include filtered assets when required
 
                     if (assetsFileNode.Nodes.Count > 0)
                     {

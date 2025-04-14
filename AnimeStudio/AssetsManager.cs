@@ -28,6 +28,21 @@ namespace AnimeStudio
         internal HashSet<string> noexistFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         internal HashSet<string> assetsFileListHash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        public class AssetFilterDataItem
+        {
+            public String Source { get; set; }
+            public ClassIDType Type { get; set; }
+            public String Name { get; set; }
+            public long PathID { get; set; }
+        }
+
+        public class AssetFilterData
+        {
+            public List<AssetFilterDataItem> Items { get; set; }
+        }
+
+        public AssetFilterData FilterData = new AssetFilterData { Items = new List<AssetFilterDataItem>() };
+
         public void LoadFiles(params string[] files)
         {
             if (Silent)
