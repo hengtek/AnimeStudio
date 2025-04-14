@@ -41,7 +41,12 @@ namespace AnimeStudio.GUI
                 {
                     var path = openFileDialog.FileName;
                     Logger.Info($"Loading AssetMap...");
-                    await Task.Run(() => ResourceMap.FromFile(path));
+                    var result = await Task.Run(() => ResourceMap.FromFile(path));
+
+                    if (result == -1)
+                    {
+                        throw new Exception("Map parse failed");
+                    }
 
                     _sortedColumn = null;
 
@@ -63,6 +68,8 @@ namespace AnimeStudio.GUI
                     assetDataGridView.Rows.Clear();
                     assetDataGridView.RowCount = _assetEntries.Count;
                     assetDataGridView.Refresh();
+
+                    relocateSource.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +77,6 @@ namespace AnimeStudio.GUI
                 }
             }
             loadAssetMap.Enabled = true;
-            relocateSource.Enabled = true;
         }
         private void clear_Click(object sender, EventArgs e)
         {
@@ -104,6 +110,7 @@ namespace AnimeStudio.GUI
             if (filePaths.Count != 0 && !filePaths.Any(string.IsNullOrEmpty))
             {
                 Logger.Info("Loading...");
+                _parent.Invoke(() => _parent.updateGame((int)ResourceMap.GetGameType()));
                 _parent.Invoke(() => _parent.LoadPaths(files, filePaths.ToArray()));
             }
         }

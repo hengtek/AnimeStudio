@@ -1811,6 +1811,9 @@ namespace AnimeStudio.GUI
             {
                 sceneTreeView.SelectedNode = selectasset.TreeNode;
                 tabControl1.SelectedTab = tabPage1;
+            } else
+            {
+                MessageBox.Show("Asset does not exist in hierarchy !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2232,6 +2235,13 @@ namespace AnimeStudio.GUI
 
             assetsManager.SpecifyUnityVersion = specifyUnityVersion.Text;
             assetsManager.Game = Studio.Game;
+        }
+
+        public void updateGame(int index)
+        {
+            specifyGame.SelectedIndex = index;
+            // In case it doesn't trigger the function itself
+            //specifyGame_SelectedIndexChanged(specifyGame, EventArgs.Empty);
         }
 
         private async void specifyNameComboBox_SelectedIndexChanged(object sender, EventArgs e)

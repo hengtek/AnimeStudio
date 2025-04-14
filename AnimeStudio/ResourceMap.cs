@@ -11,7 +11,7 @@ namespace AnimeStudio
         private static AssetMap Instance = new() { GameType = GameType.Normal, AssetEntries = new List<AssetEntry>() };
         public static List<AssetEntry> GetEntries() => Instance.AssetEntries;
         public static GameType GetGameType() => Instance.GameType;
-        public static void FromFile(string path)
+        public static int FromFile(string path)
         {
             if (!string.IsNullOrEmpty(path))
             {
@@ -38,16 +38,20 @@ namespace AnimeStudio
                             GameType = parsed.GameType,
                             AssetEntries = parsed.AssetEntries
                         };
-                    }
-                    
+                    }   
                 }
                 catch (Exception e)
                 {
                     Logger.Error("AssetMap was not loaded");
                     Console.WriteLine(e.ToString());
-                    return;
+                    return -1;
                 }
                 Logger.Info("Loaded !!");
+                return 1;
+            } else
+            {
+                Logger.Error("AssetMap was not loaded");
+                return -1;
             }
         }
 
