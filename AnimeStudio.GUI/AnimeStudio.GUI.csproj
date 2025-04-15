@@ -8,7 +8,7 @@
 		<Version>1.0.0</Version>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
-		<Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022; Copyright © Perfare 2018-2022</Copyright>
+		<Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024-2025; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022; Copyright © Perfare 2018-2022</Copyright>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
@@ -35,85 +35,85 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\AnimeStudio.FBXNative.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\AnimeStudio.FBXNative.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\AnimeStudio.FBXNative.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\AnimeStudio.FBXNative.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\AnimeStudio.FBXNative.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\AnimeStudio.FBXNative.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\fmod.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\fmod.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\fmod.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\fmod.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\fmod.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\fmod.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\acl.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\acl.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\acl.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\acl.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\acl.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\acl.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\sracl.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\sracl.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\sracl.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\sracl.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\sracl.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\sracl.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\acldb.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\acldb.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\acldb.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\acldb.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\acldb.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\acldb.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\acldb_zzz.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\acldb_zzz.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\acldb_zzz.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\acldb_zzz.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\acldb_zzz.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\acldb_zzz.dll</TargetPath>
 		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="Libraries\x86\HLSLDecompiler.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\HLSLDecompiler.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\HLSLDecompiler.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\HLSLDecompiler.dll">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\HLSLDecompiler.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\HLSLDecompiler.dll</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x86\BinaryDecompiler.lib">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x86\BinaryDecompiler.lib">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x86\BinaryDecompiler.lib</TargetPath>
 		</ContentWithTargetPath>
-		<ContentWithTargetPath Include="Libraries\x64\BinaryDecompiler.lib">
+		<ContentWithTargetPath Include="..\AnimeStudio.Libraries\x64\BinaryDecompiler.lib">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>x64\BinaryDecompiler.lib</TargetPath>
 		</ContentWithTargetPath>
@@ -123,7 +123,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="OpenTK" Version="4.8.0" />
 		<Reference Include="OpenTK.WinForms">
-			<HintPath>Libraries\OpenTK.WinForms.dll</HintPath>
+			<HintPath>..\AnimeStudio.Libraries\OpenTK.WinForms.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
@@ -135,8 +135,8 @@
 	</ItemGroup>
 
 	<Target Name="CopyExtraFiles" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(SolutionDir)AnimeStudio.FBXNative\bin\Win32\$(Configuration)\AnimeStudio.FBXNative.dll" DestinationFolder="$(TargetDir)x86" ContinueOnError="true" />
-		<Copy SourceFiles="$(SolutionDir)AnimeStudio.FBXNative\bin\x64\$(Configuration)\AnimeStudio.FBXNative.dll" DestinationFolder="$(TargetDir)x64" ContinueOnError="true" />
+		<Copy SourceFiles="$(SolutionDir)AnimeStudio.Libraries\x86\AnimeStudio.FBXNative.dll" DestinationFolder="$(TargetDir)x86" ContinueOnError="true" />
+		<Copy SourceFiles="$(SolutionDir)AnimeStudio.Libraries\x64\AnimeStudio.FBXNative.dll" DestinationFolder="$(TargetDir)x64" ContinueOnError="true" />
 	</Target>
 
 	<Target Name="PublishExtraFiles" AfterTargets="Publish">
