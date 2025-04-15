@@ -185,6 +185,7 @@ namespace AnimeStudio.GUI
             exportAnimatorwithselectedAnimationClipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             goToSceneHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showOriginalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -210,7 +211,7 @@ namespace AnimeStudio.GUI
             // 
             menuStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, optionsToolStripMenuItem, exportToolStripMenuItem, filterTypeToolStripMenuItem, miscToolStripMenuItem, advancedToolStripMenuItem, debugMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, optionsToolStripMenuItem, exportToolStripMenuItem, filterTypeToolStripMenuItem, miscToolStripMenuItem, advancedToolStripMenuItem, debugMenuItem, aboutToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(1264, 24);
@@ -1469,6 +1470,13 @@ namespace AnimeStudio.GUI
             showOriginalFileToolStripMenuItem.Visible = false;
             showOriginalFileToolStripMenuItem.Click += showOriginalFileToolStripMenuItem_Click;
             // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AllowDrop = true;
@@ -1671,6 +1679,7 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripMenuItem modelsNodesExportSelected;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem29;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

@@ -8,7 +8,7 @@
 		<Version>1.0.0</Version>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
-		<Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024-2025; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022; Copyright © Perfare 2018-2022</Copyright>
+		<Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024-2025; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022-2024; Copyright © Perfare 2018-2022</Copyright>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
@@ -32,6 +32,13 @@
 		  <AutoGen>True</AutoGen>
 		  <DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ContentWithTargetPath Include="..\LICENSE">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>LICENSE</TargetPath>
+		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -122,6 +129,7 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="OpenTK" Version="4.8.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.4" />
 		<Reference Include="OpenTK.WinForms">
 			<HintPath>..\AnimeStudio.Libraries\OpenTK.WinForms.dll</HintPath>
 		</Reference>

@@ -6,7 +6,7 @@
 	<Version>1.0.0</Version>
 	<AssemblyVersion>1.0.0</AssemblyVersion>
 	<FileVersion>1.0.0</FileVersion>
-	<Copyright>Copyright © Escartem 2024-2025; Copyright © Razmoth 2022; Copyright © Perfare 2018-2022</Copyright>
+	<Copyright>Copyright © Escartem 2024-2025; Copyright © Razmoth 2022-2024; Copyright © Perfare 2018-2022</Copyright>
 	<BaseOutputPath>..\AnimeStudio.CLI\bin</BaseOutputPath>
   </PropertyGroup>
 

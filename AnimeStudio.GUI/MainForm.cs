@@ -30,6 +30,7 @@ namespace AnimeStudio.GUI
     {
         private AssetItem lastSelectedItem;
         private AssetBrowser assetBrowser;
+        private AboutForm aboutForm;
         private DirectBitmap imageTexture;
         private string tempClipboard;
 
@@ -3098,6 +3099,12 @@ namespace AnimeStudio.GUI
                     exportSelectedNodessplitToolStripMenuItem_Click(sender, e);
                     break;
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            aboutForm = new AboutForm();
+            aboutForm.Show();
         }
     }
 }
