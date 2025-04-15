@@ -104,21 +104,22 @@ namespace AnimeStudio.GUI
 #if NET9_0_OR_GREATER
 #pragma warning disable WFO5001
             var currentTheme = Properties.Settings.Default.guiTheme;
-            
+
             try
             {
-                switch(currentTheme)
+                switch (currentTheme)
                 {
                     case (int)GuiColorTheme.System:
                         System.Windows.Forms.Application.SetColorMode(SystemColorMode.System);
                         if (System.Windows.Forms.Application.RenderWithVisualStyles)
                         {
                             assetListView.GridLines = false;
-                        } else
+                        }
+                        else
                         {
                             assetListView.GridLines = true;
                         }
-                            break;
+                        break;
                     case (int)GuiColorTheme.Dark:
                         System.Windows.Forms.Application.SetColorMode(SystemColorMode.Dark);
                         assetListView.GridLines = false;
@@ -2326,8 +2327,8 @@ namespace AnimeStudio.GUI
             miscToolStripMenuItem.DropDown.Visible = false;
             InvokeUpdate(miscToolStripMenuItem, false);
 
-            var input = MapNameComboBox.Text;
-            var selectedText = MapNameComboBox.SelectedText;
+            var input = toolStripTextBox1.Text;
+            var selectedText = toolStripTextBox1.SelectedText;
             var exportListType = (ExportListType)assetMapTypeMenuItem.DropDownItems.Cast<ToolStripMenuItem>().Select(x => x.Checked ? (int)x.Tag : 0).Sum();
             var name = "";
 
@@ -3051,5 +3052,52 @@ namespace AnimeStudio.GUI
             }
         }
         #endregion
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void modelsObjectsExportAll_Click(object sender, EventArgs e)
+        {
+            exportAllObjectssplitToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void modelsObjectsExportSelected_Click(object sender, EventArgs e)
+        {
+            bool includeAnimationClips = modelsIncludeAnimationClips.Checked;
+            bool mergeObjects = modelsMerge.Checked;
+
+            switch ((includeAnimationClips, mergeObjects))
+            {
+                case (false, false):
+                    exportSelectedObjectsToolStripMenuItem_Click(sender, e);
+                    break;
+                case (false, true):
+                    exportSelectedObjectsmergeToolStripMenuItem_Click(sender, e);
+                    break;
+                case (true, false):
+                    exportObjectswithAnimationClipMenuItem_Click(sender, e);
+                    break;
+                case (true, true):
+                    exportSelectedObjectsmergeWithAnimationClipToolStripMenuItem_Click(sender, e);
+                    break;
+            }
+        }
+
+        private void modelsNodesExportSelected_Click(object sender, EventArgs e)
+        {
+            bool includeAnimationClips = modelsIncludeAnimationClips.Checked;
+
+            switch (includeAnimationClips)
+            {
+                case true:
+                    exportSelectedNodessplitSelectedAnimationClipsToolStripMenuItem_Click(sender, e);
+                    break;
+                case false:
+                    exportSelectedNodessplitToolStripMenuItem_Click(sender, e);
+                    break;
+            }
+        }
     }
 }
