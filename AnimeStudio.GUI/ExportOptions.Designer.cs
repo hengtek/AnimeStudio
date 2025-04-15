@@ -102,7 +102,7 @@ namespace AnimeStudio.GUI
             OKbutton.Size = new System.Drawing.Size(88, 26);
             OKbutton.TabIndex = 6;
             OKbutton.Text = "OK";
-            OKbutton.UseVisualStyleBackColor = true;
+            OKbutton.UseVisualStyleBackColor = false;
             OKbutton.Click += OKbutton_Click;
             // 
             // Cancel
@@ -114,7 +114,7 @@ namespace AnimeStudio.GUI
             Cancel.Size = new System.Drawing.Size(88, 26);
             Cancel.TabIndex = 7;
             Cancel.Text = "Cancel";
-            Cancel.UseVisualStyleBackColor = true;
+            Cancel.UseVisualStyleBackColor = false;
             Cancel.Click += Cancel_Click;
             // 
             // groupBox1
@@ -159,7 +159,7 @@ namespace AnimeStudio.GUI
             removeTexNameButton.Size = new System.Drawing.Size(71, 23);
             removeTexNameButton.TabIndex = 41;
             removeTexNameButton.Text = "Remove";
-            removeTexNameButton.UseVisualStyleBackColor = true;
+            removeTexNameButton.UseVisualStyleBackColor = false;
             removeTexNameButton.Click += RemoveTexNameButton_Click;
             // 
             // addTexNameButton
@@ -169,7 +169,7 @@ namespace AnimeStudio.GUI
             addTexNameButton.Size = new System.Drawing.Size(42, 23);
             addTexNameButton.TabIndex = 13;
             addTexNameButton.Text = "Add";
-            addTexNameButton.UseVisualStyleBackColor = true;
+            addTexNameButton.UseVisualStyleBackColor = false;
             addTexNameButton.Click += AddTexNameButton_Click;
             // 
             // texNameComboBox
@@ -703,7 +703,7 @@ namespace AnimeStudio.GUI
             Reset.Size = new System.Drawing.Size(88, 26);
             Reset.TabIndex = 12;
             Reset.Text = "Reset";
-            Reset.UseVisualStyleBackColor = true;
+            Reset.UseVisualStyleBackColor = false;
             Reset.Click += Reset_Click;
             // 
             // ExportOptions

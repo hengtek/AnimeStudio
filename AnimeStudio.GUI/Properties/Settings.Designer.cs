@@ -508,10 +508,10 @@ namespace AnimeStudio.GUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string guiTheme {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int guiTheme {
             get {
-                return ((string)(this["guiTheme"]));
+                return ((int)(this["guiTheme"]));
             }
             set {
                 this["guiTheme"] = value;

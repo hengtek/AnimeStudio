@@ -16,9 +16,9 @@ namespace AnimeStudio.GUI
 {
     internal enum GuiColorTheme
     {
-        System,
-        Light,
-        Dark
+        System = 0,
+        Dark = 1,
+        Light = 2
     }
 
     internal enum ExportFilter

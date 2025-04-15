@@ -80,7 +80,7 @@ namespace AnimeStudio.GUI
             loadAssetMap.Size = new System.Drawing.Size(189, 23);
             loadAssetMap.TabIndex = 0;
             loadAssetMap.Text = "Load AssetMap";
-            loadAssetMap.UseVisualStyleBackColor = true;
+            loadAssetMap.UseVisualStyleBackColor = false;
             loadAssetMap.Click += loadAssetMap_Click;
             // 
             // clear
@@ -91,7 +91,7 @@ namespace AnimeStudio.GUI
             clear.Size = new System.Drawing.Size(91, 23);
             clear.TabIndex = 1;
             clear.Text = "Clear";
-            clear.UseVisualStyleBackColor = true;
+            clear.UseVisualStyleBackColor = false;
             clear.Click += clear_Click;
             // 
             // loadSelected
@@ -102,7 +102,7 @@ namespace AnimeStudio.GUI
             loadSelected.Size = new System.Drawing.Size(189, 23);
             loadSelected.TabIndex = 2;
             loadSelected.Text = "Load Selected";
-            loadSelected.UseVisualStyleBackColor = true;
+            loadSelected.UseVisualStyleBackColor = false;
             loadSelected.Click += loadSelected_Click;
             // 
             // exportSelected
@@ -113,7 +113,7 @@ namespace AnimeStudio.GUI
             exportSelected.Size = new System.Drawing.Size(238, 23);
             exportSelected.TabIndex = 3;
             exportSelected.Text = "Export Selected";
-            exportSelected.UseVisualStyleBackColor = true;
+            exportSelected.UseVisualStyleBackColor = false;
             exportSelected.Click += exportSelected_Click;
             // 
             // relocateSource
@@ -124,7 +124,7 @@ namespace AnimeStudio.GUI
             relocateSource.Size = new System.Drawing.Size(114, 23);
             relocateSource.TabIndex = 4;
             relocateSource.Text = "Relocate source";
-            relocateSource.UseVisualStyleBackColor = true;
+            relocateSource.UseVisualStyleBackColor = false;
             relocateSource.Click += relocateSource_Click;
             // 
             // assetDataGridView

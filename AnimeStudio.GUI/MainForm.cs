@@ -41,6 +41,8 @@ namespace AnimeStudio.GUI
         private uint FMODlenms;
         private float FMODVolume = 0.8f;
 
+        private bool themeIsFirstLaunch = true;
+
         #region TexControl
         private static char[] textureChannelNames = new[] { 'B', 'G', 'R', 'A' };
         private bool[] textureChannels = new[] { true, true, true, true };
@@ -88,8 +90,8 @@ namespace AnimeStudio.GUI
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
-            //ApplyTheme(this);
-            Text = $"AnimeStudio v{Application.ProductVersion}";
+            ApplyTheme();
+            Text = $"AnimeStudio v{System.Windows.Forms.Application.ProductVersion}";
             InitializeExportOptions();
             InitializeProgressBar();
             InitializeLogger();
@@ -97,80 +99,74 @@ namespace AnimeStudio.GUI
             FMODinit();
         }
 
-        // dark mode
-        [DllImport("dwmapi.dll")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
-
-        private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
-        private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
-
-        private static bool UseImmersiveDarkMode(IntPtr handle, bool enabled)
+        private void ApplyTheme()
         {
-            if (IsWindows10OrGreater(17763))
-            {
-                var attribute = DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
-                if (IsWindows10OrGreater(18985))
-                {
-                    attribute = DWMWA_USE_IMMERSIVE_DARK_MODE;
-                }
-
-                int useImmersiveDarkMode = enabled ? 1 : 0;
-                return DwmSetWindowAttribute(handle, (int)attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
-            }
-
-            return false;
-        }
-
-        private static bool IsWindows10OrGreater(int build = -1)
-        {
-            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
-        }
-        private void ApplyTheme(Control control)
-        {
-            // todo, control the theme
+#if NET9_0_OR_GREATER
+#pragma warning disable WFO5001
             var currentTheme = Properties.Settings.Default.guiTheme;
-            Logger.Info($"Theme : {currentTheme}");
-
-            UseImmersiveDarkMode(this.Handle, true);
-
-            control.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
-            control.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
-
-            // tabs
-            if (control is TabControl tabControl)
+            
+            try
             {
-                tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-                tabControl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
-                tabControl.DrawItem += (s, e) =>
+                switch(currentTheme)
                 {
-                    bool isSelected = (e.Index == tabControl.SelectedIndex);
-                    System.Drawing.Color backColor = isSelected ? System.Drawing.Color.FromArgb(60, 60, 60) : System.Drawing.Color.FromArgb(40, 40, 40);
-                    using (SolidBrush brush = new SolidBrush(backColor))
-                        e.Graphics.FillRectangle(brush, e.Bounds);
-                    using (SolidBrush textBrush = new SolidBrush(System.Drawing.Color.White))
-                        e.Graphics.DrawString(tabControl.TabPages[e.Index].Text, tabControl.Font, textBrush, e.Bounds.X + 5, e.Bounds.Y + 5);
-                };
-
-                foreach (TabPage tabPage in tabControl.TabPages)
-                {
-                    tabPage.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
-                    tabPage.ForeColor = System.Drawing.Color.White;
+                    case (int)GuiColorTheme.System:
+                        System.Windows.Forms.Application.SetColorMode(SystemColorMode.System);
+                        if (System.Windows.Forms.Application.RenderWithVisualStyles)
+                        {
+                            assetListView.GridLines = false;
+                        } else
+                        {
+                            assetListView.GridLines = true;
+                        }
+                            break;
+                    case (int)GuiColorTheme.Dark:
+                        System.Windows.Forms.Application.SetColorMode(SystemColorMode.Dark);
+                        assetListView.GridLines = false;
+                        break;
+                    case (int)GuiColorTheme.Light:
+                        System.Windows.Forms.Application.SetColorMode(SystemColorMode.Classic);
+                        assetListView.GridLines = true;
+                        break;
                 }
             }
-
-            //
-            if (control is MenuStrip menuStrip)
+            catch (Exception ex)
             {
-                menuStrip.BackColor = System.Drawing.Color.FromArgb(40, 40, 40);
-                menuStrip.ForeColor = System.Drawing.Color.White;
+                Logger.Error($"Failed to apply theme : {ex}");
+            }
+#pragma warning restore WFO5001
+#endif
+        }
 
-                menuStrip.Renderer = new RendererEx();
+        private void specifyTheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (themeIsFirstLaunch)
+            {
+                themeIsFirstLaunch = false;
+                return;
             }
 
-            foreach (Control child in control.Controls)
+            if (Environment.Version.Major < 9)
             {
-                ApplyTheme(child);
+                MessageBox.Show(".NET 9 or higher is required for changing the app theme.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            var selectedTheme = specifyTheme.SelectedIndex;
+            Properties.Settings.Default.guiTheme = selectedTheme;
+            Properties.Settings.Default.Save();
+            Logger.Info("Updated app theme !");
+
+            var text = "Please keep in mind dark mode is still in beta, a better support is planned in future versions of .NET. The application needs to restart in order to apply the theme.";
+
+            if (selectedTheme == 2)
+            {
+                text = "The application needs to restart in order to apply the theme.";
+            }
+
+            MessageBox.Show(text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            ApplyTheme();
+
         }
 
         private void InitializeExportOptions()
@@ -234,6 +230,8 @@ namespace AnimeStudio.GUI
                 var menuItem = new ToolStripMenuItem(mapType.ToString()) { CheckOnClick = true, Checked = assetMapType.HasFlag(mapType), Tag = (int)mapType };
                 assetMapTypeMenuItem.DropDownItems.Add(menuItem);
             }
+
+            specifyTheme.SelectedIndex = Properties.Settings.Default.guiTheme;
 
             specifyGame.Items.AddRange(GameManager.GetGames());
             specifyGame.SelectedIndex = Properties.Settings.Default.selectedGame;
@@ -392,7 +390,7 @@ namespace AnimeStudio.GUI
                 }
             }
 
-            Text = $"AnimeStudio v{Application.ProductVersion} - {productName} - {assetsManager.assetsFileList[0].unityVersion} - {assetsManager.assetsFileList[0].m_TargetPlatform}";
+            Text = $"AnimeStudio v{System.Windows.Forms.Application.ProductVersion} - {productName} - {assetsManager.assetsFileList[0].unityVersion} - {assetsManager.assetsFileList[0].m_TargetPlatform}";
 
             assetListView.VirtualListSize = visibleAssets.Count;
 
@@ -1546,7 +1544,7 @@ namespace AnimeStudio.GUI
         {
             if (InvokeRequired)
             {
-                
+
                 var result = BeginInvoke(new Action(() => { progressBar1.Value = value; }));
                 result.AsyncWaitHandle.WaitOne();
             }
@@ -1571,7 +1569,7 @@ namespace AnimeStudio.GUI
 
         public void ResetForm()
         {
-            Text = $"AnimeStudio v{Application.ProductVersion}";
+            Text = $"AnimeStudio v{System.Windows.Forms.Application.ProductVersion}";
             assetsManager.Clear();
             assemblyLoader.Clear();
             exportableAssets.Clear();
@@ -1811,7 +1809,8 @@ namespace AnimeStudio.GUI
             {
                 sceneTreeView.SelectedNode = selectasset.TreeNode;
                 tabControl1.SelectedTab = tabPage1;
-            } else
+            }
+            else
             {
                 MessageBox.Show("Asset does not exist in hierarchy !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -2577,7 +2576,7 @@ namespace AnimeStudio.GUI
             if (version < FMOD.VERSION.number)
             {
                 Logger.Error($"Error!  You are using an old version of FMOD {version:X}.  This program requires {FMOD.VERSION.number:X}.");
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
 
             result = system.init(2, FMOD.INITFLAGS.NORMAL, IntPtr.Zero);
