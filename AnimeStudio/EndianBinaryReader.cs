@@ -306,6 +306,15 @@ namespace AnimeStudio
             return ReadArray(ReadUInt32, length);
         }
 
+        public ulong[] ReadUInt64Array(int length = -1)
+        {
+            if (length == -1)
+            {
+                length = ReadInt32();
+            }
+            return ReadArray(ReadUInt64, length);
+        }
+
         public uint[][] ReadUInt32ArrayArray(int length = -1)
         {
             if (length == -1)
