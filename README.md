@@ -9,6 +9,14 @@
 
 After the official AssetStudio by Razmoth was discontinued, bugs started to arise as games evolved, and people started making forks to fix some of them, but each one would not support the fixes by the others and so on. This version aims at being the new start base for AssetStudio, renamed as AnimeStudio, it supports all 3 main hoyo games, and is open to any contribution !
 
+---
+
+# Download
+
+| **.NET Version** | **GUI** | **CLI** |
+| - | - | - |
+| **9.0** | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-GUI-net9.0.zip) | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-CLI-net9.0.zip) |
+| **8.0** | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-GUI-net8.0.zip) | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-CLI-net8.0.zip) |
 
 ---
 
