@@ -39,6 +39,15 @@ Compared to the original studio, the UI was slightly adjusted, but if you are fa
 
 ---
 
+# Roadmap
+
+This is a list of features that I would like to add in the future :
+- Add a new provider for Asset Indedexes for 5.0+
+- Integrate UTTDumper
+- Use HoyoDL to have asset downloading when the game is not available
+
+---
+
 Special thanks to:
 - Perfare: The real original AssetStudio - [[project](https://github.com/perfare/AssetStudio)]
 - Razmoth: Original AssetStudio for anime games support - [[project](https://github.com/RazTools/Studio)]
