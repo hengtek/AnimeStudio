@@ -27,6 +27,8 @@ namespace AnimeStudio
         public long PathID { get; set; }
         [Key(4)]
         public ClassIDType Type { get; set; }
+        [Key(5)]
+        public string SHA256Hash { get; set; }
 
         public bool Matches(Dictionary<string, Regex> filters)
         {
@@ -40,6 +42,7 @@ namespace AnimeStudio
                     string value when value.Equals(nameof(Source), StringComparison.OrdinalIgnoreCase) => filter.Value.IsMatch(Source),
                     string value when value.Equals(nameof(PathID), StringComparison.OrdinalIgnoreCase) => filter.Value.IsMatch(PathID.ToString()),
                     string value when value.Equals(nameof (Type), StringComparison.OrdinalIgnoreCase) => filter.Value.IsMatch(Type.ToString()),
+                    string value when value.Equals(nameof(SHA256Hash), StringComparison.OrdinalIgnoreCase) => filter.Value.IsMatch(SHA256Hash),
                     _ => throw new NotImplementedException()
                 });
             }

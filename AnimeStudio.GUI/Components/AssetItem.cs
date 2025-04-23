@@ -11,6 +11,7 @@ namespace AnimeStudio.GUI
         public long m_PathID;
         public long FullSize;
         public ClassIDType Type;
+        public string SHA256Hash;
         public string InfoText;
         public string UniqueID;
         public GameObjectTreeNode TreeNode;
@@ -24,6 +25,7 @@ namespace AnimeStudio.GUI
             TypeString = Type.ToString();
             m_PathID = asset.m_PathID;
             FullSize = asset.byteSize;
+            SHA256Hash = asset.SHA256Hash;
         }
 
         public void SetSubItems()
@@ -34,6 +36,7 @@ namespace AnimeStudio.GUI
                 TypeString, //Type
                 m_PathID.ToString(), //PathID
                 FullSize.ToString(), //Size
+                SHA256Hash, //SHA256
             });
         }
     }

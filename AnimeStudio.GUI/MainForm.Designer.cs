@@ -42,6 +42,7 @@ namespace AnimeStudio.GUI
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             abortStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,6 +151,7 @@ namespace AnimeStudio.GUI
             columnHeaderType = new System.Windows.Forms.ColumnHeader();
             columnHeaderPathID = new System.Windows.Forms.ColumnHeader();
             columnHeaderSize = new System.Windows.Forms.ColumnHeader();
+            columnHeaderSHA256 = new System.Windows.Forms.ColumnHeader();
             listSearch = new System.Windows.Forms.TextBox();
             tabPage3 = new System.Windows.Forms.TabPage();
             classesListView = new System.Windows.Forms.ListView();
@@ -188,7 +190,6 @@ namespace AnimeStudio.GUI
             exportAnimatorwithselectedAnimationClipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             goToSceneHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showOriginalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -217,7 +218,7 @@ namespace AnimeStudio.GUI
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, optionsToolStripMenuItem, exportToolStripMenuItem, filterTypeToolStripMenuItem, miscToolStripMenuItem, aboutToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new System.Drawing.Size(1264, 24);
+            menuStrip1.Size = new System.Drawing.Size(1582, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -225,65 +226,70 @@ namespace AnimeStudio.GUI
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { loadFileToolStripMenuItem, loadFolderToolStripMenuItem, toolStripMenuItem1, extractFileToolStripMenuItem, extractFolderToolStripMenuItem, toolStripSeparator6, resetToolStripMenuItem, abortStripMenuItem, toolStripSeparator4, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             fileToolStripMenuItem.Text = "File";
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            loadFileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            loadFileToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             loadFileToolStripMenuItem.Text = "Load file";
             loadFileToolStripMenuItem.Click += loadFile_Click;
             // 
             // loadFolderToolStripMenuItem
             // 
             loadFolderToolStripMenuItem.Name = "loadFolderToolStripMenuItem";
-            loadFolderToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            loadFolderToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             loadFolderToolStripMenuItem.Text = "Load folder";
             loadFolderToolStripMenuItem.Click += loadFolder_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(141, 6);
+            toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
             // 
             // extractFileToolStripMenuItem
             // 
             extractFileToolStripMenuItem.Name = "extractFileToolStripMenuItem";
-            extractFileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            extractFileToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             extractFileToolStripMenuItem.Text = "Extract file";
             extractFileToolStripMenuItem.Click += extractFileToolStripMenuItem_Click;
             // 
             // extractFolderToolStripMenuItem
             // 
             extractFolderToolStripMenuItem.Name = "extractFolderToolStripMenuItem";
-            extractFolderToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            extractFolderToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             extractFolderToolStripMenuItem.Text = "Extract folder";
             extractFolderToolStripMenuItem.Click += extractFolderToolStripMenuItem_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(141, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(178, 6);
             // 
             // resetToolStripMenuItem
             // 
             resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            resetToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            resetToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             resetToolStripMenuItem.Text = "Reset";
             resetToolStripMenuItem.Click += resetToolStripMenuItem_Click;
             // 
             // abortStripMenuItem
             // 
             abortStripMenuItem.Name = "abortStripMenuItem";
-            abortStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            abortStripMenuItem.Size = new System.Drawing.Size(181, 26);
             abortStripMenuItem.Text = "Abort";
             abortStripMenuItem.Click += abortStripMenuItem_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(178, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -291,59 +297,59 @@ namespace AnimeStudio.GUI
             // 
             optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { gameToolStripMenuItem, toolStripMenuItem18, toolStripMenuItem14, specifyUnityCNKey, toolStripSeparator13, assetLoadingToolStripMenuItem, enableResolveDependencies, allowDuplicates, skipContainer, toolStripSeparator12, generalToolStripMenuItem1, showExpOpt, appThemeToolStripMenuItem, toolStripSeparator1, miscToolStripMenuItem1, toolStripMenuItem21, debugToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             optionsToolStripMenuItem.Text = "Options";
             // 
             // gameToolStripMenuItem
             // 
             gameToolStripMenuItem.Enabled = false;
             gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            gameToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            gameToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             gameToolStripMenuItem.Text = "Game";
             // 
             // toolStripMenuItem18
             // 
             toolStripMenuItem18.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { specifyGame });
             toolStripMenuItem18.Name = "toolStripMenuItem18";
-            toolStripMenuItem18.Size = new System.Drawing.Size(197, 22);
+            toolStripMenuItem18.Size = new System.Drawing.Size(246, 26);
             toolStripMenuItem18.Text = "Specify Game";
             // 
             // specifyGame
             // 
             specifyGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             specifyGame.Name = "specifyGame";
-            specifyGame.Size = new System.Drawing.Size(121, 23);
+            specifyGame.Size = new System.Drawing.Size(121, 28);
             // 
             // toolStripMenuItem14
             // 
             toolStripMenuItem14.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { specifyUnityVersion });
             toolStripMenuItem14.Name = "toolStripMenuItem14";
-            toolStripMenuItem14.Size = new System.Drawing.Size(197, 22);
+            toolStripMenuItem14.Size = new System.Drawing.Size(246, 26);
             toolStripMenuItem14.Text = "Specify Unity version";
             // 
             // specifyUnityVersion
             // 
             specifyUnityVersion.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             specifyUnityVersion.Name = "specifyUnityVersion";
-            specifyUnityVersion.Size = new System.Drawing.Size(100, 23);
+            specifyUnityVersion.Size = new System.Drawing.Size(100, 27);
             // 
             // specifyUnityCNKey
             // 
             specifyUnityCNKey.Name = "specifyUnityCNKey";
-            specifyUnityCNKey.Size = new System.Drawing.Size(197, 22);
+            specifyUnityCNKey.Size = new System.Drawing.Size(246, 26);
             specifyUnityCNKey.Text = "Specify UnityCN Key";
             specifyUnityCNKey.Click += specifyUnityCNKey_Click;
             // 
             // toolStripSeparator13
             // 
             toolStripSeparator13.Name = "toolStripSeparator13";
-            toolStripSeparator13.Size = new System.Drawing.Size(194, 6);
+            toolStripSeparator13.Size = new System.Drawing.Size(243, 6);
             // 
             // assetLoadingToolStripMenuItem
             // 
             assetLoadingToolStripMenuItem.Enabled = false;
             assetLoadingToolStripMenuItem.Name = "assetLoadingToolStripMenuItem";
-            assetLoadingToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            assetLoadingToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             assetLoadingToolStripMenuItem.Text = "Asset loading";
             // 
             // enableResolveDependencies
@@ -352,7 +358,7 @@ namespace AnimeStudio.GUI
             enableResolveDependencies.CheckOnClick = true;
             enableResolveDependencies.CheckState = System.Windows.Forms.CheckState.Checked;
             enableResolveDependencies.Name = "enableResolveDependencies";
-            enableResolveDependencies.Size = new System.Drawing.Size(197, 22);
+            enableResolveDependencies.Size = new System.Drawing.Size(246, 26);
             enableResolveDependencies.Text = "Resolve dependencies";
             enableResolveDependencies.ToolTipText = "Toggle the behaviour of loading assets.\r\nDisable to load file(s) without its dependencies.";
             enableResolveDependencies.CheckedChanged += enableResolveDependencies_CheckedChanged;
@@ -361,7 +367,7 @@ namespace AnimeStudio.GUI
             // 
             allowDuplicates.CheckOnClick = true;
             allowDuplicates.Name = "allowDuplicates";
-            allowDuplicates.Size = new System.Drawing.Size(197, 22);
+            allowDuplicates.Size = new System.Drawing.Size(246, 26);
             allowDuplicates.Text = "Allow duplicates";
             allowDuplicates.ToolTipText = "Toggle the behaviour of exporting assets.\r\nEnable to allow assets with duplicate names to be exported.";
             allowDuplicates.CheckedChanged += allowDuplicates_CheckedChanged;
@@ -370,7 +376,7 @@ namespace AnimeStudio.GUI
             // 
             skipContainer.CheckOnClick = true;
             skipContainer.Name = "skipContainer";
-            skipContainer.Size = new System.Drawing.Size(197, 22);
+            skipContainer.Size = new System.Drawing.Size(246, 26);
             skipContainer.Text = "Skip container recovery";
             skipContainer.ToolTipText = "Skips the container recovery step.\nImproves loading when dealing with a large number of files.";
             skipContainer.CheckedChanged += skipContainer_CheckedChanged;
@@ -378,19 +384,19 @@ namespace AnimeStudio.GUI
             // toolStripSeparator12
             // 
             toolStripSeparator12.Name = "toolStripSeparator12";
-            toolStripSeparator12.Size = new System.Drawing.Size(194, 6);
+            toolStripSeparator12.Size = new System.Drawing.Size(243, 6);
             // 
             // generalToolStripMenuItem1
             // 
             generalToolStripMenuItem1.Enabled = false;
             generalToolStripMenuItem1.Name = "generalToolStripMenuItem1";
-            generalToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            generalToolStripMenuItem1.Size = new System.Drawing.Size(246, 26);
             generalToolStripMenuItem1.Text = "General";
             // 
             // showExpOpt
             // 
             showExpOpt.Name = "showExpOpt";
-            showExpOpt.Size = new System.Drawing.Size(197, 22);
+            showExpOpt.Size = new System.Drawing.Size(246, 26);
             showExpOpt.Text = "Export options";
             showExpOpt.Click += showExpOpt_Click;
             // 
@@ -398,7 +404,7 @@ namespace AnimeStudio.GUI
             // 
             appThemeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { specifyTheme });
             appThemeToolStripMenuItem.Name = "appThemeToolStripMenuItem";
-            appThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            appThemeToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             appThemeToolStripMenuItem.Text = "App Theme";
             // 
             // specifyTheme
@@ -406,33 +412,33 @@ namespace AnimeStudio.GUI
             specifyTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             specifyTheme.Items.AddRange(new object[] { "System", "Dark", "Light" });
             specifyTheme.Name = "specifyTheme";
-            specifyTheme.Size = new System.Drawing.Size(121, 23);
+            specifyTheme.Size = new System.Drawing.Size(121, 28);
             specifyTheme.SelectedIndexChanged += specifyTheme_SelectedIndexChanged;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(243, 6);
             // 
             // miscToolStripMenuItem1
             // 
             miscToolStripMenuItem1.Enabled = false;
             miscToolStripMenuItem1.Name = "miscToolStripMenuItem1";
-            miscToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            miscToolStripMenuItem1.Size = new System.Drawing.Size(246, 26);
             miscToolStripMenuItem1.Text = "Misc.";
             // 
             // toolStripMenuItem21
             // 
             toolStripMenuItem21.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { displayAll, enablePreview, enableModelPreview, modelsOnly, displayInfo });
             toolStripMenuItem21.Name = "toolStripMenuItem21";
-            toolStripMenuItem21.Size = new System.Drawing.Size(197, 22);
+            toolStripMenuItem21.Size = new System.Drawing.Size(246, 26);
             toolStripMenuItem21.Text = "Advanced";
             // 
             // displayAll
             // 
             displayAll.CheckOnClick = true;
             displayAll.Name = "displayAll";
-            displayAll.Size = new System.Drawing.Size(207, 22);
+            displayAll.Size = new System.Drawing.Size(260, 26);
             displayAll.Text = "Show hidden assets";
             displayAll.ToolTipText = "Check this option will display all types assets. Not extractable assets can export the RAW file.";
             // 
@@ -442,7 +448,7 @@ namespace AnimeStudio.GUI
             enablePreview.CheckOnClick = true;
             enablePreview.CheckState = System.Windows.Forms.CheckState.Checked;
             enablePreview.Name = "enablePreview";
-            enablePreview.Size = new System.Drawing.Size(207, 22);
+            enablePreview.Size = new System.Drawing.Size(260, 26);
             enablePreview.Text = "Preview enabled";
             enablePreview.ToolTipText = "Toggle the loading and preview of readable assets, such as images, sounds, text, etc.\r\nDisable preview if you have performance or compatibility issues.";
             // 
@@ -450,14 +456,14 @@ namespace AnimeStudio.GUI
             // 
             enableModelPreview.CheckOnClick = true;
             enableModelPreview.Name = "enableModelPreview";
-            enableModelPreview.Size = new System.Drawing.Size(207, 22);
+            enableModelPreview.Size = new System.Drawing.Size(260, 26);
             enableModelPreview.Text = "Model preview enabled";
             // 
             // modelsOnly
             // 
             modelsOnly.CheckOnClick = true;
             modelsOnly.Name = "modelsOnly";
-            modelsOnly.Size = new System.Drawing.Size(207, 22);
+            modelsOnly.Size = new System.Drawing.Size(260, 26);
             modelsOnly.Text = "Filter models only";
             // 
             // displayInfo
@@ -466,7 +472,7 @@ namespace AnimeStudio.GUI
             displayInfo.CheckOnClick = true;
             displayInfo.CheckState = System.Windows.Forms.CheckState.Checked;
             displayInfo.Name = "displayInfo";
-            displayInfo.Size = new System.Drawing.Size(207, 22);
+            displayInfo.Size = new System.Drawing.Size(260, 26);
             displayInfo.Text = "Display asset information";
             displayInfo.ToolTipText = "Toggle the overlay that shows information about each asset, eg. image size, format, audio bitrate, etc.";
             // 
@@ -474,7 +480,7 @@ namespace AnimeStudio.GUI
             // 
             debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem15, exportClassStructuresMenuItem, enableConsole, clearConsoleToolStripMenuItem, enableFileLogging, loggedEventsMenuItem });
             debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            debugToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            debugToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             debugToolStripMenuItem.Text = "Debug";
             // 
             // toolStripMenuItem15
@@ -483,14 +489,14 @@ namespace AnimeStudio.GUI
             toolStripMenuItem15.CheckOnClick = true;
             toolStripMenuItem15.CheckState = System.Windows.Forms.CheckState.Checked;
             toolStripMenuItem15.Name = "toolStripMenuItem15";
-            toolStripMenuItem15.Size = new System.Drawing.Size(191, 22);
+            toolStripMenuItem15.Size = new System.Drawing.Size(237, 26);
             toolStripMenuItem15.Text = "Show error messages";
             toolStripMenuItem15.Click += toolStripMenuItem15_Click;
             // 
             // exportClassStructuresMenuItem
             // 
             exportClassStructuresMenuItem.Name = "exportClassStructuresMenuItem";
-            exportClassStructuresMenuItem.Size = new System.Drawing.Size(191, 22);
+            exportClassStructuresMenuItem.Size = new System.Drawing.Size(237, 26);
             exportClassStructuresMenuItem.Text = "Export class structures";
             exportClassStructuresMenuItem.Click += exportClassStructuresMenuItem_Click;
             // 
@@ -500,14 +506,14 @@ namespace AnimeStudio.GUI
             enableConsole.CheckOnClick = true;
             enableConsole.CheckState = System.Windows.Forms.CheckState.Checked;
             enableConsole.Name = "enableConsole";
-            enableConsole.Size = new System.Drawing.Size(191, 22);
+            enableConsole.Size = new System.Drawing.Size(237, 26);
             enableConsole.Text = "Enable Console";
             enableConsole.CheckedChanged += enableConsole_CheckedChanged;
             // 
             // clearConsoleToolStripMenuItem
             // 
             clearConsoleToolStripMenuItem.Name = "clearConsoleToolStripMenuItem";
-            clearConsoleToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            clearConsoleToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             clearConsoleToolStripMenuItem.Text = "Clear Console";
             clearConsoleToolStripMenuItem.Click += clearConsoleToolStripMenuItem_Click;
             // 
@@ -517,14 +523,14 @@ namespace AnimeStudio.GUI
             enableFileLogging.CheckOnClick = true;
             enableFileLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             enableFileLogging.Name = "enableFileLogging";
-            enableFileLogging.Size = new System.Drawing.Size(191, 22);
+            enableFileLogging.Size = new System.Drawing.Size(237, 26);
             enableFileLogging.Text = "Enable file logging";
             enableFileLogging.CheckedChanged += enableFileLogging_CheckedChanged;
             // 
             // loggedEventsMenuItem
             // 
             loggedEventsMenuItem.Name = "loggedEventsMenuItem";
-            loggedEventsMenuItem.Size = new System.Drawing.Size(191, 22);
+            loggedEventsMenuItem.Size = new System.Drawing.Size(237, 26);
             loggedEventsMenuItem.Text = "Logged events";
             loggedEventsMenuItem.DropDownClosed += loggedEventsMenuItem_DropDownClosed;
             // 
@@ -532,74 +538,74 @@ namespace AnimeStudio.GUI
             // 
             exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { generalToolStripMenuItem, exportAllAssetsMenuItem, exportSelectedAssetsMenuItem, exportFilteredAssetsMenuItem, toolStripSeparator3, formatSpecificToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem16, toolStripSeparator2, assetsStructureToolStripMenuItem, toolStripMenuItem10, sceneHierarchy, toolStripSeparator7, toolStripMenuItem30, modelsIncludeAnimationClips, toolStripMenuItem29, modelsMerge, modelsObjectsExportAll, modelsObjectsExportSelected, toolStripMenuItem28, modelsNodesExportSelected });
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            exportToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             exportToolStripMenuItem.Text = "Export";
             // 
             // generalToolStripMenuItem
             // 
             generalToolStripMenuItem.Enabled = false;
             generalToolStripMenuItem.Name = "generalToolStripMenuItem";
-            generalToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            generalToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             generalToolStripMenuItem.Text = "General";
             // 
             // exportAllAssetsMenuItem
             // 
             exportAllAssetsMenuItem.Name = "exportAllAssetsMenuItem";
-            exportAllAssetsMenuItem.Size = new System.Drawing.Size(201, 22);
+            exportAllAssetsMenuItem.Size = new System.Drawing.Size(249, 26);
             exportAllAssetsMenuItem.Text = "All assets";
             exportAllAssetsMenuItem.Click += exportAllAssetsMenuItem_Click;
             // 
             // exportSelectedAssetsMenuItem
             // 
             exportSelectedAssetsMenuItem.Name = "exportSelectedAssetsMenuItem";
-            exportSelectedAssetsMenuItem.Size = new System.Drawing.Size(201, 22);
+            exportSelectedAssetsMenuItem.Size = new System.Drawing.Size(249, 26);
             exportSelectedAssetsMenuItem.Text = "Selected assets";
             exportSelectedAssetsMenuItem.Click += exportSelectedAssetsMenuItem_Click;
             // 
             // exportFilteredAssetsMenuItem
             // 
             exportFilteredAssetsMenuItem.Name = "exportFilteredAssetsMenuItem";
-            exportFilteredAssetsMenuItem.Size = new System.Drawing.Size(201, 22);
+            exportFilteredAssetsMenuItem.Size = new System.Drawing.Size(249, 26);
             exportFilteredAssetsMenuItem.Text = "Filtered assets";
             exportFilteredAssetsMenuItem.Click += exportFilteredAssetsMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(198, 6);
+            toolStripSeparator3.Size = new System.Drawing.Size(246, 6);
             // 
             // formatSpecificToolStripMenuItem
             // 
             formatSpecificToolStripMenuItem.Enabled = false;
             formatSpecificToolStripMenuItem.Name = "formatSpecificToolStripMenuItem";
-            formatSpecificToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            formatSpecificToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             formatSpecificToolStripMenuItem.Text = "Format specific";
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6 });
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem2.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem2.Text = "Raw";
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem4.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem4.Text = "All assets";
             toolStripMenuItem4.Click += toolStripMenuItem4_Click;
             // 
             // toolStripMenuItem5
             // 
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem5.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem5.Text = "Selected assets";
             toolStripMenuItem5.Click += toolStripMenuItem5_Click;
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem6.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem6.Text = "Filtered assets";
             toolStripMenuItem6.Click += toolStripMenuItem6_Click;
             // 
@@ -607,27 +613,27 @@ namespace AnimeStudio.GUI
             // 
             toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem7, toolStripMenuItem8, toolStripMenuItem9 });
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem3.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem3.Text = "Dump";
             // 
             // toolStripMenuItem7
             // 
             toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem7.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem7.Text = "All assets";
             toolStripMenuItem7.Click += toolStripMenuItem7_Click;
             // 
             // toolStripMenuItem8
             // 
             toolStripMenuItem8.Name = "toolStripMenuItem8";
-            toolStripMenuItem8.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem8.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem8.Text = "Selected assets";
             toolStripMenuItem8.Click += toolStripMenuItem8_Click;
             // 
             // toolStripMenuItem9
             // 
             toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem9.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem9.Text = "Filtered assets";
             toolStripMenuItem9.Click += toolStripMenuItem9_Click;
             // 
@@ -635,121 +641,121 @@ namespace AnimeStudio.GUI
             // 
             toolStripMenuItem16.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem17, toolStripMenuItem24, toolStripMenuItem25 });
             toolStripMenuItem16.Name = "toolStripMenuItem16";
-            toolStripMenuItem16.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem16.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem16.Text = "JSON";
             // 
             // toolStripMenuItem17
             // 
             toolStripMenuItem17.Name = "toolStripMenuItem17";
-            toolStripMenuItem17.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem17.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem17.Text = "All assets";
             toolStripMenuItem17.Click += toolStripMenuItem17_Click;
             // 
             // toolStripMenuItem24
             // 
             toolStripMenuItem24.Name = "toolStripMenuItem24";
-            toolStripMenuItem24.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem24.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem24.Text = "Selected assets";
             toolStripMenuItem24.Click += toolStripMenuItem24_Click;
             // 
             // toolStripMenuItem25
             // 
             toolStripMenuItem25.Name = "toolStripMenuItem25";
-            toolStripMenuItem25.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem25.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem25.Text = "Filtered assets";
             toolStripMenuItem25.Click += toolStripMenuItem25_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(198, 6);
+            toolStripSeparator2.Size = new System.Drawing.Size(246, 6);
             // 
             // assetsStructureToolStripMenuItem
             // 
             assetsStructureToolStripMenuItem.Enabled = false;
             assetsStructureToolStripMenuItem.Name = "assetsStructureToolStripMenuItem";
-            assetsStructureToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            assetsStructureToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             assetsStructureToolStripMenuItem.Text = "Assets structure";
             // 
             // toolStripMenuItem10
             // 
             toolStripMenuItem10.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem11, toolStripMenuItem12, toolStripMenuItem13 });
             toolStripMenuItem10.Name = "toolStripMenuItem10";
-            toolStripMenuItem10.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem10.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem10.Text = "Asset list to XML";
             // 
             // toolStripMenuItem11
             // 
             toolStripMenuItem11.Name = "toolStripMenuItem11";
-            toolStripMenuItem11.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem11.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem11.Text = "All assets";
             toolStripMenuItem11.Click += toolStripMenuItem11_Click;
             // 
             // toolStripMenuItem12
             // 
             toolStripMenuItem12.Name = "toolStripMenuItem12";
-            toolStripMenuItem12.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem12.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem12.Text = "Selected assets";
             toolStripMenuItem12.Click += toolStripMenuItem12_Click;
             // 
             // toolStripMenuItem13
             // 
             toolStripMenuItem13.Name = "toolStripMenuItem13";
-            toolStripMenuItem13.Size = new System.Drawing.Size(152, 22);
+            toolStripMenuItem13.Size = new System.Drawing.Size(192, 26);
             toolStripMenuItem13.Text = "Filtered assets";
             toolStripMenuItem13.Click += toolStripMenuItem13_Click;
             // 
             // sceneHierarchy
             // 
             sceneHierarchy.Name = "sceneHierarchy";
-            sceneHierarchy.Size = new System.Drawing.Size(201, 22);
+            sceneHierarchy.Size = new System.Drawing.Size(249, 26);
             sceneHierarchy.Text = "Scene hierarchy";
             sceneHierarchy.Click += sceneHierarchy_Click;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new System.Drawing.Size(198, 6);
+            toolStripSeparator7.Size = new System.Drawing.Size(246, 6);
             // 
             // toolStripMenuItem30
             // 
             toolStripMenuItem30.Enabled = false;
             toolStripMenuItem30.Name = "toolStripMenuItem30";
-            toolStripMenuItem30.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem30.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem30.Text = "Models";
             // 
             // modelsIncludeAnimationClips
             // 
             modelsIncludeAnimationClips.CheckOnClick = true;
             modelsIncludeAnimationClips.Name = "modelsIncludeAnimationClips";
-            modelsIncludeAnimationClips.Size = new System.Drawing.Size(201, 22);
+            modelsIncludeAnimationClips.Size = new System.Drawing.Size(249, 26);
             modelsIncludeAnimationClips.Text = "Include AnimationClips ";
             // 
             // toolStripMenuItem29
             // 
             toolStripMenuItem29.Enabled = false;
             toolStripMenuItem29.Name = "toolStripMenuItem29";
-            toolStripMenuItem29.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem29.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem29.Text = "Models - Objects";
             // 
             // modelsMerge
             // 
             modelsMerge.CheckOnClick = true;
             modelsMerge.Name = "modelsMerge";
-            modelsMerge.Size = new System.Drawing.Size(201, 22);
+            modelsMerge.Size = new System.Drawing.Size(249, 26);
             modelsMerge.Text = "Merge (only selected)";
             // 
             // modelsObjectsExportAll
             // 
             modelsObjectsExportAll.Name = "modelsObjectsExportAll";
-            modelsObjectsExportAll.Size = new System.Drawing.Size(201, 22);
+            modelsObjectsExportAll.Size = new System.Drawing.Size(249, 26);
             modelsObjectsExportAll.Text = "Export all";
             modelsObjectsExportAll.Click += modelsObjectsExportAll_Click;
             // 
             // modelsObjectsExportSelected
             // 
             modelsObjectsExportSelected.Name = "modelsObjectsExportSelected";
-            modelsObjectsExportSelected.Size = new System.Drawing.Size(201, 22);
+            modelsObjectsExportSelected.Size = new System.Drawing.Size(249, 26);
             modelsObjectsExportSelected.Text = "Export selected";
             modelsObjectsExportSelected.Click += modelsObjectsExportSelected_Click;
             // 
@@ -757,13 +763,13 @@ namespace AnimeStudio.GUI
             // 
             toolStripMenuItem28.Enabled = false;
             toolStripMenuItem28.Name = "toolStripMenuItem28";
-            toolStripMenuItem28.Size = new System.Drawing.Size(201, 22);
+            toolStripMenuItem28.Size = new System.Drawing.Size(249, 26);
             toolStripMenuItem28.Text = "Models - Nodes";
             // 
             // modelsNodesExportSelected
             // 
             modelsNodesExportSelected.Name = "modelsNodesExportSelected";
-            modelsNodesExportSelected.Size = new System.Drawing.Size(201, 22);
+            modelsNodesExportSelected.Size = new System.Drawing.Size(249, 26);
             modelsNodesExportSelected.Text = "Export selected";
             modelsNodesExportSelected.Click += modelsNodesExportSelected_Click;
             // 
@@ -771,7 +777,7 @@ namespace AnimeStudio.GUI
             // 
             filterTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { allToolStripMenuItem });
             filterTypeToolStripMenuItem.Name = "filterTypeToolStripMenuItem";
-            filterTypeToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            filterTypeToolStripMenuItem.Size = new System.Drawing.Size(91, 24);
             filterTypeToolStripMenuItem.Text = "Filter Type";
             // 
             // allToolStripMenuItem
@@ -780,7 +786,7 @@ namespace AnimeStudio.GUI
             allToolStripMenuItem.CheckOnClick = true;
             allToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
+            allToolStripMenuItem.Size = new System.Drawing.Size(110, 26);
             allToolStripMenuItem.Text = "All";
             allToolStripMenuItem.Click += typeToolStripMenuItem_Click;
             // 
@@ -788,7 +794,7 @@ namespace AnimeStudio.GUI
             // 
             miscToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { assetMapToolStripMenuItem1, assetMapNameTextBox, buildAssetMapToolStripMenuItem, assetMapTypeMenuItem, assetBrowserToolStripMenuItem, toolStripSeparator8, cABMapToolStripMenuItem, MapNameComboBox, buildMapToolStripMenuItem, loadCABMapToolStripMenuItem, clearMapToolStripMenuItem, toolStripSeparator15, assetMapCABMapToolStripMenuItem, toolStripTextBox1, buildBothToolStripMenuItem, toolStripSeparator14, toolStripMenuItem20, toolStripMenuItem19, loadAIToolStripMenuItem });
             miscToolStripMenuItem.Name = "miscToolStripMenuItem";
-            miscToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            miscToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             miscToolStripMenuItem.Text = "Maps";
             miscToolStripMenuItem.DropDownOpening += miscToolStripMenuItem_DropDownOpening;
             // 
@@ -796,117 +802,117 @@ namespace AnimeStudio.GUI
             // 
             assetMapToolStripMenuItem1.Enabled = false;
             assetMapToolStripMenuItem1.Name = "assetMapToolStripMenuItem1";
-            assetMapToolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            assetMapToolStripMenuItem1.Size = new System.Drawing.Size(256, 26);
             assetMapToolStripMenuItem1.Text = "Asset Map";
             // 
             // assetMapNameTextBox
             // 
             assetMapNameTextBox.Name = "assetMapNameTextBox";
-            assetMapNameTextBox.Size = new System.Drawing.Size(100, 23);
+            assetMapNameTextBox.Size = new System.Drawing.Size(100, 27);
             assetMapNameTextBox.ToolTipText = "Enter name of AssetMap here";
             // 
             // buildAssetMapToolStripMenuItem
             // 
             buildAssetMapToolStripMenuItem.Name = "buildAssetMapToolStripMenuItem";
-            buildAssetMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            buildAssetMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             buildAssetMapToolStripMenuItem.Text = "Build";
             buildAssetMapToolStripMenuItem.Click += buildAssetMapToolStripMenuItem_Click;
             // 
             // assetMapTypeMenuItem
             // 
             assetMapTypeMenuItem.Name = "assetMapTypeMenuItem";
-            assetMapTypeMenuItem.Size = new System.Drawing.Size(205, 22);
+            assetMapTypeMenuItem.Size = new System.Drawing.Size(256, 26);
             assetMapTypeMenuItem.Text = "Map Type";
             assetMapTypeMenuItem.DropDownItemClicked += assetMapTypeMenuItem_DropDownItemClicked;
             // 
             // assetBrowserToolStripMenuItem
             // 
             assetBrowserToolStripMenuItem.Name = "assetBrowserToolStripMenuItem";
-            assetBrowserToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            assetBrowserToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             assetBrowserToolStripMenuItem.Text = "Open Asset Browser";
             assetBrowserToolStripMenuItem.Click += loadAssetMapToolStripMenuItem_Click;
             // 
             // toolStripSeparator8
             // 
             toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new System.Drawing.Size(202, 6);
+            toolStripSeparator8.Size = new System.Drawing.Size(253, 6);
             // 
             // cABMapToolStripMenuItem
             // 
             cABMapToolStripMenuItem.Enabled = false;
             cABMapToolStripMenuItem.Name = "cABMapToolStripMenuItem";
-            cABMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            cABMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             cABMapToolStripMenuItem.Text = "CAB Map";
             // 
             // MapNameComboBox
             // 
             MapNameComboBox.Name = "MapNameComboBox";
-            MapNameComboBox.Size = new System.Drawing.Size(121, 23);
+            MapNameComboBox.Size = new System.Drawing.Size(121, 28);
             MapNameComboBox.ToolTipText = "Enter name of Map here";
             // 
             // buildMapToolStripMenuItem
             // 
             buildMapToolStripMenuItem.Name = "buildMapToolStripMenuItem";
-            buildMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            buildMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             buildMapToolStripMenuItem.Text = "Build";
             buildMapToolStripMenuItem.Click += buildMapToolStripMenuItem_Click;
             // 
             // loadCABMapToolStripMenuItem
             // 
             loadCABMapToolStripMenuItem.Name = "loadCABMapToolStripMenuItem";
-            loadCABMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            loadCABMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             loadCABMapToolStripMenuItem.Text = "Load";
             loadCABMapToolStripMenuItem.Click += loadCABMapToolStripMenuItem_Click;
             // 
             // clearMapToolStripMenuItem
             // 
             clearMapToolStripMenuItem.Name = "clearMapToolStripMenuItem";
-            clearMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            clearMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             clearMapToolStripMenuItem.Text = "Delete";
             clearMapToolStripMenuItem.Click += clearMapToolStripMenuItem_Click;
             // 
             // toolStripSeparator15
             // 
             toolStripSeparator15.Name = "toolStripSeparator15";
-            toolStripSeparator15.Size = new System.Drawing.Size(202, 6);
+            toolStripSeparator15.Size = new System.Drawing.Size(253, 6);
             // 
             // assetMapCABMapToolStripMenuItem
             // 
             assetMapCABMapToolStripMenuItem.Enabled = false;
             assetMapCABMapToolStripMenuItem.Name = "assetMapCABMapToolStripMenuItem";
-            assetMapCABMapToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            assetMapCABMapToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             assetMapCABMapToolStripMenuItem.Text = "Asset Map and CAB Map";
             // 
             // toolStripTextBox1
             // 
             toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
             toolStripTextBox1.ToolTipText = "Enter name of AssetMap here";
             // 
             // buildBothToolStripMenuItem
             // 
             buildBothToolStripMenuItem.Name = "buildBothToolStripMenuItem";
-            buildBothToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            buildBothToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             buildBothToolStripMenuItem.Text = "Build Both";
             buildBothToolStripMenuItem.Click += buildBothToolStripMenuItem_Click;
             // 
             // toolStripSeparator14
             // 
             toolStripSeparator14.Name = "toolStripSeparator14";
-            toolStripSeparator14.Size = new System.Drawing.Size(202, 6);
+            toolStripSeparator14.Size = new System.Drawing.Size(253, 6);
             // 
             // toolStripMenuItem20
             // 
             toolStripMenuItem20.Enabled = false;
             toolStripMenuItem20.Name = "toolStripMenuItem20";
-            toolStripMenuItem20.Size = new System.Drawing.Size(205, 22);
+            toolStripMenuItem20.Size = new System.Drawing.Size(256, 26);
             toolStripMenuItem20.Text = "Asset Index";
             // 
             // toolStripMenuItem19
             // 
             toolStripMenuItem19.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { specifyAIVersion });
             toolStripMenuItem19.Name = "toolStripMenuItem19";
-            toolStripMenuItem19.Size = new System.Drawing.Size(205, 22);
+            toolStripMenuItem19.Size = new System.Drawing.Size(256, 26);
             toolStripMenuItem19.Text = "Load from GitHub";
             // 
             // specifyAIVersion
@@ -914,19 +920,19 @@ namespace AnimeStudio.GUI
             specifyAIVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             specifyAIVersion.Items.AddRange(new object[] { "None" });
             specifyAIVersion.Name = "specifyAIVersion";
-            specifyAIVersion.Size = new System.Drawing.Size(121, 23);
+            specifyAIVersion.Size = new System.Drawing.Size(121, 28);
             // 
             // loadAIToolStripMenuItem
             // 
             loadAIToolStripMenuItem.Name = "loadAIToolStripMenuItem";
-            loadAIToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            loadAIToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             loadAIToolStripMenuItem.Text = "Load from file";
             loadAIToolStripMenuItem.Click += loadAIToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
@@ -954,7 +960,7 @@ namespace AnimeStudio.GUI
             // 
             splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            splitContainer1.Location = new System.Drawing.Point(0, 24);
+            splitContainer1.Location = new System.Drawing.Point(0, 28);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -968,8 +974,8 @@ namespace AnimeStudio.GUI
             splitContainer1.Panel2.Controls.Add(tabControl2);
             splitContainer1.Panel2.Controls.Add(statusStrip1);
             splitContainer1.Panel2MinSize = 400;
-            splitContainer1.Size = new System.Drawing.Size(1264, 657);
-            splitContainer1.SplitterDistance = 482;
+            splitContainer1.Size = new System.Drawing.Size(1582, 825);
+            splitContainer1.SplitterDistance = 603;
             splitContainer1.TabIndex = 2;
             splitContainer1.TabStop = false;
             // 
@@ -983,7 +989,7 @@ namespace AnimeStudio.GUI
             tabControl1.Name = "tabControl1";
             tabControl1.Padding = new System.Drawing.Point(17, 3);
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(480, 635);
+            tabControl1.Size = new System.Drawing.Size(601, 803);
             tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             tabControl1.TabIndex = 0;
             tabControl1.Selected += tabPageSelected;
@@ -992,9 +998,9 @@ namespace AnimeStudio.GUI
             // 
             tabPage1.Controls.Add(sceneTreeView);
             tabPage1.Controls.Add(treeSearch);
-            tabPage1.Location = new System.Drawing.Point(4, 24);
+            tabPage1.Location = new System.Drawing.Point(4, 29);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new System.Drawing.Size(472, 607);
+            tabPage1.Size = new System.Drawing.Size(593, 770);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Scene Hierarchy";
             tabPage1.UseVisualStyleBackColor = true;
@@ -1006,9 +1012,9 @@ namespace AnimeStudio.GUI
             sceneTreeView.CheckBoxes = true;
             sceneTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             sceneTreeView.HideSelection = false;
-            sceneTreeView.Location = new System.Drawing.Point(0, 23);
+            sceneTreeView.Location = new System.Drawing.Point(0, 27);
             sceneTreeView.Name = "sceneTreeView";
-            sceneTreeView.Size = new System.Drawing.Size(472, 584);
+            sceneTreeView.Size = new System.Drawing.Size(593, 743);
             sceneTreeView.TabIndex = 1;
             sceneTreeView.AfterCheck += sceneTreeView_AfterCheck;
             // 
@@ -1019,7 +1025,7 @@ namespace AnimeStudio.GUI
             treeSearch.Location = new System.Drawing.Point(0, 0);
             treeSearch.Name = "treeSearch";
             treeSearch.PlaceholderText = "Search (with Ctrl to check result, with Shift for all, alt for parent nodes)";
-            treeSearch.Size = new System.Drawing.Size(472, 23);
+            treeSearch.Size = new System.Drawing.Size(593, 27);
             treeSearch.TabIndex = 0;
             treeSearch.TextChanged += treeSearch_TextChanged;
             treeSearch.KeyDown += treeSearch_KeyDown;
@@ -1028,9 +1034,9 @@ namespace AnimeStudio.GUI
             // 
             tabPage2.Controls.Add(assetListView);
             tabPage2.Controls.Add(listSearch);
-            tabPage2.Location = new System.Drawing.Point(4, 24);
+            tabPage2.Location = new System.Drawing.Point(4, 29);
             tabPage2.Name = "tabPage2";
-            tabPage2.Size = new System.Drawing.Size(472, 607);
+            tabPage2.Size = new System.Drawing.Size(593, 770);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Asset List";
             tabPage2.UseVisualStyleBackColor = true;
@@ -1038,13 +1044,13 @@ namespace AnimeStudio.GUI
             // assetListView
             // 
             assetListView.BackColor = System.Drawing.SystemColors.Window;
-            assetListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderName, columnHeaderContainer, columnHeaderType, columnHeaderPathID, columnHeaderSize });
+            assetListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderName, columnHeaderContainer, columnHeaderType, columnHeaderPathID, columnHeaderSize, columnHeaderSHA256 });
             assetListView.Dock = System.Windows.Forms.DockStyle.Fill;
             assetListView.FullRowSelect = true;
             assetListView.GridLines = true;
-            assetListView.Location = new System.Drawing.Point(0, 23);
+            assetListView.Location = new System.Drawing.Point(0, 27);
             assetListView.Name = "assetListView";
-            assetListView.Size = new System.Drawing.Size(472, 584);
+            assetListView.Size = new System.Drawing.Size(593, 743);
             assetListView.TabIndex = 1;
             assetListView.UseCompatibleStateImageBehavior = false;
             assetListView.View = System.Windows.Forms.View.Details;
@@ -1057,7 +1063,7 @@ namespace AnimeStudio.GUI
             // columnHeaderName
             // 
             columnHeaderName.Text = "Name";
-            columnHeaderName.Width = 170;
+            columnHeaderName.Width = 180;
             // 
             // columnHeaderContainer
             // 
@@ -1078,6 +1084,11 @@ namespace AnimeStudio.GUI
             columnHeaderSize.Text = "Size";
             columnHeaderSize.Width = 50;
             // 
+            // columnHeaderSHA256
+            // 
+            columnHeaderSHA256.Text = "SHA256";
+            columnHeaderSHA256.Width = 100;
+            // 
             // listSearch
             // 
             listSearch.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1085,16 +1096,16 @@ namespace AnimeStudio.GUI
             listSearch.Location = new System.Drawing.Point(0, 0);
             listSearch.Name = "listSearch";
             listSearch.PlaceholderText = "Search";
-            listSearch.Size = new System.Drawing.Size(472, 23);
+            listSearch.Size = new System.Drawing.Size(593, 27);
             listSearch.TabIndex = 0;
             listSearch.KeyPress += listSearch_KeyPress;
             // 
             // tabPage3
             // 
             tabPage3.Controls.Add(classesListView);
-            tabPage3.Location = new System.Drawing.Point(4, 24);
+            tabPage3.Location = new System.Drawing.Point(4, 29);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new System.Drawing.Size(472, 607);
+            tabPage3.Size = new System.Drawing.Size(472, 598);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Asset Classes";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1107,7 +1118,7 @@ namespace AnimeStudio.GUI
             classesListView.Location = new System.Drawing.Point(0, 0);
             classesListView.MultiSelect = false;
             classesListView.Name = "classesListView";
-            classesListView.Size = new System.Drawing.Size(472, 607);
+            classesListView.Size = new System.Drawing.Size(472, 598);
             classesListView.TabIndex = 0;
             classesListView.UseCompatibleStateImageBehavior = false;
             classesListView.View = System.Windows.Forms.View.Details;
@@ -1129,10 +1140,10 @@ namespace AnimeStudio.GUI
             // 
             progressbarPanel.Controls.Add(progressBar1);
             progressbarPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            progressbarPanel.Location = new System.Drawing.Point(0, 635);
+            progressbarPanel.Location = new System.Drawing.Point(0, 803);
             progressbarPanel.Name = "progressbarPanel";
             progressbarPanel.Padding = new System.Windows.Forms.Padding(1, 3, 1, 1);
-            progressbarPanel.Size = new System.Drawing.Size(480, 20);
+            progressbarPanel.Size = new System.Drawing.Size(601, 20);
             progressbarPanel.TabIndex = 2;
             // 
             // progressBar1
@@ -1141,7 +1152,7 @@ namespace AnimeStudio.GUI
             progressBar1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             progressBar1.Location = new System.Drawing.Point(1, 2);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new System.Drawing.Size(478, 17);
+            progressBar1.Size = new System.Drawing.Size(599, 17);
             progressBar1.Step = 1;
             progressBar1.TabIndex = 1;
             // 
@@ -1153,16 +1164,16 @@ namespace AnimeStudio.GUI
             tabControl2.Location = new System.Drawing.Point(0, 0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new System.Drawing.Size(776, 633);
+            tabControl2.Size = new System.Drawing.Size(973, 797);
             tabControl2.TabIndex = 4;
             tabControl2.SelectedIndexChanged += tabControl2_SelectedIndexChanged;
             // 
             // tabPage4
             // 
             tabPage4.Controls.Add(previewPanel);
-            tabPage4.Location = new System.Drawing.Point(4, 24);
+            tabPage4.Location = new System.Drawing.Point(4, 29);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new System.Drawing.Size(768, 605);
+            tabPage4.Size = new System.Drawing.Size(965, 764);
             tabPage4.TabIndex = 0;
             tabPage4.Text = "Preview";
             tabPage4.UseVisualStyleBackColor = true;
@@ -1181,7 +1192,7 @@ namespace AnimeStudio.GUI
             previewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             previewPanel.Location = new System.Drawing.Point(0, 0);
             previewPanel.Name = "previewPanel";
-            previewPanel.Size = new System.Drawing.Size(768, 605);
+            previewPanel.Size = new System.Drawing.Size(965, 764);
             previewPanel.TabIndex = 1;
             previewPanel.Resize += preview_Resize;
             // 
@@ -1192,7 +1203,7 @@ namespace AnimeStudio.GUI
             assetInfoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             assetInfoLabel.Location = new System.Drawing.Point(4, 7);
             assetInfoLabel.Name = "assetInfoLabel";
-            assetInfoLabel.Size = new System.Drawing.Size(0, 15);
+            assetInfoLabel.Size = new System.Drawing.Size(0, 20);
             assetInfoLabel.TabIndex = 0;
             // 
             // FMODpanel
@@ -1211,7 +1222,7 @@ namespace AnimeStudio.GUI
             FMODpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             FMODpanel.Location = new System.Drawing.Point(0, 0);
             FMODpanel.Name = "FMODpanel";
-            FMODpanel.Size = new System.Drawing.Size(768, 605);
+            FMODpanel.Size = new System.Drawing.Size(965, 764);
             FMODpanel.TabIndex = 2;
             FMODpanel.Visible = false;
             // 
@@ -1222,7 +1233,7 @@ namespace AnimeStudio.GUI
             FMODcopyright.ForeColor = System.Drawing.Color.White;
             FMODcopyright.Location = new System.Drawing.Point(214, 337);
             FMODcopyright.Name = "FMODcopyright";
-            FMODcopyright.Size = new System.Drawing.Size(316, 15);
+            FMODcopyright.Size = new System.Drawing.Size(397, 20);
             FMODcopyright.TabIndex = 9;
             FMODcopyright.Text = "Audio Engine supplied by FMOD by Firelight Technologies.";
             // 
@@ -1233,7 +1244,7 @@ namespace AnimeStudio.GUI
             FMODinfoLabel.ForeColor = System.Drawing.Color.White;
             FMODinfoLabel.Location = new System.Drawing.Point(269, 235);
             FMODinfoLabel.Name = "FMODinfoLabel";
-            FMODinfoLabel.Size = new System.Drawing.Size(0, 15);
+            FMODinfoLabel.Size = new System.Drawing.Size(0, 20);
             FMODinfoLabel.TabIndex = 8;
             // 
             // FMODtimerLabel
@@ -1243,7 +1254,7 @@ namespace AnimeStudio.GUI
             FMODtimerLabel.ForeColor = System.Drawing.Color.White;
             FMODtimerLabel.Location = new System.Drawing.Point(460, 235);
             FMODtimerLabel.Name = "FMODtimerLabel";
-            FMODtimerLabel.Size = new System.Drawing.Size(78, 15);
+            FMODtimerLabel.Size = new System.Drawing.Size(99, 20);
             FMODtimerLabel.TabIndex = 7;
             FMODtimerLabel.Text = "0:00.0 / 0:00.0";
             // 
@@ -1254,7 +1265,7 @@ namespace AnimeStudio.GUI
             FMODstatusLabel.ForeColor = System.Drawing.Color.White;
             FMODstatusLabel.Location = new System.Drawing.Point(213, 235);
             FMODstatusLabel.Name = "FMODstatusLabel";
-            FMODstatusLabel.Size = new System.Drawing.Size(51, 15);
+            FMODstatusLabel.Size = new System.Drawing.Size(66, 20);
             FMODstatusLabel.TabIndex = 6;
             FMODstatusLabel.Text = "Stopped";
             // 
@@ -1276,7 +1287,7 @@ namespace AnimeStudio.GUI
             FMODvolumeBar.LargeChange = 2;
             FMODvolumeBar.Location = new System.Drawing.Point(460, 280);
             FMODvolumeBar.Name = "FMODvolumeBar";
-            FMODvolumeBar.Size = new System.Drawing.Size(104, 45);
+            FMODvolumeBar.Size = new System.Drawing.Size(104, 56);
             FMODvolumeBar.TabIndex = 4;
             FMODvolumeBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             FMODvolumeBar.Value = 8;
@@ -1335,7 +1346,7 @@ namespace AnimeStudio.GUI
             fontPreviewBox.Location = new System.Drawing.Point(0, 0);
             fontPreviewBox.Name = "fontPreviewBox";
             fontPreviewBox.ReadOnly = true;
-            fontPreviewBox.Size = new System.Drawing.Size(768, 605);
+            fontPreviewBox.Size = new System.Drawing.Size(965, 764);
             fontPreviewBox.TabIndex = 0;
             fontPreviewBox.Text = resources.GetString("fontPreviewBox.Text");
             fontPreviewBox.Visible = false;
@@ -1352,7 +1363,7 @@ namespace AnimeStudio.GUI
             glControl.Location = new System.Drawing.Point(0, 0);
             glControl.Name = "glControl";
             glControl.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
-            glControl.Size = new System.Drawing.Size(768, 605);
+            glControl.Size = new System.Drawing.Size(965, 764);
             glControl.TabIndex = 4;
             glControl.Visible = false;
             glControl.Load += glControl_Load;
@@ -1372,7 +1383,7 @@ namespace AnimeStudio.GUI
             textPreviewBox.Name = "textPreviewBox";
             textPreviewBox.ReadOnly = true;
             textPreviewBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            textPreviewBox.Size = new System.Drawing.Size(768, 605);
+            textPreviewBox.Size = new System.Drawing.Size(965, 764);
             textPreviewBox.TabIndex = 2;
             textPreviewBox.Visible = false;
             textPreviewBox.WordWrap = false;
@@ -1386,7 +1397,7 @@ namespace AnimeStudio.GUI
             classTextBox.Name = "classTextBox";
             classTextBox.ReadOnly = true;
             classTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            classTextBox.Size = new System.Drawing.Size(768, 605);
+            classTextBox.Size = new System.Drawing.Size(965, 764);
             classTextBox.TabIndex = 3;
             classTextBox.Visible = false;
             classTextBox.WordWrap = false;
@@ -1394,9 +1405,9 @@ namespace AnimeStudio.GUI
             // tabPage5
             // 
             tabPage5.Controls.Add(dumpTextBox);
-            tabPage5.Location = new System.Drawing.Point(4, 24);
+            tabPage5.Location = new System.Drawing.Point(4, 29);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new System.Drawing.Size(768, 605);
+            tabPage5.Size = new System.Drawing.Size(768, 592);
             tabPage5.TabIndex = 1;
             tabPage5.Text = "Dump";
             tabPage5.UseVisualStyleBackColor = true;
@@ -1410,7 +1421,7 @@ namespace AnimeStudio.GUI
             dumpTextBox.Name = "dumpTextBox";
             dumpTextBox.ReadOnly = true;
             dumpTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            dumpTextBox.Size = new System.Drawing.Size(768, 605);
+            dumpTextBox.Size = new System.Drawing.Size(768, 592);
             dumpTextBox.TabIndex = 0;
             dumpTextBox.WordWrap = false;
             // 
@@ -1419,9 +1430,9 @@ namespace AnimeStudio.GUI
             statusStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new System.Drawing.Point(0, 633);
+            statusStrip1.Location = new System.Drawing.Point(0, 797);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new System.Drawing.Size(776, 22);
+            statusStrip1.Size = new System.Drawing.Size(973, 26);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -1430,7 +1441,7 @@ namespace AnimeStudio.GUI
             toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
             toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new System.Drawing.Size(761, 17);
+            toolStripStatusLabel1.Size = new System.Drawing.Size(958, 20);
             toolStripStatusLabel1.Spring = true;
             toolStripStatusLabel1.Text = "Ready to go";
             toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1452,26 +1463,26 @@ namespace AnimeStudio.GUI
             contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { copyToolStripMenuItem, exportSelectedAssetsToolStripMenuItem, exportAnimatorwithselectedAnimationClipMenuItem, goToSceneHierarchyToolStripMenuItem, showOriginalFileToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new System.Drawing.Size(304, 114);
+            contextMenuStrip1.Size = new System.Drawing.Size(366, 124);
             // 
             // copyToolStripMenuItem
             // 
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            copyToolStripMenuItem.Size = new System.Drawing.Size(365, 24);
             copyToolStripMenuItem.Text = "Copy text";
             copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
             // exportSelectedAssetsToolStripMenuItem
             // 
             exportSelectedAssetsToolStripMenuItem.Name = "exportSelectedAssetsToolStripMenuItem";
-            exportSelectedAssetsToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            exportSelectedAssetsToolStripMenuItem.Size = new System.Drawing.Size(365, 24);
             exportSelectedAssetsToolStripMenuItem.Text = "Export selected assets";
             exportSelectedAssetsToolStripMenuItem.Click += exportSelectedAssetsToolStripMenuItem_Click;
             // 
             // exportAnimatorwithselectedAnimationClipMenuItem
             // 
             exportAnimatorwithselectedAnimationClipMenuItem.Name = "exportAnimatorwithselectedAnimationClipMenuItem";
-            exportAnimatorwithselectedAnimationClipMenuItem.Size = new System.Drawing.Size(303, 22);
+            exportAnimatorwithselectedAnimationClipMenuItem.Size = new System.Drawing.Size(365, 24);
             exportAnimatorwithselectedAnimationClipMenuItem.Text = "Export Animator + selected AnimationClips";
             exportAnimatorwithselectedAnimationClipMenuItem.Visible = false;
             exportAnimatorwithselectedAnimationClipMenuItem.Click += exportAnimatorwithAnimationClipMenuItem_Click;
@@ -1479,7 +1490,7 @@ namespace AnimeStudio.GUI
             // goToSceneHierarchyToolStripMenuItem
             // 
             goToSceneHierarchyToolStripMenuItem.Name = "goToSceneHierarchyToolStripMenuItem";
-            goToSceneHierarchyToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            goToSceneHierarchyToolStripMenuItem.Size = new System.Drawing.Size(365, 24);
             goToSceneHierarchyToolStripMenuItem.Text = "Go to scene hierarchy";
             goToSceneHierarchyToolStripMenuItem.Visible = false;
             goToSceneHierarchyToolStripMenuItem.Click += goToSceneHierarchyToolStripMenuItem_Click;
@@ -1487,20 +1498,15 @@ namespace AnimeStudio.GUI
             // showOriginalFileToolStripMenuItem
             // 
             showOriginalFileToolStripMenuItem.Name = "showOriginalFileToolStripMenuItem";
-            showOriginalFileToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            showOriginalFileToolStripMenuItem.Size = new System.Drawing.Size(365, 24);
             showOriginalFileToolStripMenuItem.Text = "Show original file";
             showOriginalFileToolStripMenuItem.Visible = false;
             showOriginalFileToolStripMenuItem.Click += showOriginalFileToolStripMenuItem_Click;
             // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
-            // 
             // MainForm
             // 
             AllowDrop = true;
-            ClientSize = new System.Drawing.Size(1264, 681);
+            ClientSize = new System.Drawing.Size(1582, 853);
             Controls.Add(splitContainer1);
             Controls.Add(menuStrip1);
             Icon = Properties.Resources._as;
@@ -1703,6 +1709,7 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripMenuItem enableFileLogging;
         private System.Windows.Forms.ToolStripMenuItem loggedEventsMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ColumnHeader columnHeaderSHA256;
     }
 }
 

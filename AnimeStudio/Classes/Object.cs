@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Specialized;
 
 namespace AnimeStudio
@@ -23,6 +24,9 @@ namespace AnimeStudio
         public SerializedType serializedType;
         [JsonIgnore]
         public uint byteSize;
+        [JsonIgnore]
+        // Note: depending on its type and game, an asset data may be decoded, decrypted, xored and more so the location of when the hash happens could be debatable
+        public string SHA256Hash => Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(GetRawData()));
 
         public virtual string Name => string.Empty;
 
@@ -37,7 +41,7 @@ namespace AnimeStudio
             buildType = reader.buildType;
             platform = reader.platform;
             serializedType = reader.serializedType;
-            byteSize = reader.byteSize;
+            byteSize = reader.byteSize;  
 
             Logger.Verbose($"Attempting to read object {type} with {m_PathID} in file {assetsFile.fileName}, starting from offset 0x{reader.byteStart:X8} with size of 0x{byteSize:X8} !!");
 
@@ -86,8 +90,11 @@ namespace AnimeStudio
         public byte[] GetRawData()
         {
             Logger.Verbose($"Dumping raw bytes of the object with {m_PathID} in file {assetsFile.fileName}...");
+            long pos = reader.Position;
             reader.Reset();
-            return reader.ReadBytes((int)byteSize);
+            byte[] data = reader.ReadBytes((int)byteSize);
+            reader.Position = pos;
+            return data;
         }
     }
 }
