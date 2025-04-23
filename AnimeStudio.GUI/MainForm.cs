@@ -1546,6 +1546,10 @@ namespace AnimeStudio.GUI
         {
             if (InvokeRequired)
             {
+                if (value < 0)
+                    value = 0;
+                if (value > 100)
+                    value = 100;
 
                 var result = BeginInvoke(new Action(() => { progressBar1.Value = value; }));
                 result.AsyncWaitHandle.WaitOne();
