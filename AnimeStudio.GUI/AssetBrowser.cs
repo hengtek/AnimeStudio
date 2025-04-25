@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 using static AnimeStudio.AssetsManager;
 using static AnimeStudio.GUI.Studio;
 
@@ -52,6 +53,13 @@ namespace AnimeStudio.GUI
 
                     var names = typeof(AssetEntry).GetProperties().Select(x => x.Name);
 
+                    filterTypeCombo.Items.Clear();
+                    var types = ResourceMap.GetTypes();
+                    types.Sort();
+                    types.Insert(0, "All");
+                    filterTypeCombo.Items.AddRange(types.ToArray());
+                    filterTypeCombo.SelectedIndex = 0;
+
                     _filters.Clear();
                     foreach (var name in names)
                     {
@@ -69,7 +77,7 @@ namespace AnimeStudio.GUI
                     assetDataGridView.RowCount = _assetEntries.Count;
                     assetDataGridView.Refresh();
 
-                    relocateSource.Enabled = true;
+                    updateButtons();
                 }
                 catch (Exception ex)
                 {
@@ -78,10 +86,34 @@ namespace AnimeStudio.GUI
             }
             loadAssetMap.Enabled = true;
         }
+
+        private void updateButtons()
+        {
+            bool isEnabled = _assetEntries.Count > 0;
+            relocateSource.Enabled = isEnabled;
+            exportSelected.Enabled = isEnabled;
+            loadSelected.Enabled = isEnabled;
+
+            nameTextBox.Enabled = isEnabled;
+            containerTextBox.Enabled = isEnabled;
+            sourceTextBox.Enabled = isEnabled;
+            pathTextBox.Enabled = isEnabled;
+            filterTypeCombo.Enabled = isEnabled;
+            hashTextBox.Enabled = isEnabled;
+            searchBtn.Enabled = isEnabled;
+        }
+
+        private void bringMainToFront()
+        {
+            _parent.BringToFront();
+            _parent.TopMost = true;
+            _parent.TopMost = false;
+            _parent.Focus();
+        }
         private void clear_Click(object sender, EventArgs e)
         {
             Clear();
-            relocateSource.Enabled = false;
+            updateButtons();
             Logger.Info($"Cleared !!");
         }
         private void loadSelected_Click(object sender, EventArgs e)
@@ -110,6 +142,7 @@ namespace AnimeStudio.GUI
             if (filePaths.Count != 0 && !filePaths.Any(string.IsNullOrEmpty))
             {
                 Logger.Info("Loading...");
+                bringMainToFront();
                 _parent.Invoke(() => _parent.updateGame((int)ResourceMap.GetGameType()));
                 _parent.Invoke(() => _parent.LoadPaths(files, filePaths.ToArray()));
             }
@@ -121,6 +154,7 @@ namespace AnimeStudio.GUI
             {
                 var entries = assetDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(x => _assetEntries[x.Index]).ToArray();
 
+                bringMainToFront();
                 _parent.Invoke(_parent.ResetForm);
 
                 var statusStripUpdate = StatusStripUpdate;
@@ -271,6 +305,18 @@ namespace AnimeStudio.GUI
         }
         private void FilterAssetDataGrid()
         {
+            TryAddFilter("Name", nameTextBox.Text);
+            TryAddFilter("Container", containerTextBox.Text);
+            TryAddFilter("Source", sourceTextBox.Text);
+            TryAddFilter("PathID", pathTextBox.Text);
+            var typeFilter = filterTypeCombo.SelectedItem?.ToString();
+            if (typeFilter == "All")
+            {
+                typeFilter = "";
+            }
+            TryAddFilter("Type", typeFilter);
+            TryAddFilter("SHA256Hash", hashTextBox.Text);
+
             _assetEntries.Clear();
             _assetEntries.AddRange(ResourceMap.GetEntries().FindAll(x => x.Matches(_filters)));
 
@@ -304,9 +350,6 @@ namespace AnimeStudio.GUI
         {
             if (sender is TextBox textBox && e.KeyChar == (char)Keys.Enter)
             {
-                var value = textBox.Text;
-
-                TryAddFilter("Name", value);
                 FilterAssetDataGrid();
             }
         }
@@ -314,9 +357,6 @@ namespace AnimeStudio.GUI
         {
             if (sender is TextBox textBox && e.KeyChar == (char)Keys.Enter)
             {
-                var value = textBox.Text;
-
-                TryAddFilter("Container", value);
                 FilterAssetDataGrid();
             }
         }
@@ -324,9 +364,6 @@ namespace AnimeStudio.GUI
         {
             if (sender is TextBox textBox && e.KeyChar == (char)Keys.Enter)
             {
-                var value = textBox.Text;
-
-                TryAddFilter("Source", value);
                 FilterAssetDataGrid();
             }
         }
@@ -334,19 +371,13 @@ namespace AnimeStudio.GUI
         {
             if (sender is TextBox textBox && e.KeyChar == (char)Keys.Enter)
             {
-                var value = textBox.Text;
-
-                TryAddFilter("PathID", value);
                 FilterAssetDataGrid();
             }
         }
-        private void TypeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void HashTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (sender is TextBox textBox && e.KeyChar == (char)Keys.Enter)
             {
-                var value = textBox.Text;
-
-                TryAddFilter("Type", value);
                 FilterAssetDataGrid();
             }
         }
@@ -362,6 +393,7 @@ namespace AnimeStudio.GUI
                     2 => assetEntry.Source,
                     3 => assetEntry.PathID,
                     4 => assetEntry.Type,
+                    5 => assetEntry.SHA256Hash,
                     _ => ""
                 };
             }
@@ -401,6 +433,7 @@ namespace AnimeStudio.GUI
                     2 => x => x.Source,
                     3 => x => x.PathID,
                     4 => x => x.Type.ToString(),
+                    5 => x => x.SHA256Hash,
                     _ => x => ""
                 };
 
@@ -422,6 +455,8 @@ namespace AnimeStudio.GUI
         public void Clear()
         {
             ResourceMap.Clear();
+            _assetEntries.Clear();
+            filterTypeCombo.Items.Clear();
             assetDataGridView.Rows.Clear();
         }
 
@@ -441,7 +476,8 @@ namespace AnimeStudio.GUI
                     if (allFiles.TryGetValue(filename, out var newPath))
                     {
                         entry.Source = newPath;
-                    } else
+                    }
+                    else
                     {
                         missing++;
                     }
@@ -450,6 +486,11 @@ namespace AnimeStudio.GUI
                 assetDataGridView.Refresh();
                 Logger.Info($"Relocated sources folder ! Unmoved assets because of missing file : {missing}.");
             }
+        }
+
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            FilterAssetDataGrid();
         }
     }
 }

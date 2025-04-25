@@ -115,7 +115,6 @@ namespace AnimeStudio.GUI
             allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             miscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             assetMapToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            assetMapNameTextBox = new System.Windows.Forms.ToolStripTextBox();
             buildAssetMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             assetMapTypeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             assetBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -786,13 +785,13 @@ namespace AnimeStudio.GUI
             allToolStripMenuItem.CheckOnClick = true;
             allToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new System.Drawing.Size(110, 26);
+            allToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             allToolStripMenuItem.Text = "All";
             allToolStripMenuItem.Click += typeToolStripMenuItem_Click;
             // 
             // miscToolStripMenuItem
             // 
-            miscToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { assetMapToolStripMenuItem1, assetMapNameTextBox, buildAssetMapToolStripMenuItem, assetMapTypeMenuItem, assetBrowserToolStripMenuItem, toolStripSeparator8, cABMapToolStripMenuItem, MapNameComboBox, buildMapToolStripMenuItem, loadCABMapToolStripMenuItem, clearMapToolStripMenuItem, toolStripSeparator15, assetMapCABMapToolStripMenuItem, toolStripTextBox1, buildBothToolStripMenuItem, toolStripSeparator14, toolStripMenuItem20, toolStripMenuItem19, loadAIToolStripMenuItem });
+            miscToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { assetMapToolStripMenuItem1, buildAssetMapToolStripMenuItem, assetMapTypeMenuItem, assetBrowserToolStripMenuItem, toolStripSeparator8, cABMapToolStripMenuItem, MapNameComboBox, buildMapToolStripMenuItem, loadCABMapToolStripMenuItem, clearMapToolStripMenuItem, toolStripSeparator15, assetMapCABMapToolStripMenuItem, toolStripTextBox1, buildBothToolStripMenuItem, toolStripSeparator14, toolStripMenuItem20, toolStripMenuItem19, loadAIToolStripMenuItem });
             miscToolStripMenuItem.Name = "miscToolStripMenuItem";
             miscToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             miscToolStripMenuItem.Text = "Maps";
@@ -804,12 +803,6 @@ namespace AnimeStudio.GUI
             assetMapToolStripMenuItem1.Name = "assetMapToolStripMenuItem1";
             assetMapToolStripMenuItem1.Size = new System.Drawing.Size(256, 26);
             assetMapToolStripMenuItem1.Text = "Asset Map";
-            // 
-            // assetMapNameTextBox
-            // 
-            assetMapNameTextBox.Name = "assetMapNameTextBox";
-            assetMapNameTextBox.Size = new System.Drawing.Size(100, 27);
-            assetMapNameTextBox.ToolTipText = "Enter name of AssetMap here";
             // 
             // buildAssetMapToolStripMenuItem
             // 
@@ -887,7 +880,7 @@ namespace AnimeStudio.GUI
             // 
             toolStripTextBox1.Name = "toolStripTextBox1";
             toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
-            toolStripTextBox1.ToolTipText = "Enter name of AssetMap here";
+            toolStripTextBox1.ToolTipText = "Enter name of map here";
             // 
             // buildBothToolStripMenuItem
             // 
@@ -1105,7 +1098,7 @@ namespace AnimeStudio.GUI
             tabPage3.Controls.Add(classesListView);
             tabPage3.Location = new System.Drawing.Point(4, 29);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new System.Drawing.Size(472, 598);
+            tabPage3.Size = new System.Drawing.Size(593, 770);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Asset Classes";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1118,7 +1111,7 @@ namespace AnimeStudio.GUI
             classesListView.Location = new System.Drawing.Point(0, 0);
             classesListView.MultiSelect = false;
             classesListView.Name = "classesListView";
-            classesListView.Size = new System.Drawing.Size(472, 598);
+            classesListView.Size = new System.Drawing.Size(593, 770);
             classesListView.TabIndex = 0;
             classesListView.UseCompatibleStateImageBehavior = false;
             classesListView.View = System.Windows.Forms.View.Details;
@@ -1407,7 +1400,7 @@ namespace AnimeStudio.GUI
             tabPage5.Controls.Add(dumpTextBox);
             tabPage5.Location = new System.Drawing.Point(4, 29);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new System.Drawing.Size(768, 592);
+            tabPage5.Size = new System.Drawing.Size(965, 764);
             tabPage5.TabIndex = 1;
             tabPage5.Text = "Dump";
             tabPage5.UseVisualStyleBackColor = true;
@@ -1421,7 +1414,7 @@ namespace AnimeStudio.GUI
             dumpTextBox.Name = "dumpTextBox";
             dumpTextBox.ReadOnly = true;
             dumpTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            dumpTextBox.Size = new System.Drawing.Size(768, 592);
+            dumpTextBox.Size = new System.Drawing.Size(965, 764);
             dumpTextBox.TabIndex = 0;
             dumpTextBox.WordWrap = false;
             // 
@@ -1651,7 +1644,6 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripMenuItem MapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem assetMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadAIToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox assetMapNameTextBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem buildMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableResolveDependencies;

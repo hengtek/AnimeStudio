@@ -2520,41 +2520,50 @@ namespace AnimeStudio.GUI
             miscToolStripMenuItem.DropDown.Visible = false;
             InvokeUpdate(miscToolStripMenuItem, false);
 
-            var input = assetMapNameTextBox.Text;
-            var exportListType = (ExportListType)assetMapTypeMenuItem.DropDownItems.Cast<ToolStripMenuItem>().Select(x => x.Checked ? (int)x.Tag : 0).Sum();
             var name = "assets_map";
+            var saveDirectory = saveDirectoryBackup;
 
-            if (!string.IsNullOrEmpty(input))
+            var saveFileDialog = new SaveFileDialog()
             {
-                if (input.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                Filter = "Map file (*.map)|*.map",
+                DefaultExt = "map",
+                Title = "Select Output File (format will auto adjust according to what you selected)",
+                InitialDirectory = saveDirectory,
+            };
+
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                saveDirectory = Path.GetDirectoryName(saveFileDialog.FileName);
+                var input = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+
+                var exportListType = (ExportListType)assetMapTypeMenuItem.DropDownItems.Cast<ToolStripMenuItem>().Select(x => x.Checked ? (int)x.Tag : 0).Sum();
+
+                if (!string.IsNullOrEmpty(input))
                 {
-                    Logger.Warning("Name has invalid characters !!");
-                    InvokeUpdate(miscToolStripMenuItem, true);
-                    return;
+                    if (input.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                    {
+                        Logger.Warning("Name has invalid characters !!");
+                        InvokeUpdate(miscToolStripMenuItem, true);
+                        return;
+                    }
+
+                    name = input;
                 }
 
-                name = input;
-            }
-
-            var version = specifyUnityVersion.Text;
-            var openFolderDialog = new OpenFolderDialog();
-            openFolderDialog.Title = $"Select Game Folder";
-            if (openFolderDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                Logger.Info("Scanning for files...");
-                var files = Directory.GetFiles(openFolderDialog.Folder, "*.*", SearchOption.AllDirectories).ToArray();
-                Logger.Info($"Found {files.Length} files");
-
-                var saveFolderDialog = new OpenFolderDialog();
-                saveFolderDialog.InitialFolder = saveDirectoryBackup;
-                saveFolderDialog.Title = "Select Output Folder";
-                if (saveFolderDialog.ShowDialog(this) == DialogResult.OK)
+                var version = specifyUnityVersion.Text;
+                var openFolderDialog = new OpenFolderDialog();
+                openFolderDialog.Title = $"Select Game Folder";
+                if (openFolderDialog.ShowDialog(this) == DialogResult.OK)
                 {
+                    Logger.Info("Scanning for files...");
+                    var files = Directory.GetFiles(openFolderDialog.Folder, "*.*", SearchOption.AllDirectories).ToArray();
+                    Logger.Info($"Found {files.Length} files");
+
                     AssetsHelper.SetUnityVersion(version);
-                    await Task.Run(() => AssetsHelper.BuildAssetMap(files, name, Studio.Game, saveFolderDialog.Folder, exportListType));
+                    await Task.Run(() => AssetsHelper.BuildAssetMap(files, name, Studio.Game, saveDirectory, exportListType));
                 }
+                InvokeUpdate(miscToolStripMenuItem, true);
             }
-            InvokeUpdate(miscToolStripMenuItem, true);
         }
 
         private void loadAssetMapToolStripMenuItem_Click(object sender, EventArgs e)
