@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 using static AnimeStudio.AssetsManager;
 using static AnimeStudio.GUI.Studio;
 
@@ -18,6 +17,9 @@ namespace AnimeStudio.GUI
     {
         private readonly MainForm _parent;
         private readonly List<AssetEntry> _assetEntries;
+        private readonly List<AssetEntry> _backupAssetEntries;
+        private readonly List<AssetEntry> _firstAssetEntries;
+        private readonly List<AssetEntry> _secondAssetEntries;
         private readonly Dictionary<string, Regex> _filters;
 
         private SortOrder _sortOrder;
@@ -29,6 +31,10 @@ namespace AnimeStudio.GUI
             _parent = form;
             _filters = new Dictionary<string, Regex>();
             _assetEntries = new List<AssetEntry>();
+            _backupAssetEntries = new List<AssetEntry>();
+            _firstAssetEntries = new List<AssetEntry>();
+            _secondAssetEntries = new List<AssetEntry>();
+            secondMapFilter.SelectedIndex = 0;
         }
 
         private async void loadAssetMap_Click(object sender, EventArgs e)
@@ -51,33 +57,10 @@ namespace AnimeStudio.GUI
 
                     _sortedColumn = null;
 
-                    var names = typeof(AssetEntry).GetProperties().Select(x => x.Name);
+                    _firstAssetEntries.Clear();
+                    _firstAssetEntries.AddRange(ResourceMap.GetEntries());
 
-                    filterTypeCombo.Items.Clear();
-                    var types = ResourceMap.GetTypes();
-                    types.Sort();
-                    types.Insert(0, "All");
-                    filterTypeCombo.Items.AddRange(types.ToArray());
-                    filterTypeCombo.SelectedIndex = 0;
-
-                    _filters.Clear();
-                    foreach (var name in names)
-                    {
-                        _filters.Add(name, new Regex(""));
-                    }
-
-                    _assetEntries.Clear();
-                    _assetEntries.AddRange(ResourceMap.GetEntries());
-
-                    assetDataGridView.Columns.Clear();
-                    assetDataGridView.Columns.AddRange(names.Select(x => new DataGridViewTextBoxColumn() { Name = x, HeaderText = x, SortMode = DataGridViewColumnSortMode.Programmatic }).ToArray());
-                    assetDataGridView.Columns.GetLastColumn(DataGridViewElementStates.None, DataGridViewElementStates.None).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-                    assetDataGridView.Rows.Clear();
-                    assetDataGridView.RowCount = _assetEntries.Count;
-                    assetDataGridView.Refresh();
-
-                    updateButtons();
+                    updateDisplay();
                 }
                 catch (Exception ex)
                 {
@@ -87,9 +70,79 @@ namespace AnimeStudio.GUI
             loadAssetMap.Enabled = true;
         }
 
+        private void updateDisplay()
+        {
+            var names = typeof(AssetEntry).GetProperties().Select(x => x.Name);
+
+            _filters.Clear();
+            foreach (var name in names)
+            {
+                _filters.Add(name, new Regex(""));
+            }
+
+            _assetEntries.Clear();
+
+            if (_secondAssetEntries.Count > 0)
+            {
+                var diffDisplay = secondMapFilter.SelectedIndex;
+                switch (diffDisplay)
+                {
+                    case 0:
+                        _assetEntries.AddRange(_firstAssetEntries.Except(_secondAssetEntries, new AssetEntryComparer()));
+                        break;
+                    case 1:
+                        _assetEntries.AddRange(_secondAssetEntries.Except(_firstAssetEntries, new AssetEntryComparer()));
+                        break;
+                    case 2:
+                        var differentAssets = _firstAssetEntries
+                        .Join(_secondAssetEntries,
+                            first => new { first.Name, first.Container, first.PathID },
+                            second => new { second.Name, second.Container, second.PathID },
+                            (first, second) => new { first, second })
+                        .Where(x => x.first.SHA256Hash != x.second.SHA256Hash)
+                        .Select(x => x.first);
+
+                        _assetEntries.AddRange(differentAssets);
+                        break;
+                }
+            }
+            else
+            {
+                _assetEntries.AddRange(_firstAssetEntries);
+            }
+
+            _backupAssetEntries.Clear();
+            _backupAssetEntries.AddRange(_assetEntries);
+
+            assetDataGridView.Columns.Clear();
+            assetDataGridView.Columns.AddRange(names.Select(x => new DataGridViewTextBoxColumn() { Name = x, HeaderText = x, SortMode = DataGridViewColumnSortMode.Programmatic }).ToArray());
+            assetDataGridView.Columns.GetLastColumn(DataGridViewElementStates.None, DataGridViewElementStates.None).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            assetDataGridView.Rows.Clear();
+            assetDataGridView.RowCount = _assetEntries.Count;
+            assetDataGridView.Refresh();
+
+            var types = new List<String>();
+            foreach (var entry in _assetEntries)
+            {
+                if (!types.Contains(entry.Type.ToString()))
+                {
+                    types.Add(entry.Type.ToString());
+                }
+            }
+
+            filterTypeCombo.Items.Clear();
+            types.Sort();
+            types.Insert(0, "All");
+            filterTypeCombo.Items.AddRange(types.ToArray());
+            filterTypeCombo.SelectedIndex = 0;
+
+            updateButtons();
+        }
+
         private void updateButtons()
         {
-            bool isEnabled = _assetEntries.Count > 0;
+            bool isEnabled = _firstAssetEntries.Count > 0;
             relocateSource.Enabled = isEnabled;
             exportSelected.Enabled = isEnabled;
             loadSelected.Enabled = isEnabled;
@@ -101,6 +154,13 @@ namespace AnimeStudio.GUI
             filterTypeCombo.Enabled = isEnabled;
             hashTextBox.Enabled = isEnabled;
             searchBtn.Enabled = isEnabled;
+
+            loadMapTwoBtn.Enabled = isEnabled;
+
+            bool isSecondEnabled = _secondAssetEntries.Count > 0;
+
+            clearMapTwoBtn.Enabled = isSecondEnabled;
+            secondMapFilter.Enabled = isSecondEnabled;
         }
 
         private void bringMainToFront()
@@ -318,7 +378,7 @@ namespace AnimeStudio.GUI
             TryAddFilter("SHA256Hash", hashTextBox.Text);
 
             _assetEntries.Clear();
-            _assetEntries.AddRange(ResourceMap.GetEntries().FindAll(x => x.Matches(_filters)));
+            _assetEntries.AddRange(_backupAssetEntries.FindAll(x => x.Matches(_filters)));
 
             assetDataGridView.Rows.Clear();
             assetDataGridView.RowCount = _assetEntries.Count;
@@ -491,6 +551,51 @@ namespace AnimeStudio.GUI
         private void searchBtn_Click(object sender, EventArgs e)
         {
             FilterAssetDataGrid();
+        }
+
+        private async void loadMapTwoBtn_Click(object sender, EventArgs e)
+        {
+            loadMapTwoBtn.Enabled = false;
+
+            var openFileDialog = new OpenFileDialog() { Multiselect = false, Filter = "MessagePack AssetMap File|*.map|JSON AssetMap File|*.json" };
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    var path = openFileDialog.FileName;
+                    Logger.Info($"Loading AssetMap...");
+                    var result = await Task.Run(() => ResourceMap.FromFile(path));
+
+                    if (result == -1)
+                    {
+                        throw new Exception("Map parse failed");
+                    }
+
+                    _sortedColumn = null;
+
+                    _secondAssetEntries.Clear();
+                    _secondAssetEntries.AddRange(ResourceMap.GetEntries());
+
+                    updateDisplay();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Failed to load map : {ex.ToString()}");
+                }
+            }
+            loadMapTwoBtn.Enabled = true;
+        }
+
+        private void secondMapFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateDisplay();
+        }
+
+        private void clearMapTwoBtn_Click(object sender, EventArgs e)
+        {
+            _secondAssetEntries.Clear();
+            secondMapFilter.SelectedIndex = 0;
+            updateDisplay();
         }
     }
 }

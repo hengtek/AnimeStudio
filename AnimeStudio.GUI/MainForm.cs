@@ -2564,6 +2564,7 @@ namespace AnimeStudio.GUI
                 }
                 InvokeUpdate(miscToolStripMenuItem, true);
             }
+            InvokeUpdate(miscToolStripMenuItem, true);
         }
 
         private void loadAssetMapToolStripMenuItem_Click(object sender, EventArgs e)
