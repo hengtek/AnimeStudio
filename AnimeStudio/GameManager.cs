@@ -11,47 +11,71 @@ namespace AnimeStudio
         static GameManager()
         {
             int index = 0;
-            Games.Add(index++, new(GameType.Normal));
-            Games.Add(index++, new(GameType.UnityCN));
-            Games.Add(index++, new Mhy(GameType.GI, GIMhyShiftRow, GIMhyKey, GIMhyMul, GIExpansionKey, GISBox, GIInitVector, GIInitSeed));
-            Games.Add(index++, new Mr0k(GameType.GI_Pack, PackExpansionKey, blockKey: PackBlockKey));
-            Games.Add(index++, new Mr0k(GameType.GI_CB1));
-            Games.Add(index++, new Blk(GameType.GI_CB2, GI_CBXExpansionKey, initVector: GI_CBXInitVector, initSeed: GI_CBXInitSeed));
-            Games.Add(index++, new Blk(GameType.GI_CB3, GI_CBXExpansionKey, initVector: GI_CBXInitVector, initSeed: GI_CBXInitSeed));
-            Games.Add(index++, new Mhy(GameType.GI_CB3Pre, GI_CBXMhyShiftRow, GI_CBXMhyKey, GI_CBXMhyMul, GI_CBXExpansionKey, GI_CBXSBox, GI_CBXInitVector, GI_CBXInitSeed));
-            Games.Add(index++, new Mr0k(GameType.BH3, BH3ExpansionKey, BH3SBox, BH3InitVector, BH3BlockKey));
-            Games.Add(index++, new Mr0k(GameType.BH3Pre, PackExpansionKey, blockKey: PackBlockKey));
-            Games.Add(index++, new Mr0k(GameType.BH3PrePre, PackExpansionKey, blockKey: PackBlockKey));
-            Games.Add(index++, new Mr0k(GameType.SR, Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
-            Games.Add(index++, new Mr0k(GameType.SR_CB2, Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
-            Games.Add(index++, new Mhy(GameType.ZZZ, GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
-            Games.Add(index++, new Mr0k(GameType.ZZZ_CB1, Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
-            Games.Add(index++, new Mhy(GameType.ZZZ_CB2, GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
-            Games.Add(index++, new Mr0k(GameType.TOT, Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey, postKey: ToTKey));
-            Games.Add(index++, new Game(GameType.Naraka));
-            Games.Add(index++, new Game(GameType.EnsembleStars));
-            Games.Add(index++, new Game(GameType.OPFP));
-            Games.Add(index++, new Game(GameType.FakeHeader));
-            Games.Add(index++, new Game(GameType.FantasyOfWind));
-            Games.Add(index++, new Game(GameType.ShiningNikki));
-            Games.Add(index++, new Game(GameType.HelixWaltz2));
-            Games.Add(index++, new Game(GameType.NetEase));
-            Games.Add(index++, new Game(GameType.AnchorPanic));
-            Games.Add(index++, new Game(GameType.DreamscapeAlbireo));
-            Games.Add(index++, new Game(GameType.ImaginaryFest));
-            Games.Add(index++, new Game(GameType.AliceGearAegis));
-            Games.Add(index++, new Game(GameType.ProjectSekai));
-            Games.Add(index++, new Game(GameType.CodenameJump));
-            Games.Add(index++, new Game(GameType.GirlsFrontline));
-            Games.Add(index++, new Game(GameType.Reverse1999));
-            Games.Add(index++, new Game(GameType.ArknightsEndfield));
-            Games.Add(index++, new Game(GameType.JJKPhantomParade));
-            Games.Add(index++, new Game(GameType.MuvLuvDimensions));
-            Games.Add(index++, new Game(GameType.PartyAnimals));
-            Games.Add(index++, new Game(GameType.LoveAndDeepspace));
-            Games.Add(index++, new Game(GameType.SchoolGirlStrikers));
-            Games.Add(index++, new Game(GameType.ExAstris));
-            Games.Add(index++, new Game(GameType.PerpetualNovelty));
+            Games.Add(index++, new(GameType.Normal, "Unity"));
+            Games.Add(index++, new(GameType.UnityCN, "Unity CN"));
+            Games.Add(index++, new Mhy(GameType.GI, "Live", GIMhyShiftRow, GIMhyKey, GIMhyMul, GIExpansionKey, GISBox, GIInitVector, GIInitSeed));
+            Games.Add(index++, new Mr0k(GameType.GI_Pack, "Pack", PackExpansionKey, blockKey: PackBlockKey));
+            Games.Add(index++, new Mr0k(GameType.GI_CB1, "CBT 1"));
+            Games.Add(index++, new Blk(GameType.GI_CB2, "CBT 2", GI_CBXExpansionKey, initVector: GI_CBXInitVector, initSeed: GI_CBXInitSeed));
+            Games.Add(index++, new Blk(GameType.GI_CB3, "CBT 3", GI_CBXExpansionKey, initVector: GI_CBXInitVector, initSeed: GI_CBXInitSeed));
+            Games.Add(index++, new Mhy(GameType.GI_CB3Pre, "CBT 3 Pre", GI_CBXMhyShiftRow, GI_CBXMhyKey, GI_CBXMhyMul, GI_CBXExpansionKey, GI_CBXSBox, GI_CBXInitVector, GI_CBXInitSeed));
+            Games.Add(index++, new Mr0k(GameType.BH3, "Live", BH3ExpansionKey, BH3SBox, BH3InitVector, BH3BlockKey));
+            Games.Add(index++, new Mr0k(GameType.BH3Pre, "Pre", PackExpansionKey, blockKey: PackBlockKey));
+            Games.Add(index++, new Mr0k(GameType.BH3PrePre, "Pre Pre", PackExpansionKey, blockKey: PackBlockKey));
+            Games.Add(index++, new Mr0k(GameType.SR, "Live", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
+            Games.Add(index++, new Mr0k(GameType.SR_CB2, "CBT 2", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
+            Games.Add(index++, new Mhy(GameType.ZZZ, "Live", GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
+            Games.Add(index++, new Mr0k(GameType.ZZZ_CB1, "CBT 1", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
+            Games.Add(index++, new Mhy(GameType.ZZZ_CB2, "CBT 2", GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
+            Games.Add(index++, new Mr0k(GameType.TOT, "Live", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey, postKey: ToTKey));
+            Games.Add(index++, new Game(GameType.Naraka, "Naraka"));
+            Games.Add(index++, new Game(GameType.EnsembleStars, "Ensemble Stars"));
+            Games.Add(index++, new Game(GameType.OPFP, "OPFP"));
+            Games.Add(index++, new Game(GameType.FakeHeader, "Fake Header"));
+            Games.Add(index++, new Game(GameType.FantasyOfWind, "Fantasy of Wind"));
+            Games.Add(index++, new Game(GameType.ShiningNikki, "Shining Nikki"));
+            Games.Add(index++, new Game(GameType.HelixWaltz2, "Helix Waltz 2"));
+            Games.Add(index++, new Game(GameType.NetEase, "Net Ease"));
+            Games.Add(index++, new Game(GameType.AnchorPanic, "Anchor Panic"));
+            Games.Add(index++, new Game(GameType.DreamscapeAlbireo, "Dreamscape Albireo"));
+            Games.Add(index++, new Game(GameType.ImaginaryFest, "Imaginary Fest"));
+            Games.Add(index++, new Game(GameType.AliceGearAegis, "Alice Gears Aegis"));
+            Games.Add(index++, new Game(GameType.ProjectSekai, "Project Sekai"));
+            Games.Add(index++, new Game(GameType.CodenameJump, "Codename Jump"));
+            Games.Add(index++, new Game(GameType.GirlsFrontline, "Girls Frontline"));
+            Games.Add(index++, new Game(GameType.Reverse1999, "Reverse: 1999"));
+            Games.Add(index++, new Game(GameType.ArknightsEndfield, "Arknights Endfield"));
+            Games.Add(index++, new Game(GameType.JJKPhantomParade, "JJK Phantom Parade"));
+            Games.Add(index++, new Game(GameType.MuvLuvDimensions, "Muv-Luv Dimensions"));
+            Games.Add(index++, new Game(GameType.PartyAnimals, "Party Animals"));
+            Games.Add(index++, new Game(GameType.LoveAndDeepspace, "Love and Deepspace"));
+            Games.Add(index++, new Game(GameType.SchoolGirlStrikers, "Schoolgirl Strikers"));
+            Games.Add(index++, new Game(GameType.ExAstris, "ExAstris"));
+            Games.Add(index++, new Game(GameType.PerpetualNovelty, "Perpetual Novelty"));
+            Games.Add(index++, new UnityCNGame(GameType.PGR_GLB_KR, PGR_GLB_KR_Key));
+            Games.Add(index++, new UnityCNGame(GameType.PGR_CN_JP_TW, PGR_CN_JP_TW_Key));
+            Games.Add(index++, new UnityCNGame(GameType.Archeland_KalpaOfUniverse, Archeland_KalpaOfUniverse_Key));
+            Games.Add(index++, new UnityCNGame(GameType.Archeland_1114, Archeland_1114_Key));
+            Games.Add(index++, new UnityCNGame(GameType.NeuralCloud, NeuralCloud_Key));
+            Games.Add(index++, new UnityCNGame(GameType.NeuralCloudCN, NeuralCloudCN_Key));
+            Games.Add(index++, new UnityCNGame(GameType.HiganEruthyll, HiganEruthyll_Key));
+            Games.Add(index++, new UnityCNGame(GameType.WhiteCord, WhiteCord_Key));
+            Games.Add(index++, new UnityCNGame(GameType.Mecharashi, Mecharashi_Key));
+            Games.Add(index++, new UnityCNGame(GameType.CastlevaniaMoonNightFantasy, CastlevaniaMoonNightFantasy_Key));
+            Games.Add(index++, new UnityCNGame(GameType.HYSXZY, HYSXZY_Key));
+            Games.Add(index++, new UnityCNGame(GameType.DoulaContinent, DoulaContinent_Key));
+            Games.Add(index++, new UnityCNGame(GameType.BlessGlobal, BlessGlobal_Key));
+            Games.Add(index++, new UnityCNGame(GameType.Starside, Starside_Key));
+            Games.Add(index++, new UnityCNGame(GameType.ResonanceSoltice, ResonanceSoltice_Key));
+            Games.Add(index++, new UnityCNGame(GameType.OblivionOverride, OblivionOverride_Key));
+            Games.Add(index++, new UnityCNGame(GameType.Dawnlands, Dawnlands_Key));
+            Games.Add(index++, new UnityCNGame(GameType.BB, BB_Key));
+            Games.Add(index++, new UnityCNGame(GameType.DynastyLegends2, DynastyLegends2_Key));
+            Games.Add(index++, new UnityCNGame(GameType.EvernightCN, EvernightCN_Key));
+            Games.Add(index++, new UnityCNGame(GameType.XintianlongBabu, XintianlongBabu_Key));
+            Games.Add(index++, new UnityCNGame(GameType.FrostpunkBeyondTheIce, FrostpunkBeyondTheIce_Key));
+            Games.Add(index++, new UnityCNGame(GameType.CatFantasy, CatFantasy_Key));
+            Games.Add(index++, new UnityCNGame(GameType.UnityCNCustomKey, new("UnityCN Custom Key", "")));
         }
         public static Game GetGame(GameType gameType) => GetGame((int)gameType);
         public static Game GetGame(int index)
@@ -74,14 +98,27 @@ namespace AnimeStudio
     {
         public string Name { get; set; }
         public GameType Type { get; }
+        public string DisplayName { get; set; }
 
-        public Game(GameType type)
+        public Game(GameType type, string displayName)
         {
             Name = type.ToString();
             Type = type;
+            DisplayName = displayName;
         }
 
         public sealed override string ToString() => Name;
+        public string ToDisplayString() => DisplayName;
+    }
+
+    public record UnityCNGame : Game
+    {
+        public UnityCN.Entry Key { get; set; }
+
+        public UnityCNGame(GameType type, UnityCN.Entry key) : base(type, key.Name)
+        {
+            Key = key;
+        }
     }
 
     public record Mr0k : Game
@@ -92,7 +129,7 @@ namespace AnimeStudio
         public byte[] BlockKey { get; }
         public byte[] PostKey { get; }
 
-        public Mr0k(GameType type, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, byte[] blockKey = null, byte[] postKey = null) : base(type)
+        public Mr0k(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, byte[] blockKey = null, byte[] postKey = null) : base(type, displayName)
         {
             ExpansionKey = expansionKey ?? Array.Empty<byte>();
             SBox = sBox ?? Array.Empty<byte>();
@@ -109,7 +146,7 @@ namespace AnimeStudio
         public byte[] InitVector { get; }
         public ulong InitSeed { get; }
 
-        public Blk(GameType type, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0) : base(type)
+        public Blk(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0) : base(type, displayName)
         {
             ExpansionKey = expansionKey ?? Array.Empty<byte>();
             SBox = sBox ?? Array.Empty<byte>();
@@ -124,7 +161,7 @@ namespace AnimeStudio
         public byte[] MhyKey { get; }
         public byte[] MhyMul { get; }
 
-        public Mhy(GameType type, byte[] mhyShiftRow, byte[] mhyKey, byte[] mhyMul, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0) : base(type, expansionKey, sBox, initVector, initSeed)
+        public Mhy(GameType type, string displayName, byte[] mhyShiftRow, byte[] mhyKey, byte[] mhyMul, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0) : base(type, displayName, expansionKey, sBox, initVector, initSeed)
         {
             MhyShiftRow = mhyShiftRow;
             MhyKey = mhyKey;
@@ -175,12 +212,36 @@ namespace AnimeStudio
         SchoolGirlStrikers,
         ExAstris,
         PerpetualNovelty,
+        PGR_GLB_KR,
+        PGR_CN_JP_TW,
+        Archeland_KalpaOfUniverse,
+        Archeland_1114,
+        NeuralCloud,
+        NeuralCloudCN,
+        HiganEruthyll,
+        WhiteCord,
+        Mecharashi,
+        CastlevaniaMoonNightFantasy,
+        HYSXZY,
+        DoulaContinent,
+        BlessGlobal,
+        Starside,
+        ResonanceSoltice,
+        OblivionOverride,
+        Dawnlands,
+        BB,
+        DynastyLegends2,
+        EvernightCN,
+        XintianlongBabu,
+        FrostpunkBeyondTheIce,
+        CatFantasy,
+        UnityCNCustomKey,
     }
 
     public static class GameTypes
     {
         public static bool IsNormal(this GameType type) => type == GameType.Normal;
-        public static bool IsUnityCN(this GameType type) => type == GameType.UnityCN;
+        public static bool IsUnityCN(this Game game) => game is UnityCNGame || game.Type == GameType.UnityCN;
         public static bool IsGI(this GameType type) => type == GameType.GI;
         public static bool IsGIPack(this GameType type) => type == GameType.GI_Pack;
         public static bool IsGICB1(this GameType type) => type == GameType.GI_CB1;

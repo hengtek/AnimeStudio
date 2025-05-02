@@ -55,5 +55,31 @@ namespace AnimeStudio
         public static readonly byte[] EnsembleStarKey2 = new byte[] { 0x0E, 0x6A, 0x7C, 0x76, 0xBB, 0xD5, 0x68, 0x24, 0xC9, 0xEE, 0xFD, 0x50, 0xF0, 0x07, 0xA7, 0x06, 0x55, 0xB1, 0x85, 0x28, 0x1D, 0xA2, 0xD7, 0x91, 0xA1, 0xF6, 0x70, 0x97, 0x08, 0x58, 0x75, 0x0E };
         public static readonly byte[] EnsembleStarKey3 = new byte[] { 0xF7, 0x8A, 0x4C, 0xF1, 0xB4, 0x4F, 0x61, 0x4A, 0x16, 0x2C, 0x35, 0x4A, 0xAE, 0xB8, 0x23, 0x85 };
         #endregion
+
+        #region UnityCN
+        public static readonly UnityCN.Entry PGR_GLB_KR_Key = new("PGR GLB/KR", "6B75726F6B75726F6B75726F6B75726F");
+        public static readonly UnityCN.Entry PGR_CN_JP_TW_Key = new("PGR CN/JP/TW", "7935585076714C4F72436F6B57524961");
+        public static readonly UnityCN.Entry Archeland_KalpaOfUniverse_Key = new("Archeland/Kalpa of Universe", "426C61636B4A61636B50726F6A656374");
+        public static readonly UnityCN.Entry Archeland_1114_Key = new("Archeland 1.1.14", "50726F6A65637441726368654C616E64");
+        public static readonly UnityCN.Entry NeuralCloud_Key = new("Neural Cloud", "31636162383436663532393031633965");
+        public static readonly UnityCN.Entry NeuralCloudCN_Key = new("Neural Cloud CN", "62363238363766353164326561376266");
+        public static readonly UnityCN.Entry HiganEruthyll_Key = new("Higan: Eruthyll", "45317832633361346C35693662377572");
+        public static readonly UnityCN.Entry WhiteCord_Key = new("White Chord", "79756C6F6E6731383638676E6F6C7579");
+        public static readonly UnityCN.Entry Mecharashi_Key = new("Mecharashi", "33384338334631333245374637413041");
+        public static readonly UnityCN.Entry CastlevaniaMoonNightFantasy_Key = new("Castlevania: Moon Night Fantasy", "31323334353637383132333435363738");
+        public static readonly UnityCN.Entry HYSXZY_Key = new("Huā Yì Shān Xīn Zhī Yuè", "494E484A6E68647970716B3534377864");
+        public static readonly UnityCN.Entry DoulaContinent_Key = new("Doula Continent", "52346366773339474644326661785756");
+        public static readonly UnityCN.Entry BlessGlobal_Key = new("Bless Global", "6C6F6E67747567616D652E796A66623F");
+        public static readonly UnityCN.Entry Starside_Key = new("Starside", "41394A3542384D4A50554D3539464B57");
+        public static readonly UnityCN.Entry ResonanceSoltice_Key = new("Resonance Soltice", "5265736F6E616E63655265626F726E52");
+        public static readonly UnityCN.Entry OblivionOverride_Key = new("Oblivion Override", "7179666D6F6F6E323331323433343532");
+        public static readonly UnityCN.Entry Dawnlands_Key = new("Dawnland", "636F6465737339353237636F64657373");
+        public static readonly UnityCN.Entry BB_Key = new("BB", "5F6C4E3F3A3F233F3F3F3F663F1A3F3F");
+        public static readonly UnityCN.Entry DynastyLegends2_Key = new("Dynasty Legends 2", "746169686567616D6573323032323032");
+        public static readonly UnityCN.Entry EvernightCN_Key = new("Evernight CN", "68687878747478736868787874747873");
+        public static readonly UnityCN.Entry XintianlongBabu_Key = new("Xintianlong Babu", "61323562623133346363326464333265");
+        public static readonly UnityCN.Entry FrostpunkBeyondTheIce_Key = new("Frostpunk: Beyond the Ice", "7368756978696E673838383838383838");
+        public static readonly UnityCN.Entry CatFantasy_Key = new("Cat Fantasy", "43614461566637323538576877363433");
+        #endregion
     }
 }

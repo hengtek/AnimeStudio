@@ -646,7 +646,7 @@ namespace AnimeStudio.GUI
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AboutForm";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "About";
             TopMost = true;
             tabControl1.ResumeLayout(false);

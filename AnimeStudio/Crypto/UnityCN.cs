@@ -136,7 +136,7 @@ namespace AnimeStudio
         public class Entry
         {
             public string Name { get; private set; }
-            public string Key { get; private set; }
+            public string Key { get; set; }
 
             public Entry(string name, string key)
             {

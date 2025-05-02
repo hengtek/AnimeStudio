@@ -46,11 +46,9 @@ namespace AnimeStudio.GUI
             exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             gameSelect = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             specifyUnityVersion = new System.Windows.Forms.ToolStripTextBox();
-            specifyUnityCNKey = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             assetLoadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             enableResolveDependencies = new System.Windows.Forms.ToolStripMenuItem();
@@ -325,13 +323,6 @@ namespace AnimeStudio.GUI
             specifyUnityVersion.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             specifyUnityVersion.Name = "specifyUnityVersion";
             specifyUnityVersion.Size = new System.Drawing.Size(100, 27);
-            // 
-            // specifyUnityCNKey
-            // 
-            specifyUnityCNKey.Name = "specifyUnityCNKey";
-            specifyUnityCNKey.Size = new System.Drawing.Size(246, 26);
-            specifyUnityCNKey.Text = "Specify UnityCN Key";
-            specifyUnityCNKey.Click += specifyUnityCNKey_Click;
             // 
             // toolStripSeparator13
             // 
@@ -1643,7 +1634,6 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripMenuItem enableResolveDependencies;
         private System.Windows.Forms.ToolStripMenuItem skipContainer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripMenuItem specifyUnityCNKey;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem sceneHierarchy;
         private System.Windows.Forms.ToolStripMenuItem assetMapTypeMenuItem;

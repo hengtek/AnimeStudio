@@ -12,6 +12,7 @@ namespace AnimeStudio.GUI
 {
     partial class GameSelector : Form
     {
+        #region Games
         static readonly Dictionary<GameType, string> GameDisplayNames = new()
         {
             { GameType.Normal, "Unity" },
@@ -69,7 +70,7 @@ namespace AnimeStudio.GUI
         static readonly GameType[] UnityGames = new[]
         {
             GameType.Normal,
-            GameType.UnityCN,
+            GameType.UnityCNCustomKey,
             GameType.FakeHeader,
         };
 
@@ -98,8 +99,33 @@ namespace AnimeStudio.GUI
             GameType.SchoolGirlStrikers,
             GameType.ExAstris,
             GameType.PerpetualNovelty,
+            GameType.PGR_GLB_KR,
+            GameType.PGR_CN_JP_TW,
+            GameType.Archeland_KalpaOfUniverse,
+            GameType.Archeland_1114,
+            GameType.NeuralCloud,
+            GameType.NeuralCloudCN,
+            GameType.HiganEruthyll,
+            GameType.WhiteCord,
+            GameType.Mecharashi,
+            GameType.CastlevaniaMoonNightFantasy,
+            GameType.HYSXZY,
+            GameType.DoulaContinent,
+            GameType.BlessGlobal,
+            GameType.Starside,
+            GameType.ResonanceSoltice,
+            GameType.OblivionOverride,
+            GameType.Dawnlands,
+            GameType.BB,
+            GameType.DynastyLegends2,
+            GameType.EvernightCN,
+            GameType.XintianlongBabu,
+            GameType.FrostpunkBeyondTheIce,
+            GameType.CatFantasy,
         };
+        #endregion
 
+        private List<Game> sortedGames;
         private GameType selectedGame;
         private readonly MainForm _parent;
 
@@ -107,11 +133,11 @@ namespace AnimeStudio.GUI
         {
             InitializeComponent();
             _parent = parent;
-        }
 
-        private GameType GetGameTypeFromComboBox(string selectedName)
-        {
-            return GameDisplayNames.FirstOrDefault(x => x.Value == selectedName).Key;
+            sortedGames = OtherGames
+            .Select(x => GameManager.GetGame(x))
+            .OrderBy(g => g.DisplayName)
+            .ToList();
         }
 
         private void gameTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,16 +146,19 @@ namespace AnimeStudio.GUI
             hoyoCombo.Enabled = false;
             hoyoCombo.Items.Clear();
 
+            customKeyText.Enabled = false;
+            customKeyText.Text = "";
+
             switch (gameTypeCombo.SelectedIndex)
             {
                 case 0:
                     gameCombo.Items.AddRange(["Genshin Impact", "Honkai Impact 3rd", "Honkai: Star Rail", "Zenless Zone Zero", "Tears of Themis"]);
                     break;
                 case 1:
-                    gameCombo.Items.AddRange(OtherGames.Select(x => GameDisplayNames[x]).ToArray());
+                    gameCombo.Items.AddRange(sortedGames.Select(g => g.DisplayName).ToArray());
                     break;
                 case 2:
-                    gameCombo.Items.AddRange(UnityGames.Select(x => GameDisplayNames[x]).ToArray());
+                    gameCombo.Items.AddRange(UnityGames.Select(x => GameManager.GetGame(x).DisplayName).ToArray());
                     break;
             };
 
@@ -138,15 +167,27 @@ namespace AnimeStudio.GUI
 
         private void gameCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (gameTypeCombo.SelectedIndex != 0)
+            customKeyText.Enabled = false;
+            customKeyText.Text = "";
+
+            switch (gameTypeCombo.SelectedIndex)
             {
-                selectedGame = GetGameTypeFromComboBox(gameCombo.SelectedItem.ToString());
-            }
-            else
-            {
-                hoyoCombo.Items.Clear();
-                hoyoCombo.Items.AddRange(HoyoGames[gameCombo.SelectedIndex].Select(x => GameDisplayNames[x]).ToArray());
-                hoyoCombo.Enabled = true;
+                case 0:
+                    hoyoCombo.Items.Clear();
+                    hoyoCombo.Items.AddRange(HoyoGames[gameCombo.SelectedIndex].Select(x => GameDisplayNames[x]).ToArray());
+                    hoyoCombo.Enabled = true;
+                    break;
+                case 1:
+                    selectedGame = sortedGames[gameCombo.SelectedIndex].Type;
+                    break;
+                case 2:
+                    selectedGame = UnityGames[gameCombo.SelectedIndex];
+                    if (selectedGame == GameType.UnityCNCustomKey)
+                    {
+                        customKeyText.Enabled = true;
+                        customKeyText.Text = "";
+                    }
+                    break;
             }
         }
 
@@ -157,6 +198,14 @@ namespace AnimeStudio.GUI
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
+            if (selectedGame is GameType.UnityCNCustomKey)
+            {
+                Game gameObject = GameManager.GetGame(selectedGame);
+                if (gameObject is UnityCNGame unityCNGame)
+                {
+                    unityCNGame.Key.Key = customKeyText.Text;
+                }
+            }
             _parent.updateGame((int)selectedGame);
             this.Close();
         }

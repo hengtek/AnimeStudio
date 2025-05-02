@@ -15,12 +15,6 @@
 	<PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
   </ItemGroup>
 
-  <ItemGroup>
-  	<None Update="Keys.json">
-  		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  	</None>
-  </ItemGroup>
-
 	<ItemGroup>
 		<Content Include="..\AnimeStudio.Libraries\oodle.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

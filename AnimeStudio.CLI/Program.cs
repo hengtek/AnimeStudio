@@ -26,17 +26,10 @@ namespace AnimeStudio.CLI
                     return;
                 }
 
-                if (game.Type.IsUnityCN())
+                if (game is UnityCNGame unityCNGame)
                 {
-                    if (!UnityCNManager.TryGetEntry(o.KeyIndex, out var unityCN))
-                    {
-                        Console.WriteLine("Invalid key index !!");
-                        Console.WriteLine($"Available Options: \n{UnityCNManager.ToString()}");
-                        return;
-                    }
-
-                    UnityCN.SetKey(unityCN);
-                    Logger.Info($"[UnityCN] Selected Key is {unityCN}");
+                    UnityCN.SetKey(unityCNGame.Key);
+                    Logger.Info($"[UnityCN] Selected Key is {unityCNGame.Key.Name} - {unityCNGame.Key.Key}");
                 }
 
                 Studio.Game = game;

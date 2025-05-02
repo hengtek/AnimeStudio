@@ -240,9 +240,17 @@ namespace AnimeStudio.GUI
             TypeFlags.SetTypes(JsonConvert.DeserializeObject<Dictionary<ClassIDType, (bool, bool)>>(Properties.Settings.Default.types));
             Logger.Info($"Target Game type is {Studio.Game.Type}");
 
-            if (Studio.Game.Type.IsUnityCN())
+            if (Studio.Game.IsUnityCN())
             {
-                UnityCNManager.SetKey(Properties.Settings.Default.selectedUnityCNKey);
+                if (Studio.Game is UnityCNGame unityCNGameKey)
+                {
+                    UnityCNManager.SetKey(unityCNGameKey.Key);
+                }
+            }
+
+            if (Studio.Game is UnityCNGame unityCNGame)
+            {
+                UnityCNManager.SetKey(unityCNGame.Key);
             }
 
             MapNameComboBox.SelectedIndexChanged += new EventHandler(specifyNameComboBox_SelectedIndexChanged);
@@ -380,9 +388,12 @@ namespace AnimeStudio.GUI
                 {
                     productName = Studio.Game.Name;
                 }
-                else if (Studio.Game.Type.IsUnityCN() && UnityCNManager.TryGetEntry(Properties.Settings.Default.selectedUnityCNKey, out var unityCN))
+                else if (Studio.Game.IsUnityCN())
                 {
-                    productName = unityCN.Name;
+                    if (Studio.Game is UnityCNGame unityCN)
+                    {
+                        productName = unityCN.Name;
+                    }
                 }
                 else
                 {
@@ -2230,9 +2241,9 @@ namespace AnimeStudio.GUI
             Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
             Logger.Info($"Target Game is {Studio.Game.Name}");
 
-            if (Studio.Game.Type.IsUnityCN())
+            if (Studio.Game.IsUnityCN() && Studio.Game is UnityCNGame unityCnGame)
             {
-                UnityCNManager.SetKey(Properties.Settings.Default.selectedUnityCNKey);
+                UnityCNManager.SetKey(unityCnGame.Key);
             }
 
             assetsManager.SpecifyUnityVersion = specifyUnityVersion.Text;
@@ -2561,12 +2572,6 @@ namespace AnimeStudio.GUI
         {
             assetBrowser = new AssetBrowser(this);
             assetBrowser.Show();
-        }
-
-        private void specifyUnityCNKey_Click(object sender, EventArgs e)
-        {
-            var unitycn = new UnityCNForm();
-            unitycn.Show();
         }
 
         #region FMOD
@@ -3108,7 +3113,7 @@ namespace AnimeStudio.GUI
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             aboutForm = new AboutForm();
-            aboutForm.Show();
+            aboutForm.ShowDialog();
         }
 
         private void gameSelectToolStripMenuItem_Click(object sender, EventArgs e)

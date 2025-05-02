@@ -143,7 +143,7 @@ namespace AnimeStudio
                 case "UnityFS":
                 case "ENCR":
                     ReadHeader(reader);
-                    if (game.Type.IsUnityCN())
+                    if (game.IsUnityCN())
                     {
                         ReadUnityCN(reader);
                     }
@@ -617,7 +617,7 @@ namespace AnimeStudio
                                     Logger.Verbose($"Block encrypted with mr0k, decrypting...");
                                     compressedBytesSpan = Mr0kUtils.Decrypt(compressedBytesSpan, (Mr0k)Game);
                                 }
-                                if (Game.Type.IsUnityCN() && ((int)blockInfo.flags & 0x100) != 0)
+                                if (Game.IsUnityCN() && ((int)blockInfo.flags & 0x100) != 0)
                                 {
                                     Logger.Verbose($"Decrypting block with UnityCN...");
                                     UnityCN.DecryptBlock(compressedBytes, compressedSize, i);
