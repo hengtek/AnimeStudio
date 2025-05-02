@@ -26,10 +26,13 @@ This is a non-exhaustive list of modifications :
 - Merged fixes for Genshin, Star Rail and ZZZ suport
 - Dark mode
 - Reorganised menu bar for easier usage
+- Addes SHA256 hash for assets
+- New game selector merged with UnityCN keys list
 - Asset Browser improvements
     - It is now possible to use json files instead of only message pack
     - You can now relocate the sources files of a map instead of having to build a new one to adjust them, making maps no longer game install dir dependant
     - Only selected assets are displayed in the main window when loading instead of the full blocks
+    - You can load 2 asset maps at once and view the difference between both
 
 ---
 
