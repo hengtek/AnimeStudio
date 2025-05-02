@@ -56,6 +56,7 @@ namespace AnimeStudio.GUI
             label14 = new System.Windows.Forms.Label();
             label15 = new System.Windows.Forms.Label();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            linkLabel2 = new System.Windows.Forms.LinkLabel();
             linkLabel1 = new System.Windows.Forms.LinkLabel();
             label5 = new System.Windows.Forms.Label();
             productNamelabel = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@ namespace AnimeStudio.GUI
             productVersionLabel = new System.Windows.Forms.Label();
             panel2 = new System.Windows.Forms.Panel();
             panel3 = new System.Windows.Forms.Panel();
-            linkLabel2 = new System.Windows.Forms.LinkLabel();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
@@ -421,6 +421,25 @@ namespace AnimeStudio.GUI
             tableLayoutPanel1.Size = new Size(466, 113);
             tableLayoutPanel1.TabIndex = 5;
             // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.BackColor = System.Drawing.Color.Transparent;
+            tableLayoutPanel1.SetColumnSpan(linkLabel2, 3);
+            linkLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            linkLabel2.LinkColor = SystemColors.MenuHighlight;
+            linkLabel2.Location = new Point(7, 88);
+            linkLabel2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(452, 22);
+            linkLabel2.TabIndex = 14;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "Report a bug";
+            linkLabel2.TextAlign = ContentAlignment.MiddleCenter;
+            linkLabel2.VisitedLinkColor = System.Drawing.Color.Fuchsia;
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
+            // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
@@ -650,25 +669,6 @@ namespace AnimeStudio.GUI
             panel3.Name = "panel3";
             panel3.Size = new Size(512, 8);
             panel3.TabIndex = 3;
-            // 
-            // linkLabel2
-            // 
-            linkLabel2.AutoSize = true;
-            linkLabel2.BackColor = System.Drawing.Color.Transparent;
-            tableLayoutPanel1.SetColumnSpan(linkLabel2, 3);
-            linkLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            linkLabel2.LinkColor = SystemColors.MenuHighlight;
-            linkLabel2.Location = new Point(7, 88);
-            linkLabel2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(452, 22);
-            linkLabel2.TabIndex = 14;
-            linkLabel2.TabStop = true;
-            linkLabel2.Text = "Report a bug";
-            linkLabel2.TextAlign = ContentAlignment.MiddleCenter;
-            linkLabel2.VisitedLinkColor = System.Drawing.Color.Fuchsia;
-            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // AboutForm
             // 

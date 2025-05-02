@@ -91,9 +91,9 @@
             // 
             customKeyText.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             customKeyText.Enabled = false;
-            customKeyText.Location = new System.Drawing.Point(62, 20);
+            customKeyText.Location = new System.Drawing.Point(50, 20);
             customKeyText.Name = "customKeyText";
-            customKeyText.Size = new System.Drawing.Size(307, 27);
+            customKeyText.Size = new System.Drawing.Size(331, 27);
             customKeyText.TabIndex = 0;
             // 
             // label4
@@ -123,9 +123,9 @@
             gameTypeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             gameTypeCombo.FormattingEnabled = true;
             gameTypeCombo.Items.AddRange(new object[] { "Hoyo game", "Encrypted game (pick if unsure)", "Other" });
-            gameTypeCombo.Location = new System.Drawing.Point(62, 15);
+            gameTypeCombo.Location = new System.Drawing.Point(50, 15);
             gameTypeCombo.Name = "gameTypeCombo";
-            gameTypeCombo.Size = new System.Drawing.Size(307, 28);
+            gameTypeCombo.Size = new System.Drawing.Size(331, 28);
             gameTypeCombo.TabIndex = 0;
             gameTypeCombo.SelectedIndexChanged += gameTypeCombo_SelectedIndexChanged;
             // 
@@ -144,9 +144,9 @@
             hoyoCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             hoyoCombo.Enabled = false;
             hoyoCombo.FormattingEnabled = true;
-            hoyoCombo.Location = new System.Drawing.Point(62, 15);
+            hoyoCombo.Location = new System.Drawing.Point(50, 15);
             hoyoCombo.Name = "hoyoCombo";
-            hoyoCombo.Size = new System.Drawing.Size(307, 28);
+            hoyoCombo.Size = new System.Drawing.Size(331, 28);
             hoyoCombo.TabIndex = 0;
             hoyoCombo.SelectedIndexChanged += hoyoCombo_SelectedIndexChanged;
             // 
@@ -223,9 +223,9 @@
             gameCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             gameCombo.Enabled = false;
             gameCombo.FormattingEnabled = true;
-            gameCombo.Location = new System.Drawing.Point(62, 15);
+            gameCombo.Location = new System.Drawing.Point(50, 15);
             gameCombo.Name = "gameCombo";
-            gameCombo.Size = new System.Drawing.Size(307, 28);
+            gameCombo.Size = new System.Drawing.Size(331, 28);
             gameCombo.TabIndex = 0;
             gameCombo.SelectedIndexChanged += gameCombo_SelectedIndexChanged;
             // 

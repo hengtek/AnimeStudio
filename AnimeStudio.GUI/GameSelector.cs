@@ -175,6 +175,7 @@ namespace AnimeStudio.GUI
                 case 0:
                     hoyoCombo.Items.Clear();
                     hoyoCombo.Items.AddRange(HoyoGames[gameCombo.SelectedIndex].Select(x => GameDisplayNames[x]).ToArray());
+                    hoyoCombo.SelectedIndex = 0;
                     hoyoCombo.Enabled = true;
                     break;
                 case 1:

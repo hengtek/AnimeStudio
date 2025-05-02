@@ -57,8 +57,8 @@ namespace AnimeStudio
         #endregion
 
         #region UnityCN
-        public static readonly UnityCN.Entry PGR_GLB_KR_Key = new("PGR GLB/KR", "6B75726F6B75726F6B75726F6B75726F");
-        public static readonly UnityCN.Entry PGR_CN_JP_TW_Key = new("PGR CN/JP/TW", "7935585076714C4F72436F6B57524961");
+        public static readonly UnityCN.Entry PGR_GLB_KR_Key = new("Punishing Gray Raven - Global/Korea", "6B75726F6B75726F6B75726F6B75726F");
+        public static readonly UnityCN.Entry PGR_CN_JP_TW_Key = new("Punishing Gray Raven - China/Japan/Taiwan", "7935585076714C4F72436F6B57524961");
         public static readonly UnityCN.Entry Archeland_KalpaOfUniverse_Key = new("Archeland/Kalpa of Universe", "426C61636B4A61636B50726F6A656374");
         public static readonly UnityCN.Entry Archeland_1114_Key = new("Archeland 1.1.14", "50726F6A65637441726368654C616E64");
         public static readonly UnityCN.Entry NeuralCloud_Key = new("Neural Cloud", "31636162383436663532393031633965");
