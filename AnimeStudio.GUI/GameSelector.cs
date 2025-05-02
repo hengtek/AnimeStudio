@@ -67,62 +67,9 @@ namespace AnimeStudio.GUI
             new[] { GameType.TOT },
         };
 
-        static readonly GameType[] UnityGames = new[]
-        {
-            GameType.Normal,
-            GameType.UnityCNCustomKey,
-            GameType.FakeHeader,
-        };
+        static readonly GameType[] UnityGames = GameManager.GetGames().Where(x => x.Category == GameCategory.Unity).Select(x => x.Type).ToArray();
 
-        static readonly GameType[] OtherGames = new[]
-        {
-            GameType.Naraka,
-            GameType.EnsembleStars,
-            GameType.OPFP,
-            GameType.FantasyOfWind,
-            GameType.ShiningNikki,
-            GameType.HelixWaltz2,
-            GameType.NetEase,
-            GameType.AnchorPanic,
-            GameType.DreamscapeAlbireo,
-            GameType.ImaginaryFest,
-            GameType.AliceGearAegis,
-            GameType.ProjectSekai,
-            GameType.CodenameJump,
-            GameType.GirlsFrontline,
-            GameType.Reverse1999,
-            GameType.ArknightsEndfield,
-            GameType.JJKPhantomParade,
-            GameType.MuvLuvDimensions,
-            GameType.PartyAnimals,
-            GameType.LoveAndDeepspace,
-            GameType.SchoolGirlStrikers,
-            GameType.ExAstris,
-            GameType.PerpetualNovelty,
-            GameType.PGR_GLB_KR,
-            GameType.PGR_CN_JP_TW,
-            GameType.Archeland_KalpaOfUniverse,
-            GameType.Archeland_1114,
-            GameType.NeuralCloud,
-            GameType.NeuralCloudCN,
-            GameType.HiganEruthyll,
-            GameType.WhiteCord,
-            GameType.Mecharashi,
-            GameType.CastlevaniaMoonNightFantasy,
-            GameType.HYSXZY,
-            GameType.DoulaContinent,
-            GameType.BlessGlobal,
-            GameType.Starside,
-            GameType.ResonanceSoltice,
-            GameType.OblivionOverride,
-            GameType.Dawnlands,
-            GameType.BB,
-            GameType.DynastyLegends2,
-            GameType.EvernightCN,
-            GameType.XintianlongBabu,
-            GameType.FrostpunkBeyondTheIce,
-            GameType.CatFantasy,
-        };
+        static readonly GameType[] OtherGames = GameManager.GetGames().Where(x => x.Category == GameCategory.Other).Select(x => x.Type).ToArray();
         #endregion
 
         private List<Game> sortedGames;

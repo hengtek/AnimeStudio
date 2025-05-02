@@ -11,8 +11,8 @@ namespace AnimeStudio
         static GameManager()
         {
             int index = 0;
-            Games.Add(index++, new(GameType.Normal, "Unity"));
-            Games.Add(index++, new(GameType.UnityCN, "Unity CN"));
+            Games.Add(index++, new(GameType.Normal, "Unity", GameCategory.Unity));
+            Games.Add(index++, new(GameType.UnityCN, "Unity CN", GameCategory.Hidden));
             Games.Add(index++, new Mhy(GameType.GI, "Live", GIMhyShiftRow, GIMhyKey, GIMhyMul, GIExpansionKey, GISBox, GIInitVector, GIInitSeed));
             Games.Add(index++, new Mr0k(GameType.GI_Pack, "Pack", PackExpansionKey, blockKey: PackBlockKey));
             Games.Add(index++, new Mr0k(GameType.GI_CB1, "CBT 1"));
@@ -31,7 +31,7 @@ namespace AnimeStudio
             Games.Add(index++, new Game(GameType.Naraka, "Naraka"));
             Games.Add(index++, new Game(GameType.EnsembleStars, "Ensemble Stars"));
             Games.Add(index++, new Game(GameType.OPFP, "OPFP"));
-            Games.Add(index++, new Game(GameType.FakeHeader, "Fake Header"));
+            Games.Add(index++, new Game(GameType.FakeHeader, "Fake Header", GameCategory.Unity));
             Games.Add(index++, new Game(GameType.FantasyOfWind, "Fantasy of Wind"));
             Games.Add(index++, new Game(GameType.ShiningNikki, "Shining Nikki"));
             Games.Add(index++, new Game(GameType.HelixWaltz2, "Helix Waltz 2"));
@@ -75,7 +75,7 @@ namespace AnimeStudio
             Games.Add(index++, new UnityCNGame(GameType.XintianlongBabu, XintianlongBabu_Key));
             Games.Add(index++, new UnityCNGame(GameType.FrostpunkBeyondTheIce, FrostpunkBeyondTheIce_Key));
             Games.Add(index++, new UnityCNGame(GameType.CatFantasy, CatFantasy_Key));
-            Games.Add(index++, new UnityCNGame(GameType.UnityCNCustomKey, new("UnityCN Custom Key", "")));
+            Games.Add(index++, new UnityCNGame(GameType.UnityCNCustomKey, new("UnityCN Custom Key", ""), GameCategory.Unity));
         }
         public static Game GetGame(GameType gameType) => GetGame((int)gameType);
         public static Game GetGame(int index)
@@ -100,11 +100,14 @@ namespace AnimeStudio
         public GameType Type { get; }
         public string DisplayName { get; set; }
 
-        public Game(GameType type, string displayName)
+        public GameCategory Category { get; set; }
+
+        public Game(GameType type, string displayName, GameCategory category = GameCategory.Other)
         {
             Name = type.ToString();
             Type = type;
             DisplayName = displayName;
+            Category = category;
         }
 
         public sealed override string ToString() => Name;
@@ -115,7 +118,7 @@ namespace AnimeStudio
     {
         public UnityCN.Entry Key { get; set; }
 
-        public UnityCNGame(GameType type, UnityCN.Entry key) : base(type, key.Name)
+        public UnityCNGame(GameType type, UnityCN.Entry key, GameCategory category = GameCategory.Other) : base(type, key.Name, category)
         {
             Key = key;
         }
@@ -129,7 +132,7 @@ namespace AnimeStudio
         public byte[] BlockKey { get; }
         public byte[] PostKey { get; }
 
-        public Mr0k(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, byte[] blockKey = null, byte[] postKey = null) : base(type, displayName)
+        public Mr0k(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, byte[] blockKey = null, byte[] postKey = null) : base(type, displayName, GameCategory.Hoyo)
         {
             ExpansionKey = expansionKey ?? Array.Empty<byte>();
             SBox = sBox ?? Array.Empty<byte>();
@@ -146,7 +149,7 @@ namespace AnimeStudio
         public byte[] InitVector { get; }
         public ulong InitSeed { get; }
 
-        public Blk(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0) : base(type, displayName)
+        public Blk(GameType type, string displayName, byte[] expansionKey = null, byte[] sBox = null, byte[] initVector = null, ulong initSeed = 0, GameCategory category = GameCategory.Hoyo) : base(type, displayName, category)
         {
             ExpansionKey = expansionKey ?? Array.Empty<byte>();
             SBox = sBox ?? Array.Empty<byte>();
@@ -236,6 +239,15 @@ namespace AnimeStudio
         FrostpunkBeyondTheIce,
         CatFantasy,
         UnityCNCustomKey,
+    }
+
+
+    public enum GameCategory
+    {
+        Hoyo,
+        Other,
+        Unity,
+        Hidden,
     }
 
     public static class GameTypes
