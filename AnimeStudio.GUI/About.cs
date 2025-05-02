@@ -112,5 +112,14 @@ namespace AnimeStudio.GUI
             };
             Process.Start(ps);
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var ps = new ProcessStartInfo("https://github.com/Escartem/AnimeStudio/issues/new?template=bug_report.md")
+            {
+                UseShellExecute = true
+            };
+            Process.Start(ps);
+        }
     }
 }

@@ -73,6 +73,7 @@ namespace AnimeStudio.GUI
             productVersionLabel = new System.Windows.Forms.Label();
             panel2 = new System.Windows.Forms.Panel();
             panel3 = new System.Windows.Forms.Panel();
+            linkLabel2 = new System.Windows.Forms.LinkLabel();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
@@ -156,7 +157,7 @@ namespace AnimeStudio.GUI
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(8, 197);
+            label11.Location = new Point(5, 218);
             label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label11.Name = "label11";
             label11.Size = new Size(121, 20);
@@ -195,7 +196,7 @@ namespace AnimeStudio.GUI
             tableLayoutPanel2.Controls.Add(label13, 0, 3);
             tableLayoutPanel2.Controls.Add(label14, 1, 4);
             tableLayoutPanel2.Controls.Add(label15, 0, 4);
-            tableLayoutPanel2.Location = new Point(8, 221);
+            tableLayoutPanel2.Location = new Point(8, 242);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -395,6 +396,7 @@ namespace AnimeStudio.GUI
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.37931F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.62069F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
+            tableLayoutPanel1.Controls.Add(linkLabel2, 0, 3);
             tableLayoutPanel1.Controls.Add(linkLabel1, 2, 0);
             tableLayoutPanel1.Controls.Add(label5, 0, 0);
             tableLayoutPanel1.Controls.Add(productNamelabel, 1, 0);
@@ -408,125 +410,144 @@ namespace AnimeStudio.GUI
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            tableLayoutPanel1.Size = new Size(466, 92);
+            tableLayoutPanel1.Size = new Size(466, 113);
             tableLayoutPanel1.TabIndex = 5;
             // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             linkLabel1.LinkColor = SystemColors.MenuHighlight;
             linkLabel1.Location = new Point(315, 3);
             linkLabel1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(93, 20);
+            linkLabel1.Size = new Size(144, 29);
             linkLabel1.TabIndex = 13;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Project page";
+            linkLabel1.TextAlign = ContentAlignment.MiddleCenter;
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.BackColor = System.Drawing.Color.Transparent;
+            label5.Dock = System.Windows.Forms.DockStyle.Fill;
             label5.Location = new Point(7, 3);
             label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label5.Name = "label5";
-            label5.Size = new Size(108, 20);
+            label5.Size = new Size(117, 29);
             label5.TabIndex = 0;
             label5.Text = "Product name :";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // productNamelabel
             // 
             productNamelabel.AutoSize = true;
             productNamelabel.BackColor = System.Drawing.Color.Transparent;
+            productNamelabel.Dock = System.Windows.Forms.DockStyle.Fill;
             productNamelabel.Location = new Point(134, 3);
             productNamelabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             productNamelabel.Name = "productNamelabel";
-            productNamelabel.Size = new Size(95, 20);
+            productNamelabel.Size = new Size(171, 29);
             productNamelabel.TabIndex = 1;
             productNamelabel.Text = "AnimeStudio";
+            productNamelabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.BackColor = System.Drawing.Color.Transparent;
-            label7.Location = new Point(7, 31);
+            label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            label7.Location = new Point(7, 32);
             label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label7.Name = "label7";
-            label7.Size = new Size(64, 20);
+            label7.Size = new Size(117, 28);
             label7.TabIndex = 2;
             label7.Text = "Version :";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // modVersionLabel
             // 
             modVersionLabel.AutoSize = true;
             modVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            modVersionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             modVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            modVersionLabel.Location = new Point(134, 31);
+            modVersionLabel.Location = new Point(134, 32);
             modVersionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             modVersionLabel.Name = "modVersionLabel";
-            modVersionLabel.Size = new Size(40, 17);
+            modVersionLabel.Size = new Size(171, 28);
             modVersionLabel.TabIndex = 3;
             modVersionLabel.Text = "1.0.0";
+            modVersionLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.BackColor = System.Drawing.Color.Transparent;
+            label4.Dock = System.Windows.Forms.DockStyle.Fill;
             label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(7, 59);
+            label4.Location = new Point(7, 60);
             label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label4.Name = "label4";
-            label4.Size = new Size(105, 30);
+            label4.Size = new Size(117, 28);
             label4.TabIndex = 4;
             label4.Text = "Made with love by :";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // checkUpdatesLinkLabel
             // 
             checkUpdatesLinkLabel.AutoSize = true;
             checkUpdatesLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            checkUpdatesLinkLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             checkUpdatesLinkLabel.LinkColor = SystemColors.MenuHighlight;
-            checkUpdatesLinkLabel.Location = new Point(315, 31);
+            checkUpdatesLinkLabel.Location = new Point(315, 32);
             checkUpdatesLinkLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             checkUpdatesLinkLabel.Name = "checkUpdatesLinkLabel";
-            checkUpdatesLinkLabel.Size = new Size(130, 20);
+            checkUpdatesLinkLabel.Size = new Size(144, 28);
             checkUpdatesLinkLabel.TabIndex = 6;
             checkUpdatesLinkLabel.TabStop = true;
             checkUpdatesLinkLabel.Text = "Check for Updates";
+            checkUpdatesLinkLabel.TextAlign = ContentAlignment.MiddleCenter;
             checkUpdatesLinkLabel.LinkClicked += checkUpdatesLinkLabel_LinkClicked;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.BackColor = System.Drawing.Color.Transparent;
-            label8.Location = new Point(134, 59);
+            label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            label8.Location = new Point(134, 60);
             label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label8.Name = "label8";
-            label8.Size = new Size(91, 20);
+            label8.Size = new Size(171, 28);
             label8.TabIndex = 11;
             label8.Text = "Escartem <3";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // gitEscartemLinkLabel
             // 
             gitEscartemLinkLabel.AutoSize = true;
             gitEscartemLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            gitEscartemLinkLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             gitEscartemLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
             gitEscartemLinkLabel.LinkColor = SystemColors.MenuHighlight;
-            gitEscartemLinkLabel.Location = new Point(315, 59);
+            gitEscartemLinkLabel.Location = new Point(315, 60);
             gitEscartemLinkLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             gitEscartemLinkLabel.Name = "gitEscartemLinkLabel";
-            gitEscartemLinkLabel.Size = new Size(100, 20);
+            gitEscartemLinkLabel.Size = new Size(144, 28);
             gitEscartemLinkLabel.TabIndex = 12;
             gitEscartemLinkLabel.TabStop = true;
             gitEscartemLinkLabel.Text = "Github Profile";
+            gitEscartemLinkLabel.TextAlign = ContentAlignment.MiddleCenter;
             gitEscartemLinkLabel.VisitedLinkColor = System.Drawing.Color.Fuchsia;
             // 
             // tabPage2
@@ -630,6 +651,25 @@ namespace AnimeStudio.GUI
             panel3.Size = new Size(512, 8);
             panel3.TabIndex = 3;
             // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.BackColor = System.Drawing.Color.Transparent;
+            tableLayoutPanel1.SetColumnSpan(linkLabel2, 3);
+            linkLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            linkLabel2.LinkColor = SystemColors.MenuHighlight;
+            linkLabel2.Location = new Point(7, 88);
+            linkLabel2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(452, 22);
+            linkLabel2.TabIndex = 14;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "Report a bug";
+            linkLabel2.TextAlign = ContentAlignment.MiddleCenter;
+            linkLabel2.VisitedLinkColor = System.Drawing.Color.Fuchsia;
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
+            // 
             // AboutForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -706,5 +746,6 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
