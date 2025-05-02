@@ -47,7 +47,7 @@ namespace AnimeStudio.GUI
             optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
-            specifyGame = new System.Windows.Forms.ToolStripComboBox();
+            gameSelect = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             specifyUnityVersion = new System.Windows.Forms.ToolStripTextBox();
             specifyUnityCNKey = new System.Windows.Forms.ToolStripMenuItem();
@@ -294,7 +294,7 @@ namespace AnimeStudio.GUI
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { gameToolStripMenuItem, toolStripMenuItem18, toolStripMenuItem14, specifyUnityCNKey, toolStripSeparator13, assetLoadingToolStripMenuItem, enableResolveDependencies, allowDuplicates, skipContainer, toolStripSeparator12, generalToolStripMenuItem1, showExpOpt, appThemeToolStripMenuItem, toolStripSeparator1, miscToolStripMenuItem1, toolStripMenuItem21, debugToolStripMenuItem });
+            optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { gameToolStripMenuItem, gameSelect, toolStripMenuItem14, toolStripSeparator13, assetLoadingToolStripMenuItem, enableResolveDependencies, allowDuplicates, skipContainer, toolStripSeparator12, generalToolStripMenuItem1, showExpOpt, appThemeToolStripMenuItem, toolStripSeparator1, miscToolStripMenuItem1, toolStripMenuItem21, debugToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             optionsToolStripMenuItem.Text = "Options";
@@ -306,18 +306,12 @@ namespace AnimeStudio.GUI
             gameToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             gameToolStripMenuItem.Text = "Game";
             // 
-            // toolStripMenuItem18
+            // gameSelect
             // 
-            toolStripMenuItem18.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { specifyGame });
-            toolStripMenuItem18.Name = "toolStripMenuItem18";
-            toolStripMenuItem18.Size = new System.Drawing.Size(246, 26);
-            toolStripMenuItem18.Text = "Specify Game";
-            // 
-            // specifyGame
-            // 
-            specifyGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            specifyGame.Name = "specifyGame";
-            specifyGame.Size = new System.Drawing.Size(121, 28);
+            gameSelect.Name = "gameSelect";
+            gameSelect.Size = new System.Drawing.Size(246, 26);
+            gameSelect.Text = "Select Game";
+            gameSelect.Click += gameSelectToolStripMenuItem_Click;
             // 
             // toolStripMenuItem14
             // 
@@ -785,7 +779,7 @@ namespace AnimeStudio.GUI
             allToolStripMenuItem.CheckOnClick = true;
             allToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            allToolStripMenuItem.Size = new System.Drawing.Size(110, 26);
             allToolStripMenuItem.Text = "All";
             allToolStripMenuItem.Click += typeToolStripMenuItem_Click;
             // 
@@ -1702,6 +1696,7 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripMenuItem loggedEventsMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ColumnHeader columnHeaderSHA256;
+        private System.Windows.Forms.ToolStripMenuItem gameSelect;
     }
 }
 

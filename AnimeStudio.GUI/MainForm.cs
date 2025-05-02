@@ -31,6 +31,7 @@ namespace AnimeStudio.GUI
         private AssetItem lastSelectedItem;
         private AssetBrowser assetBrowser;
         private AboutForm aboutForm;
+        private GameSelector gameSelector;
         private DirectBitmap imageTexture;
         private string tempClipboard;
 
@@ -235,9 +236,6 @@ namespace AnimeStudio.GUI
 
             specifyTheme.SelectedIndex = Properties.Settings.Default.guiTheme;
 
-            specifyGame.Items.AddRange(GameManager.GetGames());
-            specifyGame.SelectedIndex = Properties.Settings.Default.selectedGame;
-            specifyGame.SelectedIndexChanged += new EventHandler(specifyGame_SelectedIndexChanged);
             Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
             TypeFlags.SetTypes(JsonConvert.DeserializeObject<Dictionary<ClassIDType, (bool, bool)>>(Properties.Settings.Default.types));
             Logger.Info($"Target Game type is {Studio.Game.Type}");
@@ -2222,10 +2220,9 @@ namespace AnimeStudio.GUI
             Properties.Settings.Default.Save();
         }
 
-        private void specifyGame_SelectedIndexChanged(object sender, EventArgs e)
+        public void updateGame(int index)
         {
-            optionsToolStripMenuItem.DropDown.Visible = false;
-            Properties.Settings.Default.selectedGame = specifyGame.SelectedIndex;
+            Properties.Settings.Default.selectedGame = index;
             Properties.Settings.Default.Save();
 
             ResetForm();
@@ -2240,13 +2237,6 @@ namespace AnimeStudio.GUI
 
             assetsManager.SpecifyUnityVersion = specifyUnityVersion.Text;
             assetsManager.Game = Studio.Game;
-        }
-
-        public void updateGame(int index)
-        {
-            specifyGame.SelectedIndex = index;
-            // In case it doesn't trigger the function itself
-            //specifyGame_SelectedIndexChanged(specifyGame, EventArgs.Empty);
         }
 
         private async void specifyNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -3119,6 +3109,12 @@ namespace AnimeStudio.GUI
         {
             aboutForm = new AboutForm();
             aboutForm.Show();
+        }
+
+        private void gameSelectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gameSelector = new GameSelector(this);
+            gameSelector.ShowDialog();
         }
     }
 }
