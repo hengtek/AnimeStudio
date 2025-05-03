@@ -184,7 +184,6 @@ namespace AnimeStudio
                 }
                 else
                 {
-                    filesList.Remove(file);
                     msg = $"Removed {Path.GetFileName(file)}, no assets found";
                 }
                 Logger.Info($"[{i + 1}/{filesList.Count}] {msg}");
