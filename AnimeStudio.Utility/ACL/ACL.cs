@@ -135,10 +135,10 @@ namespace ACLLibs
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Dispose(ref DecompressedClip decompressedClip);
 
-        [DllImport(DLL_NAME_ZZZ, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME_ZZZ, CallingConvention = CallingConvention.Cdecl, EntryPoint = "DecompressTracks")]
         private static extern void DecompressTracksZZZ(nint data, nint db, nint streamer, ref DecompressedClip decompressedClip);
 
-        [DllImport(DLL_NAME_ZZZ, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME_ZZZ, CallingConvention = CallingConvention.Cdecl, EntryPoint = "Dispose")]
         private static extern void DisposeZZZ(ref DecompressedClip decompressedClip);
 
         #endregion
