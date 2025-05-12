@@ -195,7 +195,7 @@
             confirmBtn.Size = new System.Drawing.Size(406, 35);
             confirmBtn.TabIndex = 9;
             confirmBtn.Text = "Confirm";
-            confirmBtn.UseVisualStyleBackColor = true;
+            confirmBtn.UseVisualStyleBackColor = false;
             confirmBtn.Click += confirmBtn_Click;
             // 
             // cancelBtn
@@ -206,7 +206,7 @@
             cancelBtn.Size = new System.Drawing.Size(240, 35);
             cancelBtn.TabIndex = 8;
             cancelBtn.Text = "Cancel";
-            cancelBtn.UseVisualStyleBackColor = true;
+            cancelBtn.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
