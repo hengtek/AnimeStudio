@@ -236,21 +236,33 @@ namespace AnimeStudio.GUI
 
             specifyTheme.SelectedIndex = Properties.Settings.Default.guiTheme;
 
-            Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
+            try
+            {
+                Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
+            } catch
+            {
+                Logger.Info($"Invalid game index in settings, resetting to default");
+                Properties.Settings.Default.selectedGame = 0;
+                Properties.Settings.Default.Save();
+                Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
+            }
+
             TypeFlags.SetTypes(JsonConvert.DeserializeObject<Dictionary<ClassIDType, (bool, bool)>>(Properties.Settings.Default.types));
-            Logger.Info($"Target Game type is {Studio.Game.Type}");
+            Logger.Info($"Target Game is {Studio.Game.Type}");
 
             if (Studio.Game.IsUnityCN())
             {
                 if (Studio.Game is UnityCNGame unityCNGameKey)
                 {
-                    UnityCNManager.SetKey(unityCNGameKey.Key);
+                    if (Studio.Game.Type == GameType.UnityCNCustomKey)
+                    {
+                        UnityCNManager.SetKey(new("UnityCN Custom Key", Properties.Settings.Default.lastUnityCNKey));
+                    }
+                    else
+                    {
+                        UnityCNManager.SetKey(unityCNGameKey.Key);
+                    }
                 }
-            }
-
-            if (Studio.Game is UnityCNGame unityCNGame)
-            {
-                UnityCNManager.SetKey(unityCNGame.Key);
             }
 
             MapNameComboBox.SelectedIndexChanged += new EventHandler(specifyNameComboBox_SelectedIndexChanged);

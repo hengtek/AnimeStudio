@@ -16,6 +16,12 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<Content Include="CNKeys.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="..\AnimeStudio.Libraries\oodle.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

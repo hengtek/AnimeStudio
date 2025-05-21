@@ -505,5 +505,17 @@ namespace AnimeStudio.GUI.Properties {
                 this["guiTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastUnityCNKey {
+            get {
+                return ((string)(this["lastUnityCNKey"]));
+            }
+            set {
+                this["lastUnityCNKey"] = value;
+            }
+        }
     }
 }

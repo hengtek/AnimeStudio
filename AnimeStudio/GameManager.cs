@@ -2,15 +2,28 @@
 using System.Linq;
 using System.Collections.Generic;
 using static AnimeStudio.Crypto;
+using System.IO;
+using System.Text.Json;
 
 namespace AnimeStudio
 {
     public static class GameManager
     {
         private static Dictionary<int, Game> Games = new Dictionary<int, Game>();
+
         static GameManager()
         {
+            LoadGames();
+        }
+
+        public static void Reload() => LoadGames();
+
+        private static void LoadGames()
+        {
+            Games.Clear();
             int index = 0;
+
+            // main games
             Games.Add(index++, new(GameType.Normal, "Unity", GameCategory.Unity));
             Games.Add(index++, new(GameType.UnityCN, "Unity CN", GameCategory.Hidden));
             Games.Add(index++, new Mhy(GameType.GI, "Live", GIMhyShiftRow, GIMhyKey, GIMhyMul, GIExpansionKey, GISBox, GIInitVector, GIInitSeed));
@@ -52,29 +65,21 @@ namespace AnimeStudio
             Games.Add(index++, new Game(GameType.SchoolGirlStrikers, "Schoolgirl Strikers"));
             Games.Add(index++, new Game(GameType.ExAstris, "ExAstris"));
             Games.Add(index++, new Game(GameType.PerpetualNovelty, "Perpetual Novelty"));
-            Games.Add(index++, new UnityCNGame(GameType.PGR_GLB_KR, PGR_GLB_KR_Key));
-            Games.Add(index++, new UnityCNGame(GameType.PGR_CN_JP_TW, PGR_CN_JP_TW_Key));
-            Games.Add(index++, new UnityCNGame(GameType.Archeland_KalpaOfUniverse, Archeland_KalpaOfUniverse_Key));
-            Games.Add(index++, new UnityCNGame(GameType.Archeland_1114, Archeland_1114_Key));
-            Games.Add(index++, new UnityCNGame(GameType.NeuralCloud, NeuralCloud_Key));
-            Games.Add(index++, new UnityCNGame(GameType.NeuralCloudCN, NeuralCloudCN_Key));
-            Games.Add(index++, new UnityCNGame(GameType.HiganEruthyll, HiganEruthyll_Key));
-            Games.Add(index++, new UnityCNGame(GameType.WhiteCord, WhiteCord_Key));
-            Games.Add(index++, new UnityCNGame(GameType.Mecharashi, Mecharashi_Key));
-            Games.Add(index++, new UnityCNGame(GameType.CastlevaniaMoonNightFantasy, CastlevaniaMoonNightFantasy_Key));
-            Games.Add(index++, new UnityCNGame(GameType.HYSXZY, HYSXZY_Key));
-            Games.Add(index++, new UnityCNGame(GameType.DoulaContinent, DoulaContinent_Key));
-            Games.Add(index++, new UnityCNGame(GameType.BlessGlobal, BlessGlobal_Key));
-            Games.Add(index++, new UnityCNGame(GameType.Starside, Starside_Key));
-            Games.Add(index++, new UnityCNGame(GameType.ResonanceSoltice, ResonanceSoltice_Key));
-            Games.Add(index++, new UnityCNGame(GameType.OblivionOverride, OblivionOverride_Key));
-            Games.Add(index++, new UnityCNGame(GameType.Dawnlands, Dawnlands_Key));
-            Games.Add(index++, new UnityCNGame(GameType.BB, BB_Key));
-            Games.Add(index++, new UnityCNGame(GameType.DynastyLegends2, DynastyLegends2_Key));
-            Games.Add(index++, new UnityCNGame(GameType.EvernightCN, EvernightCN_Key));
-            Games.Add(index++, new UnityCNGame(GameType.XintianlongBabu, XintianlongBabu_Key));
-            Games.Add(index++, new UnityCNGame(GameType.FrostpunkBeyondTheIce, FrostpunkBeyondTheIce_Key));
-            Games.Add(index++, new UnityCNGame(GameType.CatFantasy, CatFantasy_Key));
+            
+            // unity cn
+            var list = UnityCNManager.ReadJson();
+
+            foreach (var entry in list)
+            {
+                string enumName = entry[0];
+                string name = entry[1];
+                string key = entry[2];
+
+                GameType type = Enum.TryParse(enumName, out GameType parsed) ? parsed : GameType.UnityCNCustomKey;
+
+                Games.Add(index++, new UnityCNGame(type, new(name, key), GameCategory.Other));
+            }
+
             Games.Add(index++, new UnityCNGame(GameType.UnityCNCustomKey, new("UnityCN Custom Key", ""), GameCategory.Unity));
         }
         public static Game GetGame(GameType gameType) => GetGame((int)gameType);
@@ -89,6 +94,8 @@ namespace AnimeStudio
         }
 
         public static Game GetGame(string name) => Games.FirstOrDefault(x => x.Value.Name == name).Value;
+        public static Game GetGameByDisplayName(string displayName) => Games.FirstOrDefault(x => x.Value.DisplayName == displayName).Value;
+        public static int GetGameIndex(Game game) => Games.FirstOrDefault(x => x.Value == game).Key;
         public static Game[] GetGames() => Games.Values.ToArray();
         public static string[] GetGameNames() => Games.Values.Select(x => x.Name).ToArray();
         public static string SupportedGames() => $"Supported Games:\n{string.Join("\n", Games.Values.Select(x => x.Name))}";
@@ -99,7 +106,6 @@ namespace AnimeStudio
         public string Name { get; set; }
         public GameType Type { get; }
         public string DisplayName { get; set; }
-
         public GameCategory Category { get; set; }
 
         public Game(GameType type, string displayName, GameCategory category = GameCategory.Other)
