@@ -46,7 +46,6 @@ Compared to the original studio, the UI was slightly adjusted, but if you are fa
 
 This is a list of features that I would like to add in the future, this does not mean it will be added just planned for now :
 - Add a new provider for Asset Indexes for 5.0+
-- Integrate UTTDumper
 - Use HoyoDL to have asset downloading when the game is not available
 
 ---
