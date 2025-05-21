@@ -187,6 +187,7 @@ namespace AnimeStudio.GUI
             exportAnimatorwithselectedAnimationClipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             goToSceneHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showOriginalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            editUnityCNKeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -292,7 +293,7 @@ namespace AnimeStudio.GUI
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { gameToolStripMenuItem, gameSelect, toolStripMenuItem14, toolStripSeparator13, assetLoadingToolStripMenuItem, enableResolveDependencies, allowDuplicates, skipContainer, toolStripSeparator12, generalToolStripMenuItem1, showExpOpt, appThemeToolStripMenuItem, toolStripSeparator1, miscToolStripMenuItem1, toolStripMenuItem21, debugToolStripMenuItem });
+            optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { gameToolStripMenuItem, gameSelect, toolStripMenuItem14, editUnityCNKeysToolStripMenuItem, toolStripSeparator13, assetLoadingToolStripMenuItem, enableResolveDependencies, allowDuplicates, skipContainer, toolStripSeparator12, generalToolStripMenuItem1, showExpOpt, appThemeToolStripMenuItem, toolStripSeparator1, miscToolStripMenuItem1, toolStripMenuItem21, debugToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             optionsToolStripMenuItem.Text = "Options";
@@ -1481,6 +1482,13 @@ namespace AnimeStudio.GUI
             showOriginalFileToolStripMenuItem.Visible = false;
             showOriginalFileToolStripMenuItem.Click += showOriginalFileToolStripMenuItem_Click;
             // 
+            // editUnityCNKeysToolStripMenuItem
+            // 
+            editUnityCNKeysToolStripMenuItem.Name = "editUnityCNKeysToolStripMenuItem";
+            editUnityCNKeysToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            editUnityCNKeysToolStripMenuItem.Text = "Edit UnityCN Keys";
+            editUnityCNKeysToolStripMenuItem.Click += editUnityCNKeysToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AllowDrop = true;
@@ -1687,6 +1695,7 @@ namespace AnimeStudio.GUI
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ColumnHeader columnHeaderSHA256;
         private System.Windows.Forms.ToolStripMenuItem gameSelect;
+        private System.Windows.Forms.ToolStripMenuItem editUnityCNKeysToolStripMenuItem;
     }
 }
 

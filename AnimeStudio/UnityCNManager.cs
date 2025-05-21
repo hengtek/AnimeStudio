@@ -8,7 +8,7 @@ namespace AnimeStudio
 {
     public static class UnityCNManager
     {
-        private static List<List<string>> data = new()
+        private static List<List<string>> baseData = new()
         {
             new() { "PGR_GLB_KR", "Punishing Gray Raven - Global/Korea", "6B75726F6B75726F6B75726F6B75726F" },
             new() { "PGR_CN_JP_TW", "Punishing Gray Raven - China/Japan/Taiwan", "7935585076714C4F72436F6B57524961" },
@@ -34,9 +34,31 @@ namespace AnimeStudio
             new() { "FrostpunkBeyondTheIce", "Frostpunk: Beyond the Ice", "7368756978696E673838383838383838" },
             new() { "CatFantasy", "Cat Fantasy", "43614461566637323538576877363433" }
         };
+        private static List<List<string>> storedData;
         private static readonly string UnityCNKeysPath = "CNKeys.json";
 
         static UnityCNManager() {}
+
+        public static List<List<string>> GetKeys()
+        {
+            if (storedData == null)
+            {
+                storedData = ReadJson();
+            }
+            return storedData;
+        }
+
+        public static List<List<string>> GetDefaultKeys() => baseData;
+
+        public static void SetKeys(List<List<string>> keys)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnityCNKeysPath), JsonSerializer.Serialize(keys, options));
+            storedData = keys;
+        }
 
         public static List<List<string>> ReadJson()
         {
@@ -50,6 +72,7 @@ namespace AnimeStudio
                     return ResetJson();
                 }
 
+                storedData = list;
                 return list;
             } catch
             {
@@ -63,8 +86,8 @@ namespace AnimeStudio
             var options = new JsonSerializerOptions {
                 WriteIndented = true
             };
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnityCNKeysPath), JsonSerializer.Serialize(data, options));
-            return data;
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UnityCNKeysPath), JsonSerializer.Serialize(baseData, options));
+            return baseData;
         }
 
         public static void SetKey(UnityCN.Entry entry)

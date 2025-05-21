@@ -32,6 +32,7 @@ namespace AnimeStudio.GUI
         private AssetBrowser assetBrowser;
         private AboutForm aboutForm;
         private GameSelector gameSelector;
+        private UnityCNEdit unityCNEdit;
         private DirectBitmap imageTexture;
         private string tempClipboard;
 
@@ -239,7 +240,8 @@ namespace AnimeStudio.GUI
             try
             {
                 Studio.Game = GameManager.GetGame(Properties.Settings.Default.selectedGame);
-            } catch
+            }
+            catch
             {
                 Logger.Info($"Invalid game index in settings, resetting to default");
                 Properties.Settings.Default.selectedGame = 0;
@@ -3132,6 +3134,12 @@ namespace AnimeStudio.GUI
         {
             gameSelector = new GameSelector(this);
             gameSelector.ShowDialog();
+        }
+
+        private void editUnityCNKeysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            unityCNEdit = new UnityCNEdit();
+            unityCNEdit.ShowDialog();
         }
     }
 }

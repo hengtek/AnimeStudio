@@ -16,7 +16,7 @@ namespace AnimeStudio
             LoadGames();
         }
 
-        public static void Reload() => LoadGames();
+        public static void ReloadGames() => LoadGames();
 
         private static void LoadGames()
         {
