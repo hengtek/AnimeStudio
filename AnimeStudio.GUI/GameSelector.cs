@@ -73,7 +73,7 @@ namespace AnimeStudio.GUI
         #endregion
 
         private List<Game> sortedGames;
-        private Game selectedGame;
+        private Game selectedGame = GameManager.GetGame(0);
         private readonly MainForm _parent;
 
         public GameSelector(MainForm parent)
