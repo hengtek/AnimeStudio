@@ -23,6 +23,7 @@ using OpenTK.Audio.OpenAL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Drawing.Drawing2D;
 using static AnimeStudio.AssetsManager;
+using Microsoft.VisualBasic.Devices;
 
 namespace AnimeStudio.GUI
 {
@@ -298,8 +299,49 @@ namespace AnimeStudio.GUI
             }
         }
 
+        string FormatBytes(double bytes)
+        {
+            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+            int i;
+            for (i = 0; i < suffixes.Length && bytes >= 1024; i++)
+            {
+                bytes /= 1024;
+            }
+            return $"{bytes:0.##} {suffixes[i]}";
+        }
+
+        long GetTotalSize(string[] paths)
+        {
+            long total = 0;
+            foreach (var path in paths)
+            {
+                if (File.Exists(path))
+                {
+                    total += new FileInfo(path).Length;
+                }
+                else if (Directory.Exists(path))
+                {
+                    var dirInfo = new DirectoryInfo(path);
+                    total += dirInfo.GetFiles("*", SearchOption.AllDirectories).Sum(file => file.Length);
+                }
+            }
+            return total;
+        }
+
         public async void LoadPaths(List<AssetFilterDataItem> filterData, params string[] paths)
         {
+            long totalSize = GetTotalSize(paths);
+            long estimatedUsedRam = (long)(totalSize * 8.5); // number deduced by loading different sets of assets and averaging the sizes
+            ulong ramLeft = new ComputerInfo().AvailablePhysicalMemory;
+            if (estimatedUsedRam > (long)ramLeft)
+            {
+                var result = MessageBox.Show($"You are trying to load {FormatBytes(totalSize)} of data, which will make the tool use approximately {FormatBytes(estimatedUsedRam)} of ram, but you have {FormatBytes(ramLeft)} left, continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             ResetForm();
             assetsManager.SpecifyUnityVersion = specifyUnityVersion.Text;
             assetsManager.Game = Studio.Game;
