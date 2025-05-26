@@ -118,19 +118,23 @@ namespace AnimeStudio.GUI
                         if (System.Windows.Forms.Application.RenderWithVisualStyles)
                         {
                             assetListView.GridLines = false;
+                            assetInfoLabel.ForeColor = System.Drawing.SystemColors.ControlText;
                         }
                         else
                         {
                             assetListView.GridLines = true;
+                            assetInfoLabel.ForeColor = System.Drawing.SystemColors.WindowText;
                         }
                         break;
                     case (int)GuiColorTheme.Dark:
                         System.Windows.Forms.Application.SetColorMode(SystemColorMode.Dark);
                         assetListView.GridLines = false;
+                        assetInfoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
                         break;
                     case (int)GuiColorTheme.Light:
                         System.Windows.Forms.Application.SetColorMode(SystemColorMode.Classic);
                         assetListView.GridLines = true;
+                        assetInfoLabel.ForeColor = System.Drawing.SystemColors.ControlText;
                         break;
                 }
             }

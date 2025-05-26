@@ -24,9 +24,6 @@ namespace AnimeStudio
         public SerializedType serializedType;
         [JsonIgnore]
         public uint byteSize;
-        [JsonIgnore]
-        // Note: depending on its type and game, an asset data may be decoded, decrypted, xored and more so the location of when the hash happens could be debatable
-        public string SHA256Hash => Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(GetRawData()));
 
         public virtual string Name => string.Empty;
 
@@ -48,6 +45,17 @@ namespace AnimeStudio
             if (platform == BuildTarget.NoTarget)
             {
                 var m_ObjectHideFlags = reader.ReadUInt32();
+            }
+        }
+
+        public string GetSHA256Hash()
+        {
+            if (this.type == ClassIDType.Texture2D)
+            {
+                return Texture2DExtensions.GetImageHash((Texture2D)this);
+            } else
+            {
+                return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(GetRawData())).ToLower();
             }
         }
 

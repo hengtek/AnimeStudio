@@ -360,7 +360,7 @@ namespace AnimeStudio
                         PathID = objectReader.m_PathID,
                         Type = objectReader.type,
                         Container = "",
-                        SHA256Hash = obj.SHA256Hash,
+                        SHA256Hash = obj.GetSHA256Hash(),
                     };
 
                     var exportable = false;

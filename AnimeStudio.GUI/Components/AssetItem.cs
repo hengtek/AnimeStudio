@@ -25,7 +25,7 @@ namespace AnimeStudio.GUI
             TypeString = Type.ToString();
             m_PathID = asset.m_PathID;
             FullSize = asset.byteSize;
-            SHA256Hash = asset.SHA256Hash;
+            SHA256Hash = asset.GetSHA256Hash();
         }
 
         public void SetSubItems()

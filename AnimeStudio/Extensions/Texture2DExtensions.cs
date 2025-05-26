@@ -1,8 +1,11 @@
 ﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using System;
 using System.Buffers;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace AnimeStudio
 {
@@ -15,6 +18,34 @@ namespace AnimeStudio
             _configuration = Configuration.Default.Clone();
             _configuration.PreferContiguousImageBuffers = true;
         }
+
+        public static string GetImageHash(this Texture2D m_Texture2D)
+        {
+            var image = m_Texture2D.ConvertToImage(true);
+            var hashstring = "";
+            if (image != null)
+            {
+                try
+                {
+                    // TODO: be not only for png's since people may not always use that format, but in the end the hash is still unique and different from the raw data one
+                    using var ms = new MemoryStream();
+                    image.Save(ms, new PngEncoder());
+                    ms.Position = 0;
+                    using var sha256 = SHA256.Create();
+                    var hash = sha256.ComputeHash(ms);
+                    hashstring = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+                catch
+                {
+                    hashstring = "";
+                }
+
+                image.Dispose();
+            }
+
+            return hashstring;
+        }
+
         public static Image<Bgra32> ConvertToImage(this Texture2D m_Texture2D, bool flip)
         {
             var converter = new Texture2DConverter(m_Texture2D);
