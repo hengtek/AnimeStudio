@@ -48,11 +48,15 @@ namespace AnimeStudio
             }
         }
 
-        public string GetSHA256Hash()
+        public string GetSHA256Hash(bool overrides = false)
         {
-            if (this.type == ClassIDType.Texture2D)
+            if (type == ClassIDType.Texture2D && overrides)
             {
-                return Texture2DExtensions.GetImageHash((Texture2D)this);
+                var pos = reader.Position;
+                reader.Reset();
+                var hash = Texture2DExtensions.GetImageHash(new Texture2D(reader));
+                reader.Position = pos;
+                return hash;
             } else
             {
                 return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(GetRawData())).ToLower();
