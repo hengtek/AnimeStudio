@@ -288,6 +288,12 @@ namespace AnimeStudio
             _ => false,
         };
 
+        public static bool IsZZZGroup(this GameType type) => type switch
+        {
+            GameType.ZZZ or GameType.ZZZ_CB1 or GameType.ZZZ_CB2 => true,
+            _ => false,
+        };
+
         public static bool IsGISubGroup(this GameType type) => type switch
         {
             GameType.GI or GameType.GI_CB2 or GameType.GI_CB3 or GameType.GI_CB3Pre => true,

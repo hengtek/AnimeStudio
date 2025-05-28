@@ -696,6 +696,40 @@ namespace AnimeStudio
         {
             Logger.Info("Process Assets...");
 
+            var separateMeshes = new Dictionary<string, PPtr<Mesh>>();
+            var avatars = new List<GameObject>();
+            var fileID = 0;
+
+            if (Game.Type.IsZZZGroup())
+            {   
+                foreach (var assetsFile in assetsFileList)
+                {
+                    foreach (var obj in assetsFile.Objects)
+                    {
+                        if (tokenSource.IsCancellationRequested)
+                        {
+                            Logger.Info("Processing assets has been cancelled !!");
+                            return;
+                        }
+                        if (obj.type == ClassIDType.Mesh && obj.Name.StartsWith("SeparateMesh_"))
+                        {
+                            var pptr = new PPtr<Mesh>(0, obj.m_PathID, assetsFile);
+                            separateMeshes.Add(obj.Name, pptr);
+                            if (pptr.TryGet(out var mesh))
+                            {
+                                Logger.Info($"FoundSeparateMesh {mesh.Name}");
+                            }
+                            else
+                            {
+                                throw new Exception($"Invalid PPtr for {obj.Name}");
+                            }
+                        }
+                    }
+                    fileID++;
+                }
+                Logger.Info($"Found {separateMeshes.Count} SeparateMeshes");
+            }
+            
             foreach (var assetsFile in assetsFileList)
             {
                 foreach (var obj in assetsFile.Objects)
@@ -741,6 +775,9 @@ namespace AnimeStudio
                                 }
                             }
                         }
+                        if (Game.Type.IsZZZGroup() && m_GameObject.Name.StartsWith("Avatar_")) {
+                            avatars.Add(m_GameObject);
+                        }
                     }
                     else if (obj is SpriteAtlas m_SpriteAtlas)
                     {
@@ -764,6 +801,37 @@ namespace AnimeStudio
                                             Logger.Verbose($"Fetched Sprite with {m_Sprite.m_PathID} in file {m_Sprite.assetsFile.fileName} has a variant of the origianl SpriteAtlas, disposing of the variant and assinging to the parent SpriteAtlas...");
                                             m_Sprite.m_SpriteAtlas.Set(m_SpriteAtlas);
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (Game.Type.IsZZZGroup())
+            {
+                Logger.Info($"Found {avatars.Count} Avatars");
+
+                foreach (var avatar in avatars)
+                {
+                    var rootName = avatar.Name;
+                    Logger.Verbose($"Attempting to process SeparateMesh for {rootName}");
+
+                    if (avatar.m_Transform != null)
+                    {
+                        foreach (var childPtr in avatar.m_Transform.m_Children)
+                        {
+                            if (childPtr.TryGet(out var child) && child.m_GameObject.TryGet(out var childGO))
+                            {
+                                var childName = childGO.Name;
+                                if (childGO.m_SkinnedMeshRenderer != null)
+                                {
+                                    var meshName = "SeparateMesh_" + rootName + "_" + childName;
+                                    if (separateMeshes.TryGetValue(meshName, out var meshPPtr))
+                                    {
+                                        Logger.Info($"Attached {meshName} to {childName}");
+                                        childGO.m_SkinnedMeshRenderer.m_Mesh = meshPPtr;
                                     }
                                 }
                             }
