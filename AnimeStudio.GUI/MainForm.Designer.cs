@@ -443,6 +443,7 @@ namespace AnimeStudio.GUI
             enableModelPreview.Name = "enableModelPreview";
             enableModelPreview.Size = new System.Drawing.Size(260, 26);
             enableModelPreview.Text = "Model preview enabled";
+            enableModelPreview.CheckedChanged += enableModelPreview_CheckedChanged;
             // 
             // modelsOnly
             // 
