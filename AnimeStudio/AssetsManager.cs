@@ -775,7 +775,8 @@ namespace AnimeStudio
                                 }
                             }
                         }
-                        if (Game.Type.IsZZZGroup() && m_GameObject.Name.StartsWith("Avatar_")) {
+                        if (Game.Type.IsZZZGroup() && (m_GameObject.m_Animator != null || m_GameObject.Name.StartsWith("Avatar_") || m_GameObject.Name.EndsWith("_Model")))
+                        {
                             avatars.Add(m_GameObject);
                         }
                     }
@@ -825,13 +826,19 @@ namespace AnimeStudio
                             if (childPtr.TryGet(out var child) && child.m_GameObject.TryGet(out var childGO))
                             {
                                 var childName = childGO.Name;
-                                if (childGO.m_SkinnedMeshRenderer != null)
+                                var meshName = "SeparateMesh_" + rootName + "_" + childName;
+                                if (separateMeshes.TryGetValue(meshName, out var meshPPtr))
                                 {
-                                    var meshName = "SeparateMesh_" + rootName + "_" + childName;
-                                    if (separateMeshes.TryGetValue(meshName, out var meshPPtr))
+                                    Logger.Info($"Trying to attach {meshName} to {childName}");
+                                    if (childGO.m_SkinnedMeshRenderer != null && childGO.m_SkinnedMeshRenderer.m_Mesh.IsNull)
                                     {
                                         Logger.Info($"Attached {meshName} to {childName}");
                                         childGO.m_SkinnedMeshRenderer.m_Mesh = meshPPtr;
+                                    }
+                                    else if (childGO.m_MeshFilter != null && childGO.m_MeshFilter.m_Mesh.IsNull)
+                                    {
+                                        Logger.Info($"Attached {meshName} to {childName}");
+                                        childGO.m_MeshFilter.m_Mesh = meshPPtr;
                                     }
                                 }
                             }
