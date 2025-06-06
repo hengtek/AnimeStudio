@@ -19,6 +19,7 @@ namespace AnimeStudio
         public Mhy mhy;
 
         public long Offset;
+        private bool isZZZ20; // zzz 2.0 uses oodle but the flag is still set to LZ4
 
         private static readonly byte[] Key = new byte[256]
         {
@@ -110,11 +111,8 @@ namespace AnimeStudio
 
             try
             {
-                var numWrite = LZ4.Instance.Decompress(compressedBlocksInfo, uncompressedBlocksInfoSpan);
-                if (numWrite != m_Header.uncompressedBlocksInfoSize)
-                {
-                    throw new IOException($"Lz4 decompression error, write {numWrite} bytes but expected {m_Header.uncompressedBlocksInfoSize} bytes");
-                }
+                int numWrite;
+                numWrite = Decompress(compressedBlocksInfo, uncompressedBlocksInfo);
 
                 Logger.Verbose($"Writing block and directory to blocks stream...");
                 using var blocksInfoUncompressedStream = new MemoryStream(uncompressedBlocksInfo, 0, (int)m_Header.uncompressedBlocksInfoSize);
@@ -201,7 +199,7 @@ namespace AnimeStudio
 
                     Logger.Verbose($"Descrambled block signature {Convert.ToHexString(compressedBytes, 0, 4)}");
                     int num = offset;
-                    int numWrite = LZ4.Instance.Decompress(compressedBytesSpan.Slice(num, compressedBytesSpan.Length - num), uncompressedBytesSpan);
+                    int numWrite = Decompress(compressedBytesSpan.Slice(num, compressedBytesSpan.Length - num), uncompressedBytesSpan);
                     if (numWrite != uncompressedSize)
                     {
                         throw new IOException($"Lz4 decompression error, write {numWrite} bytes but expected {uncompressedSize} bytes");
@@ -213,6 +211,25 @@ namespace AnimeStudio
                 {
                     ArrayPool<byte>.Shared.Return(compressedBytes, true);
                     ArrayPool<byte>.Shared.Return(uncompressedBytes, true);
+                }
+            }
+        }
+        private int Decompress(Span<byte> compressed, Span<byte> decompressed)
+        {
+            if (isZZZ20) return OodleHelper.Decompress(compressed, decompressed);
+
+            try { return LZ4.Instance.Decompress(compressed, decompressed); }
+            catch
+            {
+                try { 
+                    int numWrite = OodleHelper.Decompress(compressed, decompressed);
+                    isZZZ20 = true;
+                    return numWrite;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Decompression failed: {ex.Message}");
+                    throw;
                 }
             }
         }
