@@ -112,7 +112,7 @@ namespace AnimeStudio
             try
             {
                 int numWrite;
-                numWrite = Decompress(compressedBlocksInfo, uncompressedBlocksInfo);
+                numWrite = Decompress(compressedBlocksInfo, uncompressedBlocksInfoSpan);
 
                 Logger.Verbose($"Writing block and directory to blocks stream...");
                 using var blocksInfoUncompressedStream = new MemoryStream(uncompressedBlocksInfo, 0, (int)m_Header.uncompressedBlocksInfoSize);
