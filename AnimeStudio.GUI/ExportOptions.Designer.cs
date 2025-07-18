@@ -37,6 +37,7 @@ namespace AnimeStudio.GUI
             OKbutton = new Button();
             Cancel = new Button();
             groupBox1 = new GroupBox();
+            enableHDR = new CheckBox();
             removeTexNameButton = new Button();
             addTexNameButton = new Button();
             texNameComboBox = new ComboBox();
@@ -96,10 +97,10 @@ namespace AnimeStudio.GUI
             // 
             // OKbutton
             // 
-            OKbutton.Location = new System.Drawing.Point(480, 428);
-            OKbutton.Margin = new Padding(4);
+            OKbutton.Location = new System.Drawing.Point(899, 951);
+            OKbutton.Margin = new Padding(7, 9, 7, 9);
             OKbutton.Name = "OKbutton";
-            OKbutton.Size = new System.Drawing.Size(88, 26);
+            OKbutton.Size = new System.Drawing.Size(163, 55);
             OKbutton.TabIndex = 6;
             OKbutton.Text = "OK";
             OKbutton.UseVisualStyleBackColor = false;
@@ -108,10 +109,10 @@ namespace AnimeStudio.GUI
             // Cancel
             // 
             Cancel.DialogResult = DialogResult.Cancel;
-            Cancel.Location = new System.Drawing.Point(576, 428);
-            Cancel.Margin = new Padding(4);
+            Cancel.Location = new System.Drawing.Point(1078, 951);
+            Cancel.Margin = new Padding(7, 9, 7, 9);
             Cancel.Name = "Cancel";
-            Cancel.Size = new System.Drawing.Size(88, 26);
+            Cancel.Size = new System.Drawing.Size(163, 55);
             Cancel.TabIndex = 7;
             Cancel.Text = "Cancel";
             Cancel.UseVisualStyleBackColor = false;
@@ -120,6 +121,7 @@ namespace AnimeStudio.GUI
             // groupBox1
             // 
             groupBox1.AutoSize = true;
+            groupBox1.Controls.Add(enableHDR);
             groupBox1.Controls.Add(removeTexNameButton);
             groupBox1.Controls.Add(addTexNameButton);
             groupBox1.Controls.Add(texNameComboBox);
@@ -143,20 +145,32 @@ namespace AnimeStudio.GUI
             groupBox1.Controls.Add(convertAudio);
             groupBox1.Controls.Add(panel1);
             groupBox1.Controls.Add(converttexture);
-            groupBox1.Location = new System.Drawing.Point(14, 15);
-            groupBox1.Margin = new Padding(4);
+            groupBox1.Location = new System.Drawing.Point(26, 32);
+            groupBox1.Margin = new Padding(7, 9, 7, 9);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4);
-            groupBox1.Size = new System.Drawing.Size(271, 433);
+            groupBox1.Padding = new Padding(7, 9, 7, 9);
+            groupBox1.Size = new System.Drawing.Size(503, 974);
             groupBox1.TabIndex = 9;
             groupBox1.TabStop = false;
             groupBox1.Text = "Export";
             // 
+            // enableHDR
+            // 
+            enableHDR.AutoSize = true;
+            enableHDR.Location = new System.Drawing.Point(13, 467);
+            enableHDR.Margin = new Padding(6);
+            enableHDR.Name = "enableHDR";
+            enableHDR.Size = new System.Drawing.Size(411, 36);
+            enableHDR.TabIndex = 42;
+            enableHDR.Text = "Convert texture to HDR if possible";
+            enableHDR.UseVisualStyleBackColor = true;
+            // 
             // removeTexNameButton
             // 
-            removeTexNameButton.Location = new System.Drawing.Point(186, 387);
+            removeTexNameButton.Location = new System.Drawing.Point(344, 878);
+            removeTexNameButton.Margin = new Padding(6);
             removeTexNameButton.Name = "removeTexNameButton";
-            removeTexNameButton.Size = new System.Drawing.Size(71, 23);
+            removeTexNameButton.Size = new System.Drawing.Size(132, 49);
             removeTexNameButton.TabIndex = 41;
             removeTexNameButton.Text = "Remove";
             removeTexNameButton.UseVisualStyleBackColor = false;
@@ -164,9 +178,10 @@ namespace AnimeStudio.GUI
             // 
             // addTexNameButton
             // 
-            addTexNameButton.Location = new System.Drawing.Point(199, 358);
+            addTexNameButton.Location = new System.Drawing.Point(369, 816);
+            addTexNameButton.Margin = new Padding(6);
             addTexNameButton.Name = "addTexNameButton";
-            addTexNameButton.Size = new System.Drawing.Size(42, 23);
+            addTexNameButton.Size = new System.Drawing.Size(78, 49);
             addTexNameButton.TabIndex = 13;
             addTexNameButton.Text = "Add";
             addTexNameButton.UseVisualStyleBackColor = false;
@@ -175,19 +190,20 @@ namespace AnimeStudio.GUI
             // texNameComboBox
             // 
             texNameComboBox.FormattingEnabled = true;
-            texNameComboBox.Location = new System.Drawing.Point(8, 373);
+            texNameComboBox.Location = new System.Drawing.Point(14, 848);
+            texNameComboBox.Margin = new Padding(6);
             texNameComboBox.Name = "texNameComboBox";
-            texNameComboBox.Size = new System.Drawing.Size(81, 23);
+            texNameComboBox.Size = new System.Drawing.Size(147, 40);
             texNameComboBox.TabIndex = 38;
             texNameComboBox.SelectedIndexChanged += TexNameComboBox_SelectedIndexChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(9, 355);
-            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Location = new System.Drawing.Point(16, 809);
+            label10.Margin = new Padding(7, 0, 7, 0);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(142, 15);
+            label10.Size = new System.Drawing.Size(286, 32);
             label10.TabIndex = 36;
             label10.Text = "Texture mapping options:";
             // 
@@ -196,9 +212,10 @@ namespace AnimeStudio.GUI
             texTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             texTypeComboBox.FormattingEnabled = true;
             texTypeComboBox.Items.AddRange(new object[] { "Diffuse", "NormalMap", "Specular", "Bump", "Ambient", "Emissive", "Reflection", "Displacement" });
-            texTypeComboBox.Location = new System.Drawing.Point(95, 373);
+            texTypeComboBox.Location = new System.Drawing.Point(175, 848);
+            texTypeComboBox.Margin = new Padding(6);
             texTypeComboBox.Name = "texTypeComboBox";
-            texTypeComboBox.Size = new System.Drawing.Size(79, 23);
+            texTypeComboBox.Size = new System.Drawing.Size(143, 40);
             texTypeComboBox.TabIndex = 35;
             texTypeComboBox.SelectedIndexChanged += TexTypeComboBox_SelectedIndexChanged;
             texTypeComboBox.MouseHover += TexTypeComboBox_MouseHover;
@@ -208,18 +225,20 @@ namespace AnimeStudio.GUI
             uvTypesComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             uvTypesComboBox.FormattingEnabled = true;
             uvTypesComboBox.Items.AddRange(new object[] { "Diffuse", "NormalMap", "Specular", "Bump", "Ambient", "Emissive", "Reflection", "Displacement" });
-            uvTypesComboBox.Location = new System.Drawing.Point(89, 329);
+            uvTypesComboBox.Location = new System.Drawing.Point(164, 754);
+            uvTypesComboBox.Margin = new Padding(6);
             uvTypesComboBox.Name = "uvTypesComboBox";
-            uvTypesComboBox.Size = new System.Drawing.Size(106, 23);
+            uvTypesComboBox.Size = new System.Drawing.Size(193, 40);
             uvTypesComboBox.TabIndex = 34;
             uvTypesComboBox.SelectedIndexChanged += uvTypesComboBox_SelectedIndexChanged;
             // 
             // uvEnabledCheckBox
             // 
             uvEnabledCheckBox.AutoSize = true;
-            uvEnabledCheckBox.Location = new System.Drawing.Point(201, 333);
+            uvEnabledCheckBox.Location = new System.Drawing.Point(372, 762);
+            uvEnabledCheckBox.Margin = new Padding(6);
             uvEnabledCheckBox.Name = "uvEnabledCheckBox";
-            uvEnabledCheckBox.Size = new System.Drawing.Size(60, 19);
+            uvEnabledCheckBox.Size = new System.Drawing.Size(113, 36);
             uvEnabledCheckBox.TabIndex = 33;
             uvEnabledCheckBox.Text = "Export";
             uvEnabledCheckBox.UseVisualStyleBackColor = true;
@@ -230,9 +249,10 @@ namespace AnimeStudio.GUI
             uvsComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             uvsComboBox.FormattingEnabled = true;
             uvsComboBox.Items.AddRange(new object[] { "UV0", "UV1", "UV2", "UV3", "UV4", "UV5", "UV6", "UV7" });
-            uvsComboBox.Location = new System.Drawing.Point(8, 329);
+            uvsComboBox.Location = new System.Drawing.Point(14, 754);
+            uvsComboBox.Margin = new Padding(6);
             uvsComboBox.Name = "uvsComboBox";
-            uvsComboBox.Size = new System.Drawing.Size(75, 23);
+            uvsComboBox.Size = new System.Drawing.Size(136, 40);
             uvsComboBox.TabIndex = 32;
             uvsComboBox.SelectedIndexChanged += uvsComboBox_SelectedIndexChanged;
             uvsComboBox.MouseHover += uvsComboBox_MouseHover;
@@ -240,9 +260,10 @@ namespace AnimeStudio.GUI
             // canExportCheckBox
             // 
             canExportCheckBox.AutoSize = true;
-            canExportCheckBox.Location = new System.Drawing.Point(200, 287);
+            canExportCheckBox.Location = new System.Drawing.Point(370, 664);
+            canExportCheckBox.Margin = new Padding(6);
             canExportCheckBox.Name = "canExportCheckBox";
-            canExportCheckBox.Size = new System.Drawing.Size(60, 19);
+            canExportCheckBox.Size = new System.Drawing.Size(113, 36);
             canExportCheckBox.TabIndex = 31;
             canExportCheckBox.Text = "Export";
             canExportCheckBox.UseVisualStyleBackColor = true;
@@ -251,19 +272,20 @@ namespace AnimeStudio.GUI
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(8, 267);
-            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Location = new System.Drawing.Point(14, 622);
+            label8.Margin = new Padding(7, 0, 7, 0);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(132, 15);
+            label8.Size = new System.Drawing.Size(269, 32);
             label8.TabIndex = 30;
             label8.Text = "Selected unity type can:";
             // 
             // canParseCheckBox
             // 
             canParseCheckBox.AutoSize = true;
-            canParseCheckBox.Location = new System.Drawing.Point(140, 287);
+            canParseCheckBox.Location = new System.Drawing.Point(259, 664);
+            canParseCheckBox.Margin = new Padding(6);
             canParseCheckBox.Name = "canParseCheckBox";
-            canParseCheckBox.Size = new System.Drawing.Size(54, 19);
+            canParseCheckBox.Size = new System.Drawing.Size(101, 36);
             canParseCheckBox.TabIndex = 29;
             canParseCheckBox.Text = "Parse";
             canParseCheckBox.UseVisualStyleBackColor = true;
@@ -274,9 +296,10 @@ namespace AnimeStudio.GUI
             typesComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             typesComboBox.FormattingEnabled = true;
             typesComboBox.Items.AddRange(new object[] { ClassIDType.Animation, ClassIDType.AnimationClip, ClassIDType.Animator, ClassIDType.AnimatorController, ClassIDType.AnimatorOverrideController, ClassIDType.AssetBundle, ClassIDType.AudioClip, ClassIDType.Avatar, ClassIDType.Font, ClassIDType.GameObject, ClassIDType.IndexObject, ClassIDType.Material, ClassIDType.Mesh, ClassIDType.MeshFilter, ClassIDType.MeshRenderer, ClassIDType.MiHoYoBinData, ClassIDType.MonoBehaviour, ClassIDType.MonoScript, ClassIDType.MovieTexture, ClassIDType.PlayerSettings, ClassIDType.RectTransform, ClassIDType.Shader, ClassIDType.SkinnedMeshRenderer, ClassIDType.Sprite, ClassIDType.SpriteAtlas, ClassIDType.TextAsset, ClassIDType.Texture2D, ClassIDType.Transform, ClassIDType.VideoClip, ClassIDType.ResourceManager });
-            typesComboBox.Location = new System.Drawing.Point(7, 285);
+            typesComboBox.Location = new System.Drawing.Point(12, 660);
+            typesComboBox.Margin = new Padding(6);
             typesComboBox.Name = "typesComboBox";
-            typesComboBox.Size = new System.Drawing.Size(127, 23);
+            typesComboBox.Size = new System.Drawing.Size(232, 40);
             typesComboBox.TabIndex = 28;
             typesComboBox.SelectedIndexChanged += TypesComboBox_SelectedIndexChanged;
             typesComboBox.MouseHover += TypesComboBox_MouseHover;
@@ -284,19 +307,20 @@ namespace AnimeStudio.GUI
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(7, 311);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new System.Drawing.Point(12, 715);
+            label6.Margin = new Padding(7, 0, 7, 0);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(119, 15);
+            label6.Size = new System.Drawing.Size(239, 32);
             label6.TabIndex = 27;
             label6.Text = "UV mapping options:";
             // 
             // minimalAssetMap
             // 
             minimalAssetMap.AutoSize = true;
-            minimalAssetMap.Location = new System.Drawing.Point(7, 129);
+            minimalAssetMap.Location = new System.Drawing.Point(13, 275);
+            minimalAssetMap.Margin = new Padding(6);
             minimalAssetMap.Name = "minimalAssetMap";
-            minimalAssetMap.Size = new System.Drawing.Size(125, 19);
+            minimalAssetMap.Size = new System.Drawing.Size(244, 36);
             minimalAssetMap.TabIndex = 17;
             minimalAssetMap.Text = "Minimal AssetMap";
             minimalAssetMap.UseVisualStyleBackColor = true;
@@ -306,19 +330,19 @@ namespace AnimeStudio.GUI
             assetGroupOptions.DropDownStyle = ComboBoxStyle.DropDownList;
             assetGroupOptions.FormattingEnabled = true;
             assetGroupOptions.Items.AddRange(new object[] { "type name", "container path", "source file name", "do not group" });
-            assetGroupOptions.Location = new System.Drawing.Point(7, 240);
-            assetGroupOptions.Margin = new Padding(4);
+            assetGroupOptions.Location = new System.Drawing.Point(12, 564);
+            assetGroupOptions.Margin = new Padding(7, 9, 7, 9);
             assetGroupOptions.Name = "assetGroupOptions";
-            assetGroupOptions.Size = new System.Drawing.Size(173, 23);
+            assetGroupOptions.Size = new System.Drawing.Size(318, 40);
             assetGroupOptions.TabIndex = 12;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(8, 221);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new System.Drawing.Point(14, 523);
+            label7.Margin = new Padding(7, 0, 7, 0);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(140, 15);
+            label7.Size = new System.Drawing.Size(285, 32);
             label7.TabIndex = 11;
             label7.Text = "Group exported assets by";
             // 
@@ -327,10 +351,10 @@ namespace AnimeStudio.GUI
             openAfterExport.AutoSize = true;
             openAfterExport.Checked = true;
             openAfterExport.CheckState = CheckState.Checked;
-            openAfterExport.Location = new System.Drawing.Point(7, 78);
-            openAfterExport.Margin = new Padding(4);
+            openAfterExport.Location = new System.Drawing.Point(13, 166);
+            openAfterExport.Margin = new Padding(7, 9, 7, 9);
             openAfterExport.Name = "openAfterExport";
-            openAfterExport.Size = new System.Drawing.Size(153, 19);
+            openAfterExport.Size = new System.Drawing.Size(306, 36);
             openAfterExport.TabIndex = 10;
             openAfterExport.Text = "Open folder after export";
             openAfterExport.UseVisualStyleBackColor = true;
@@ -340,10 +364,10 @@ namespace AnimeStudio.GUI
             restoreExtensionName.AutoSize = true;
             restoreExtensionName.Checked = true;
             restoreExtensionName.CheckState = CheckState.Checked;
-            restoreExtensionName.Location = new System.Drawing.Point(7, 24);
-            restoreExtensionName.Margin = new Padding(4);
+            restoreExtensionName.Location = new System.Drawing.Point(13, 51);
+            restoreExtensionName.Margin = new Padding(7, 9, 7, 9);
             restoreExtensionName.Name = "restoreExtensionName";
-            restoreExtensionName.Size = new System.Drawing.Size(204, 19);
+            restoreExtensionName.Size = new System.Drawing.Size(408, 36);
             restoreExtensionName.TabIndex = 9;
             restoreExtensionName.Text = "Restore TextAsset extension name";
             restoreExtensionName.UseVisualStyleBackColor = true;
@@ -351,11 +375,11 @@ namespace AnimeStudio.GUI
             // key
             // 
             key.Hexadecimal = true;
-            key.Location = new System.Drawing.Point(186, 103);
-            key.Margin = new Padding(4, 3, 4, 3);
+            key.Location = new System.Drawing.Point(345, 220);
+            key.Margin = new Padding(7, 6, 7, 6);
             key.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             key.Name = "key";
-            key.Size = new System.Drawing.Size(55, 23);
+            key.Size = new System.Drawing.Size(102, 39);
             key.TabIndex = 8;
             key.MouseHover += Key_MouseHover;
             // 
@@ -364,10 +388,10 @@ namespace AnimeStudio.GUI
             encrypted.AutoSize = true;
             encrypted.Checked = true;
             encrypted.CheckState = CheckState.Checked;
-            encrypted.Location = new System.Drawing.Point(7, 104);
-            encrypted.Margin = new Padding(4, 3, 4, 3);
+            encrypted.Location = new System.Drawing.Point(13, 222);
+            encrypted.Margin = new Padding(7, 6, 7, 6);
             encrypted.Name = "encrypted";
-            encrypted.Size = new System.Drawing.Size(166, 19);
+            encrypted.Size = new System.Drawing.Size(326, 36);
             encrypted.TabIndex = 12;
             encrypted.Text = "Encrypted MiHoYoBinData\r\n";
             encrypted.UseVisualStyleBackColor = true;
@@ -377,10 +401,10 @@ namespace AnimeStudio.GUI
             convertAudio.AutoSize = true;
             convertAudio.Checked = true;
             convertAudio.CheckState = CheckState.Checked;
-            convertAudio.Location = new System.Drawing.Point(7, 51);
-            convertAudio.Margin = new Padding(4);
+            convertAudio.Location = new System.Drawing.Point(13, 109);
+            convertAudio.Margin = new Padding(7, 9, 7, 9);
             convertAudio.Name = "convertAudio";
-            convertAudio.Size = new System.Drawing.Size(200, 19);
+            convertAudio.Size = new System.Drawing.Size(390, 36);
             convertAudio.TabIndex = 6;
             convertAudio.Text = "Convert AudioClip to WAV(PCM)";
             convertAudio.UseVisualStyleBackColor = true;
@@ -391,19 +415,19 @@ namespace AnimeStudio.GUI
             panel1.Controls.Add(tojpg);
             panel1.Controls.Add(topng);
             panel1.Controls.Add(tobmp);
-            panel1.Location = new System.Drawing.Point(24, 174);
-            panel1.Margin = new Padding(4);
+            panel1.Location = new System.Drawing.Point(45, 371);
+            panel1.Margin = new Padding(7, 9, 7, 9);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(236, 38);
+            panel1.Size = new System.Drawing.Size(438, 81);
             panel1.TabIndex = 5;
             // 
             // totga
             // 
             totga.AutoSize = true;
-            totga.Location = new System.Drawing.Point(175, 8);
-            totga.Margin = new Padding(4);
+            totga.Location = new System.Drawing.Point(325, 17);
+            totga.Margin = new Padding(7, 9, 7, 9);
             totga.Name = "totga";
-            totga.Size = new System.Drawing.Size(43, 19);
+            totga.Size = new System.Drawing.Size(82, 36);
             totga.TabIndex = 2;
             totga.Text = "Tga";
             totga.UseVisualStyleBackColor = true;
@@ -411,10 +435,10 @@ namespace AnimeStudio.GUI
             // tojpg
             // 
             tojpg.AutoSize = true;
-            tojpg.Location = new System.Drawing.Point(113, 8);
-            tojpg.Margin = new Padding(4);
+            tojpg.Location = new System.Drawing.Point(210, 17);
+            tojpg.Margin = new Padding(7, 9, 7, 9);
             tojpg.Name = "tojpg";
-            tojpg.Size = new System.Drawing.Size(49, 19);
+            tojpg.Size = new System.Drawing.Size(95, 36);
             tojpg.TabIndex = 4;
             tojpg.Text = "Jpeg";
             tojpg.UseVisualStyleBackColor = true;
@@ -423,10 +447,10 @@ namespace AnimeStudio.GUI
             // 
             topng.AutoSize = true;
             topng.Checked = true;
-            topng.Location = new System.Drawing.Point(58, 8);
-            topng.Margin = new Padding(4);
+            topng.Location = new System.Drawing.Point(108, 17);
+            topng.Margin = new Padding(7, 9, 7, 9);
             topng.Name = "topng";
-            topng.Size = new System.Drawing.Size(46, 19);
+            topng.Size = new System.Drawing.Size(86, 36);
             topng.TabIndex = 3;
             topng.TabStop = true;
             topng.Text = "Png";
@@ -435,10 +459,10 @@ namespace AnimeStudio.GUI
             // tobmp
             // 
             tobmp.AutoSize = true;
-            tobmp.Location = new System.Drawing.Point(4, 8);
-            tobmp.Margin = new Padding(4);
+            tobmp.Location = new System.Drawing.Point(7, 17);
+            tobmp.Margin = new Padding(7, 9, 7, 9);
             tobmp.Name = "tobmp";
-            tobmp.Size = new System.Drawing.Size(50, 19);
+            tobmp.Size = new System.Drawing.Size(94, 36);
             tobmp.TabIndex = 2;
             tobmp.Text = "Bmp";
             tobmp.UseVisualStyleBackColor = true;
@@ -448,10 +472,10 @@ namespace AnimeStudio.GUI
             converttexture.AutoSize = true;
             converttexture.Checked = true;
             converttexture.CheckState = CheckState.Checked;
-            converttexture.Location = new System.Drawing.Point(7, 153);
-            converttexture.Margin = new Padding(4);
+            converttexture.Location = new System.Drawing.Point(13, 326);
+            converttexture.Margin = new Padding(7, 9, 7, 9);
             converttexture.Name = "converttexture";
-            converttexture.Size = new System.Drawing.Size(123, 19);
+            converttexture.Size = new System.Drawing.Size(245, 36);
             converttexture.TabIndex = 1;
             converttexture.Text = "Convert Texture2D";
             converttexture.UseVisualStyleBackColor = true;
@@ -461,10 +485,10 @@ namespace AnimeStudio.GUI
             collectAnimations.AutoSize = true;
             collectAnimations.Checked = true;
             collectAnimations.CheckState = CheckState.Checked;
-            collectAnimations.Location = new System.Drawing.Point(8, 43);
-            collectAnimations.Margin = new Padding(4, 3, 4, 3);
+            collectAnimations.Location = new System.Drawing.Point(15, 92);
+            collectAnimations.Margin = new Padding(7, 6, 7, 6);
             collectAnimations.Name = "collectAnimations";
-            collectAnimations.Size = new System.Drawing.Size(125, 19);
+            collectAnimations.Size = new System.Drawing.Size(243, 36);
             collectAnimations.TabIndex = 24;
             collectAnimations.Text = "Collect animations";
             collectAnimations.UseVisualStyleBackColor = true;
@@ -490,11 +514,11 @@ namespace AnimeStudio.GUI
             groupBox2.Controls.Add(castToBone);
             groupBox2.Controls.Add(exportAllNodes);
             groupBox2.Controls.Add(eulerFilter);
-            groupBox2.Location = new System.Drawing.Point(292, 15);
-            groupBox2.Margin = new Padding(4);
+            groupBox2.Location = new System.Drawing.Point(542, 32);
+            groupBox2.Margin = new Padding(7, 9, 7, 9);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(4);
-            groupBox2.Size = new System.Drawing.Size(380, 236);
+            groupBox2.Padding = new Padding(7, 9, 7, 9);
+            groupBox2.Size = new System.Drawing.Size(706, 503);
             groupBox2.TabIndex = 11;
             groupBox2.TabStop = false;
             groupBox2.Text = "Fbx";
@@ -502,10 +526,10 @@ namespace AnimeStudio.GUI
             // exportMaterials
             // 
             exportMaterials.AutoSize = true;
-            exportMaterials.Location = new System.Drawing.Point(154, 96);
-            exportMaterials.Margin = new Padding(4);
+            exportMaterials.Location = new System.Drawing.Point(286, 205);
+            exportMaterials.Margin = new Padding(7, 9, 7, 9);
             exportMaterials.Name = "exportMaterials";
-            exportMaterials.Size = new System.Drawing.Size(111, 19);
+            exportMaterials.Size = new System.Drawing.Size(216, 36);
             exportMaterials.TabIndex = 25;
             exportMaterials.Text = "Export materials";
             exportMaterials.UseVisualStyleBackColor = true;
@@ -515,10 +539,10 @@ namespace AnimeStudio.GUI
             exportBlendShape.AutoSize = true;
             exportBlendShape.Checked = true;
             exportBlendShape.CheckState = CheckState.Checked;
-            exportBlendShape.Location = new System.Drawing.Point(7, 69);
-            exportBlendShape.Margin = new Padding(4);
+            exportBlendShape.Location = new System.Drawing.Point(13, 147);
+            exportBlendShape.Margin = new Padding(7, 9, 7, 9);
             exportBlendShape.Name = "exportBlendShape";
-            exportBlendShape.Size = new System.Drawing.Size(124, 19);
+            exportBlendShape.Size = new System.Drawing.Size(244, 36);
             exportBlendShape.TabIndex = 22;
             exportBlendShape.Text = "Export blendshape";
             exportBlendShape.UseVisualStyleBackColor = true;
@@ -528,10 +552,10 @@ namespace AnimeStudio.GUI
             exportAnimations.AutoSize = true;
             exportAnimations.Checked = true;
             exportAnimations.CheckState = CheckState.Checked;
-            exportAnimations.Location = new System.Drawing.Point(154, 43);
-            exportAnimations.Margin = new Padding(4);
+            exportAnimations.Location = new System.Drawing.Point(286, 92);
+            exportAnimations.Margin = new Padding(7, 9, 7, 9);
             exportAnimations.Name = "exportAnimations";
-            exportAnimations.Size = new System.Drawing.Size(122, 19);
+            exportAnimations.Size = new System.Drawing.Size(237, 36);
             exportAnimations.TabIndex = 21;
             exportAnimations.Text = "Export animations";
             exportAnimations.UseVisualStyleBackColor = true;
@@ -540,10 +564,10 @@ namespace AnimeStudio.GUI
             // 
             scaleFactor.DecimalPlaces = 2;
             scaleFactor.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            scaleFactor.Location = new System.Drawing.Point(102, 189);
-            scaleFactor.Margin = new Padding(4);
+            scaleFactor.Location = new System.Drawing.Point(189, 403);
+            scaleFactor.Margin = new Padding(7, 9, 7, 9);
             scaleFactor.Name = "scaleFactor";
-            scaleFactor.Size = new System.Drawing.Size(59, 23);
+            scaleFactor.Size = new System.Drawing.Size(110, 39);
             scaleFactor.TabIndex = 20;
             scaleFactor.TextAlign = HorizontalAlignment.Center;
             scaleFactor.Value = new decimal(new int[] { 1, 0, 0, 0 });
@@ -551,10 +575,10 @@ namespace AnimeStudio.GUI
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(8, 193);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new System.Drawing.Point(15, 412);
+            label5.Margin = new Padding(7, 0, 7, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(67, 15);
+            label5.Size = new System.Drawing.Size(133, 32);
             label5.TabIndex = 19;
             label5.Text = "ScaleFactor";
             // 
@@ -563,19 +587,19 @@ namespace AnimeStudio.GUI
             fbxFormat.DropDownStyle = ComboBoxStyle.DropDownList;
             fbxFormat.FormattingEnabled = true;
             fbxFormat.Items.AddRange(new object[] { "Binary", "Ascii" });
-            fbxFormat.Location = new System.Drawing.Point(271, 125);
-            fbxFormat.Margin = new Padding(4);
+            fbxFormat.Location = new System.Drawing.Point(503, 267);
+            fbxFormat.Margin = new Padding(7, 9, 7, 9);
             fbxFormat.Name = "fbxFormat";
-            fbxFormat.Size = new System.Drawing.Size(70, 23);
+            fbxFormat.Size = new System.Drawing.Size(127, 40);
             fbxFormat.TabIndex = 18;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(188, 129);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new System.Drawing.Point(349, 275);
+            label4.Margin = new Padding(7, 0, 7, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(65, 15);
+            label4.Size = new System.Drawing.Size(129, 32);
             label4.TabIndex = 17;
             label4.Text = "FBXFormat";
             // 
@@ -584,38 +608,38 @@ namespace AnimeStudio.GUI
             fbxVersion.DropDownStyle = ComboBoxStyle.DropDownList;
             fbxVersion.FormattingEnabled = true;
             fbxVersion.Items.AddRange(new object[] { "6.1", "7.1", "7.2", "7.3", "7.4", "7.5" });
-            fbxVersion.Location = new System.Drawing.Point(271, 157);
-            fbxVersion.Margin = new Padding(4);
+            fbxVersion.Location = new System.Drawing.Point(503, 335);
+            fbxVersion.Margin = new Padding(7, 9, 7, 9);
             fbxVersion.Name = "fbxVersion";
-            fbxVersion.Size = new System.Drawing.Size(70, 23);
+            fbxVersion.Size = new System.Drawing.Size(127, 40);
             fbxVersion.TabIndex = 16;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(188, 161);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new System.Drawing.Point(349, 343);
+            label3.Margin = new Padding(7, 0, 7, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(65, 15);
+            label3.Size = new System.Drawing.Size(132, 32);
             label3.TabIndex = 15;
             label3.Text = "FBXVersion";
             // 
             // boneSize
             // 
-            boneSize.Location = new System.Drawing.Point(102, 157);
-            boneSize.Margin = new Padding(4);
+            boneSize.Location = new System.Drawing.Point(189, 335);
+            boneSize.Margin = new Padding(7, 9, 7, 9);
             boneSize.Name = "boneSize";
-            boneSize.Size = new System.Drawing.Size(59, 23);
+            boneSize.Size = new System.Drawing.Size(110, 39);
             boneSize.TabIndex = 11;
             boneSize.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(8, 161);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new System.Drawing.Point(15, 343);
+            label2.Margin = new Padding(7, 0, 7, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(54, 15);
+            label2.Size = new System.Drawing.Size(112, 32);
             label2.TabIndex = 10;
             label2.Text = "BoneSize";
             // 
@@ -624,10 +648,10 @@ namespace AnimeStudio.GUI
             exportSkins.AutoSize = true;
             exportSkins.Checked = true;
             exportSkins.CheckState = CheckState.Checked;
-            exportSkins.Location = new System.Drawing.Point(154, 17);
-            exportSkins.Margin = new Padding(4);
+            exportSkins.Location = new System.Drawing.Point(286, 36);
+            exportSkins.Margin = new Padding(7, 9, 7, 9);
             exportSkins.Name = "exportSkins";
-            exportSkins.Size = new System.Drawing.Size(89, 19);
+            exportSkins.Size = new System.Drawing.Size(172, 36);
             exportSkins.TabIndex = 8;
             exportSkins.Text = "Export skins";
             exportSkins.UseVisualStyleBackColor = true;
@@ -635,10 +659,10 @@ namespace AnimeStudio.GUI
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(8, 129);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new System.Drawing.Point(15, 275);
+            label1.Margin = new Padding(7, 0, 7, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(81, 15);
+            label1.Size = new System.Drawing.Size(162, 32);
             label1.TabIndex = 7;
             label1.Text = "FilterPrecision";
             // 
@@ -646,20 +670,20 @@ namespace AnimeStudio.GUI
             // 
             filterPrecision.DecimalPlaces = 2;
             filterPrecision.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            filterPrecision.Location = new System.Drawing.Point(102, 127);
-            filterPrecision.Margin = new Padding(4);
+            filterPrecision.Location = new System.Drawing.Point(189, 271);
+            filterPrecision.Margin = new Padding(7, 9, 7, 9);
             filterPrecision.Name = "filterPrecision";
-            filterPrecision.Size = new System.Drawing.Size(59, 23);
+            filterPrecision.Size = new System.Drawing.Size(110, 39);
             filterPrecision.TabIndex = 6;
             filterPrecision.Value = new decimal(new int[] { 25, 0, 0, 131072 });
             // 
             // castToBone
             // 
             castToBone.AutoSize = true;
-            castToBone.Location = new System.Drawing.Point(154, 69);
-            castToBone.Margin = new Padding(4);
+            castToBone.Location = new System.Drawing.Point(286, 147);
+            castToBone.Margin = new Padding(7, 9, 7, 9);
             castToBone.Name = "castToBone";
-            castToBone.Size = new System.Drawing.Size(143, 19);
+            castToBone.Size = new System.Drawing.Size(284, 36);
             castToBone.TabIndex = 5;
             castToBone.Text = "All nodes cast to bone";
             castToBone.UseVisualStyleBackColor = true;
@@ -669,10 +693,10 @@ namespace AnimeStudio.GUI
             exportAllNodes.AutoSize = true;
             exportAllNodes.Checked = true;
             exportAllNodes.CheckState = CheckState.Checked;
-            exportAllNodes.Location = new System.Drawing.Point(7, 96);
-            exportAllNodes.Margin = new Padding(4);
+            exportAllNodes.Location = new System.Drawing.Point(13, 205);
+            exportAllNodes.Margin = new Padding(7, 9, 7, 9);
             exportAllNodes.Name = "exportAllNodes";
-            exportAllNodes.Size = new System.Drawing.Size(110, 19);
+            exportAllNodes.Size = new System.Drawing.Size(216, 36);
             exportAllNodes.TabIndex = 4;
             exportAllNodes.Text = "Export all nodes";
             exportAllNodes.UseVisualStyleBackColor = true;
@@ -682,10 +706,10 @@ namespace AnimeStudio.GUI
             eulerFilter.AutoSize = true;
             eulerFilter.Checked = true;
             eulerFilter.CheckState = CheckState.Checked;
-            eulerFilter.Location = new System.Drawing.Point(8, 17);
-            eulerFilter.Margin = new Padding(4);
+            eulerFilter.Location = new System.Drawing.Point(15, 36);
+            eulerFilter.Margin = new Padding(7, 9, 7, 9);
             eulerFilter.Name = "eulerFilter";
-            eulerFilter.Size = new System.Drawing.Size(78, 19);
+            eulerFilter.Size = new System.Drawing.Size(152, 36);
             eulerFilter.TabIndex = 3;
             eulerFilter.Text = "EulerFilter";
             eulerFilter.UseVisualStyleBackColor = true;
@@ -698,9 +722,10 @@ namespace AnimeStudio.GUI
             // 
             // Reset
             // 
-            Reset.Location = new System.Drawing.Point(300, 428);
+            Reset.Location = new System.Drawing.Point(565, 951);
+            Reset.Margin = new Padding(6);
             Reset.Name = "Reset";
-            Reset.Size = new System.Drawing.Size(88, 26);
+            Reset.Size = new System.Drawing.Size(163, 55);
             Reset.TabIndex = 12;
             Reset.Text = "Reset";
             Reset.UseVisualStyleBackColor = false;
@@ -709,17 +734,17 @@ namespace AnimeStudio.GUI
             // ExportOptions
             // 
             AcceptButton = OKbutton;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = Cancel;
-            ClientSize = new System.Drawing.Size(677, 467);
+            ClientSize = new System.Drawing.Size(1257, 1032);
             Controls.Add(Reset);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(Cancel);
             Controls.Add(OKbutton);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Margin = new Padding(4);
+            Margin = new Padding(7, 9, 7, 9);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ExportOptions";
@@ -794,5 +819,6 @@ namespace AnimeStudio.GUI
         private Button addTexNameButton;
         private Button removeTexNameButton;
         private CheckBox exportMaterials;
+        private CheckBox enableHDR;
     }
 }

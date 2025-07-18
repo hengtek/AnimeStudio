@@ -21,6 +21,7 @@ namespace AnimeStudio.GUI
             assetGroupOptions.SelectedIndex = Properties.Settings.Default.assetGroupOption;
             restoreExtensionName.Checked = Properties.Settings.Default.restoreExtensionName;
             converttexture.Checked = Properties.Settings.Default.convertTexture;
+            enableHDR.Checked = Properties.Settings.Default.enableHDR;
             convertAudio.Checked = Properties.Settings.Default.convertAudio;
             var str = Properties.Settings.Default.convertType.ToString();
             foreach (Control c in panel1.Controls)
@@ -73,6 +74,7 @@ namespace AnimeStudio.GUI
             Properties.Settings.Default.assetGroupOption = assetGroupOptions.SelectedIndex;
             Properties.Settings.Default.restoreExtensionName = restoreExtensionName.Checked;
             Properties.Settings.Default.convertTexture = converttexture.Checked;
+            Properties.Settings.Default.enableHDR = enableHDR.Checked;
             Properties.Settings.Default.convertAudio = convertAudio.Checked;
             foreach (Control c in panel1.Controls)
             {
