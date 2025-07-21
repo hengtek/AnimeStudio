@@ -74,7 +74,7 @@ void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const a
 		// TODO: This is slightly incorrect as the bulk data should be different between tiers. However, ZZZ only uses 1 tier, so it's not relevant for this special case.
 		// I suspect if this breaks in the future it will be because they move to using two tiers that are concatenated together in the stream attached to the AnimationClip.
 		ACL_ASSERT(database->get_bulk_data_size(acl::quality_tier::medium_importance) == 0, "Support for multiple streamers is not implemented.");
-		acl::null_database_streamer medium_streamer(nullptr, 0);
+		acl::null_database_streamer medium_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::medium_importance));
 		acl::null_database_streamer low_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::lowest_importance));
 		spdlog::info("Initializing database with stripped bulk data");
 		database_context.initialize(allocator, *database, medium_streamer, low_streamer);
