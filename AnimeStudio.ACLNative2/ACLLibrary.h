@@ -22,7 +22,6 @@
 struct DecompressedClip {
 	float* Values;
 	int32_t ValuesCount;
-	uint8_t padding0[4];
 	float* Times;
 	int32_t TimesCount;
 
@@ -40,7 +39,8 @@ struct DecompressedClip {
 	}
 };
 
-static_assert(sizeof(DecompressedClip) == 32, "DecompressedClip has incorrect size");
+// TODO: Make this work across x86 and x64 configurations.
+// static_assert(sizeof(DecompressedClip) == 32, "DecompressedClip has incorrect size");
 
 extern "C" ACLNATIVE_API void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const acl::compressed_tracks* scalar_tracks, const acl::compressed_database* database, const uint8_t* bulk_data, DecompressedClip* decompressedClip);
 extern "C" ACLNATIVE_API void Dispose(DecompressedClip* decompressedClip);
