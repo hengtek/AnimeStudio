@@ -13,10 +13,7 @@ After the official AssetStudio by Razmoth was discontinued, bugs started to aris
 
 # Download
 
-| **.NET Version** | **GUI** | **CLI** |
-| - | - | - |
-| **9.0** | [Download ✨](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-GUI-net9.0.zip) | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-CLI-net9.0.zip) |
-| **8.0** | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-GUI-net8.0.zip) | [Download](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-CLI-net8.0.zip) |
+## [.NET 9 (recommended ✨)](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-net9.zip) or [.NET 8](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-net8.zip)
 
 ---
 

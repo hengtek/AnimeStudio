@@ -31,9 +31,13 @@ namespace AnimeStudio.PInvoke
 
             var subDir = Environment.Is64BitProcess ? "x64" : "x86";
 
-            var directedDllDir = Path.Combine(localDir, subDir);
-
-            return directedDllDir;
+            if (Path.Exists(Path.Combine(localPath, "bin")))
+            {
+                return Path.Combine(localDir, "bin", subDir);
+            } else
+            {
+                return Path.Combine(localDir, subDir);
+            }
         }
 
         private static partial class Win32

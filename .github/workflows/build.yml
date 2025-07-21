@@ -18,70 +18,37 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: microsoft/setup-msbuild@v1.1
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
 
       - name: Nuget Restore
         run: nuget restore
 
-      ####################
-      ### .NET 8 - GUI ###
-      ####################
+      #############
+      ### BUILD ###
+      #############
 
-      - name: Build .Net8 GUI
-        run: msbuild /t:AnimeStudio_GUI:publish /p:Configuration=Release /p:TargetFramework=net8.0-windows /p:SelfContained=false /verbosity:minimal
+      - name: Build Studio
+        shell: pwsh
+        run: .\build.ps1
 
-      - name: Prepare .Net8 GUI Artifact
-        run: mkdir guinet8\\AnimeStudio-GUI-net8.0-${{ github.sha }} && xcopy /E /I /Y AnimeStudio.GUI\\bin\\Release\\net8.0-windows\\publish\\* guinet8\\AnimeStudio-GUI-net8.0-${{ github.sha }}\\
-      
-      - name: Upload .Net8 GUI Artifact
+      - name: Prepare Artifacts
+        run: |
+          mkdir output-net8\\AnimeStudio-net8-${{ github.sha }}
+          xcopy /E /I /Y .\dist\net8.0-windows\* output-net8\\AnimeStudio-net8-${{ github.sha }}\\
+          mkdir output-net9\\AnimeStudio-net9-${{ github.sha }}
+          xcopy /E /I /Y .\dist\net9.0-windows\* output-net9\\AnimeStudio-net9-${{ github.sha }}\\
+
+      - name: Upload .NET 8 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AnimeStudio-GUI-net8.0
-          path: guinet8
+          name: AnimeStudio-net8
+          path: output-net8
 
-      ####################
-      ### .NET 8 - CLI ###
-      ####################
-
-      - name: Build .Net8 CLI
-        run: msbuild /t:AnimeStudio_CLI:publish /p:Configuration=Release /p:TargetFramework=net8.0-windows /p:SelfContained=false /verbosity:minimal
-
-      - name: Prepare .Net8 CLI Artifact
-        run: mkdir clinet8\\AnimeStudio-CLI-net8.0-${{ github.sha }} && xcopy /E /I /Y AnimeStudio.CLI\\bin\\Release\\net8.0-windows\\publish\\* clinet8\\AnimeStudio-CLI-net8.0-${{ github.sha }}\\
-
-      - name: Upload .Net8 CLI Artifact
+      - name: Upload .NET 9 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AnimeStudio-CLI-net8.0
-          path: clinet8
-
-      ####################
-      ### .NET 9 - GUI ###
-      ####################
-
-      - name: Build .Net9 GUI
-        run: msbuild /t:AnimeStudio_GUI:publish /p:Configuration=Release /p:TargetFramework=net9.0-windows /p:SelfContained=false /verbosity:minimal
-
-      - name: Prepare .Net9 GUI Artifact
-        run: mkdir guinet9\\AnimeStudio-GUI-net9.0-${{ github.sha }} && xcopy /E /I /Y AnimeStudio.GUI\\bin\\Release\\net9.0-windows\\publish\\* guinet9\\AnimeStudio-GUI-net9.0-${{ github.sha }}\\
-
-      - name: Upload .Net9 GUI Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: AnimeStudio-GUI-net9.0
-          path: guinet9
-      
-      ####################
-      ### .NET 9 - CLI ###
-      ####################
-
-      - name: Build .Net9 CLI
-        run: msbuild /t:AnimeStudio_CLI:publish /p:Configuration=Release /p:TargetFramework=net9.0-windows /p:SelfContained=false /verbosity:minimal      
-
-      - name: Prepare .Net9 CLI Artifact
-        run: mkdir clinet9\\AnimeStudio-CLI-net9.0-${{ github.sha }} && xcopy /E /I /Y AnimeStudio.CLI\\bin\\Release\\net9.0-windows\\publish\\* clinet9\\AnimeStudio-CLI-net9.0-${{ github.sha }}\\
-
-      - name: Upload .Net9 CLI Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: AnimeStudio-CLI-net9.0
-          path: clinet9
+          name: AnimeStudio-net9
+          path: output-net9
