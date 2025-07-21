@@ -36,7 +36,7 @@ This is a non-exhaustive list of modifications :
 
 # How to use ?
 
-Compared to the original studio, the UI was slightly adjusted, but if you are familiar with AssetStudio, you should get the hang of it very quickly. For new people, there is not a tutorial for this one specifically yet, but I recommend looking at the original tutorial to help [here](https://gist.github.com/Modder4869/0f5371f8879607eb95b8e63badca227e) (Tutorial by Modder4869) and look at the [original readme](https://github.com/RazTools/Studio/blob/main/README.md), otherwise you can ask in the [Discord](https://discord.gg/fzRdtVh).
+Compared to the original studio, the UI was slightly adjusted, but if you are familiar with AssetStudio, you should get the hang of it very quickly. For new people, there is not a tutorial for this one specifically yet, but I recommend looking at the original tutorial by Modder4869 to help [here](https://gist.github.com/Modder4869/0f5371f8879607eb95b8e63badca227e) (Make sure to download from this page and not using the link on the tutorial page !!) and look at the [original readme](https://github.com/RazTools/Studio/blob/main/README.md), otherwise you can ask in the [Discord](https://discord.gg/fzRdtVh).
 
 ---
 
