@@ -31,7 +31,7 @@ namespace AnimeStudio.PInvoke
 
             var subDir = Environment.Is64BitProcess ? "x64" : "x86";
 
-            if (Path.Exists(Path.Combine(localPath, "bin")))
+            if (Path.Exists(Path.Combine(localDir, "bin")))
             {
                 return Path.Combine(localDir, "bin", subDir);
             } else
