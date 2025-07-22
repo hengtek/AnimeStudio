@@ -230,25 +230,56 @@ namespace acl
 		{
 			hoyo_tracks_header() = delete;
 
-			uint32_t						num_bits_per_frame;
 			union
 			{
-				uint32_t						num_segments;
-				ptr_offset32<track_metadata>	metadata_per_track;
+				uint32_t								num_bits_per_frame;
+				uint32_t								range_data_size;
+			};
+
+			union
+			{
+				uint32_t								num_segments;
+				ptr_offset32<track_metadata>			metadata_per_track;
 			};
 
 			union
 			{
 				ptr_offset32<segment_header>			segment_headers_offset;
 				ptr_offset32<stripped_segment_header_t>	stripped_segment_headers_offset;
+				ptr_offset32<float>						track_constant_values;
 			};
 
-			uint32_t						unk0;
-			ptr_offset32<tracks_database_header>	database_header_offset;
-			ptr_offset32<float>				track_range_values;
-			uint32_t						unk2;
+			union
+			{
+				uint32_t								unk;
+				ptr_offset32<float>						track_range_values;
+			};
 
-			bool							has_multiple_segments() const { return num_segments > 1; }
+			union
+			{
+				ptr_offset32<tracks_database_header>	database_header_offset;
+				ptr_offset32<uint8_t>					track_animated_values;
+			};
+
+			ptr_offset32<float>							database_constant_values;
+			ptr_offset32<float>							database_range_values;
+
+			// For normal scalar tracks
+			track_metadata* get_track_metadata() { return metadata_per_track.add_to(this); }
+			const track_metadata* get_track_metadata() const { return metadata_per_track.add_to(this); }
+
+			float* get_track_constant_values() { return track_constant_values.add_to(this); }
+			const float* get_track_constant_values() const { return track_constant_values.add_to(this); }
+
+			float* get_track_range_values() { return track_range_values.add_to(this); }
+			const float* get_track_range_values() const { return track_range_values.add_to(this); }
+
+			uint8_t* get_track_animated_values() { return track_animated_values.add_to(this); }
+			const uint8_t* get_track_animated_values() const { return track_animated_values.add_to(this); }
+
+			// For database scalar tracks
+
+			bool has_multiple_segments() const { return num_segments > 1; }
 
 			uint32_t* get_segment_start_indices() { ACL_ASSERT(has_multiple_segments(), "Must have multiple segments to contain segment indices"); return add_offset_to_ptr<uint32_t>(this, align_to(sizeof(hoyo_tracks_header), 4)); }
 			const uint32_t* get_segment_start_indices() const { ACL_ASSERT(has_multiple_segments(), "Must have multiple segments to contain segment indices"); return add_offset_to_ptr<const uint32_t>(this, align_to(sizeof(hoyo_tracks_header), 4)); }
@@ -262,16 +293,34 @@ namespace acl
 			stripped_segment_header_t* get_stripped_segment_headers() { return stripped_segment_headers_offset.add_to(this); }
 			const stripped_segment_header_t* get_stripped_segment_headers() const { return stripped_segment_headers_offset.add_to(this); }
 
+			float* get_database_constant_values() { return database_constant_values.add_to(this); }
+			const float* get_database_constant_values() const { return database_constant_values.add_to(this); }
+
+			float* get_database_range_values() { return database_range_values.add_to(this); }
+			const float* get_database_range_values() const { return database_range_values.add_to(this); }
+
 			template<class segment_header_type>
-			void							get_segment_data(const segment_header_type& header, uint8_t*& out_format_per_track_data, uint8_t*& out_range_data, uint8_t*& out_animated_data)
+			void							get_segment_data(const segment_header_type& header, uint8_t*& out_format_per_track_data, uint8_t*& out_animated_data)
 			{
-				ACL_ASSERT(false, "Not Implemented");
+				uint8_t* segment_data = header.segment_data.add_to(this);
+				uint8_t* format_per_track_data = segment_data;
+
+				uint8_t* animated_data = align_to(segment_data + range_data_size, 4);
+
+				out_format_per_track_data = format_per_track_data;
+				out_animated_data = animated_data;
 			}
 
 			template<class segment_header_type>
-			void							get_segment_data(const segment_header_type& header, const uint8_t*& out_format_per_track_data, const uint8_t*& out_range_data, const uint8_t*& out_animated_data) const
+			void							get_segment_data(const segment_header_type& header, const uint8_t*& out_format_per_track_data, const uint8_t*& out_animated_data) const
 			{
-				ACL_ASSERT(false, "Not Implemented");
+				const uint8_t* segment_data = header.segment_data.add_to(this);
+				const uint8_t* format_per_track_data = segment_data;
+
+				const uint8_t* animated_data = align_to(segment_data + range_data_size, 4);
+
+				out_format_per_track_data = format_per_track_data;
+				out_animated_data = animated_data;
 			}
 		};
 

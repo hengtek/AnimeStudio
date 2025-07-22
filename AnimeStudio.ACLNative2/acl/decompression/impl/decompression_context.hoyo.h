@@ -32,6 +32,9 @@ namespace acl
 			uint8_t uses_single_segment = 0;
 			bool has_database = 0;
 
+			const uint8_t* format_per_track_data[2] = { nullptr };
+			const uint8_t* animated_track_data[2] = { nullptr };
+
 			const compressed_tracks* get_compressed_tracks() const { return tracks; }
 			compressed_tracks_version16 get_version() const { return tracks->get_version(); }
 			sample_looping_policy get_looping_policy() const { return static_cast<sample_looping_policy>(looping_policy); }

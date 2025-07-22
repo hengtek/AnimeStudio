@@ -102,6 +102,7 @@ namespace acl
 		if (!is_version_supported)
 			return false;
 
+		// TODO: This check breaks for type 100 (HoYo) scalar tracks
 		const bool is_contained_in_db = skip_safety_checks || database.contains(tracks);
 		if (!is_contained_in_db)
 			return false;

@@ -16,6 +16,8 @@ struct ScalarDecompressionSettings : public acl::default_hoyo_scalar_decompressi
 {
 	using database_settings_type = DatabaseSettings;
 	static constexpr acl::compressed_tracks_version16 version_supported() { return acl::compressed_tracks_version16::vHoYo; }
+	// TODO: Fix this. The checks break because they try and cast the header to a transform_track
+	static constexpr bool skip_initialize_safety_checks() { return true; }
 };
 
 #define TRANSFORM_TRACK_SIZE 10
@@ -95,8 +97,9 @@ void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const a
 	acl::decompression_context<ScalarDecompressionSettings> scalar_context;
 	if (scalar_tracks != nullptr) {
 		spdlog::info("Initializing scalar context from tracks: buf_sz: {}", scalar_tracks->get_size());
-		scalar_context.initialize(*scalar_tracks);
+		scalar_context.initialize(*scalar_tracks, database_context);
 	}
+	spdlog::info("Initialization done");
 
 	decompressedClip->Reset();
 	float step = 0.0f;
@@ -143,7 +146,8 @@ void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const a
 		}
 
 		if (scalar_context.is_initialized()) {
-			// TODO
+			scalar_context.seek(timestep, acl::sample_rounding_policy::none);
+			scalar_context.decompress_tracks(writer);
 		}
 	}
 }
