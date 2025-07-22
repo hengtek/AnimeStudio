@@ -11,7 +11,8 @@ namespace AnimeStudio
         private static List<List<string>> baseData = new()
         {
             new() { "PGR_GLB_KR", "Punishing Gray Raven - Global/Korea", "6B75726F6B75726F6B75726F6B75726F" },
-            new() { "PGR_CN_JP_TW", "Punishing Gray Raven - China/Japan/Taiwan", "7935585076714C4F72436F6B57524961" },
+            new() { "PGR_CN_JP_TW", "Punishing Gray Raven - China/Japan/Taiwan", "587865636F6472506547616B61326536" },
+            new() { "PGR_CN_JP_TW_OLD", "Punishing Gray Raven - China/Japan/Taiwan Old Key", "7935585076714C4F72436F6B57524961" },
             new() { "Archeland_KalpaOfUniverse", "Archeland/Kalpa of Universe", "426C61636B4A61636B50726F6A656374" },
             new() { "Archeland_1114", "Archeland 1.1.14", "50726F6A65637441726368654C616E64" },
             new() { "NeuralCloud", "Neural Cloud", "31636162383436663532393031633965" },

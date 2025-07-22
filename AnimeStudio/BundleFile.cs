@@ -18,7 +18,8 @@ namespace AnimeStudio
         BlocksInfoAtTheEnd = 0x80,
         OldWebPluginCompatibility = 0x100,
         BlockInfoNeedPaddingAtStart = 0x200,
-        UnityCNEncryption = 0x400
+        UnityCNEncryption = 0x400,
+        UnityCNEncryption2 = 0x1000
     }
 
     [Flags]
@@ -401,7 +402,7 @@ namespace AnimeStudio
 
             Logger.Verbose($"Mask set to {mask}");
 
-            if ((m_Header.flags & mask) != 0)
+            if ((m_Header.flags & mask) != 0 || (m_Header.flags & ArchiveFlags.UnityCNEncryption2) != 0)
             {
                 Logger.Verbose($"Encryption flag exist, file is encrypted, attempting to decrypt");
                 UnityCN = new UnityCN(reader);
