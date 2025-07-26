@@ -35,7 +35,6 @@ namespace AnimeStudio.GUI
             _firstAssetEntries = new List<AssetEntry>();
             _secondAssetEntries = new List<AssetEntry>();
             secondMapFilter.SelectedIndex = 0;
-            this.AutoScaleMode = AutoScaleMode.Dpi;
         }
 
         private async void loadAssetMap_Click(object sender, EventArgs e)
