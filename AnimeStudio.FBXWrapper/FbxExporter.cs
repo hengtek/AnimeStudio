@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace AnimeStudio.FbxInterop
 {
@@ -15,7 +16,7 @@ namespace AnimeStudio.FbxInterop
 
         internal FbxExporter(string fileName, IImported imported, Fbx.ExportOptions exportOptions)
         {
-            _context = new FbxExporterContext(exportOptions);
+            _context = new FbxExporterContext(exportOptions, Directory.GetCurrentDirectory());
             _exportOptions = exportOptions;
             _fileName = fileName;
             _imported = imported;

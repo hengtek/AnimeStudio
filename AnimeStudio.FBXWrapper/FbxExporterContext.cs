@@ -14,8 +14,10 @@ namespace AnimeStudio.FbxInterop
         private readonly List<KeyValuePair<string, IntPtr>> _createdMaterials;
         private readonly Dictionary<string, IntPtr> _createdTextures;
         private readonly Fbx.ExportOptions _exportOptions;
+        private readonly string _exportDirectory;
 
-        public FbxExporterContext(Fbx.ExportOptions exportOptions)
+
+        public FbxExporterContext(Fbx.ExportOptions exportOptions, string exportDirectory)
         {
             Fbx.QuaternionToEuler(Quaternion.Zero); // workaround to init dll
             _pContext = AsFbxCreateContext();
@@ -23,11 +25,19 @@ namespace AnimeStudio.FbxInterop
             _createdMaterials = new List<KeyValuePair<string, IntPtr>>();
             _createdTextures = new Dictionary<string, IntPtr>();
             _exportOptions = exportOptions;
+            _exportDirectory = exportDirectory;
         }
 
         ~FbxExporterContext()
         {
             Dispose(false);
+        }
+
+        private static string GetSafeFilename(string name)
+        {
+            foreach (var c in Path.GetInvalidFileNameChars())
+                name = name.Replace(c, '_');
+            return name;
         }
 
         public void Dispose()
@@ -200,8 +210,14 @@ namespace AnimeStudio.FbxInterop
 
             _createdTextures.Add(texture.Name, pTex);
 
-            var file = new FileInfo(texture.Name);
+            var rawName = Path.GetFileNameWithoutExtension(texture.Name);
+            var safeRaw = GetSafeFilename(rawName);
+            if (safeRaw.Length > 100)
+                safeRaw = safeRaw.Substring(0, 100);
+            var safeName = $"{safeRaw}.png";
+            var fullPath = Path.Combine(_exportDirectory, safeName);
 
+            var file = new FileInfo(fullPath);
             using (var writer = new BinaryWriter(file.Create()))
             {
                 writer.Write(texture.Data);
