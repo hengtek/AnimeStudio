@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace AnimeStudio.GUI
 
         private SortOrder _sortOrder;
         private DataGridViewColumn _sortedColumn;
+        private List<String> types = new();
+        private List<String> selectedTypes = new();
 
         public AssetBrowser(MainForm form)
         {
@@ -122,7 +125,6 @@ namespace AnimeStudio.GUI
             assetDataGridView.RowCount = _assetEntries.Count;
             assetDataGridView.Refresh();
 
-            var types = new List<String>();
             foreach (var entry in _assetEntries)
             {
                 if (!types.Contains(entry.Type.ToString()))
@@ -131,11 +133,11 @@ namespace AnimeStudio.GUI
                 }
             }
 
-            filterTypeCombo.Items.Clear();
             types.Sort();
-            types.Insert(0, "All");
-            filterTypeCombo.Items.AddRange(types.ToArray());
-            filterTypeCombo.SelectedIndex = 0;
+            if (types.Count() > 0 && types[0] != "All")
+            {
+                types.Insert(0, "All");
+            }
 
             updateButtons();
         }
@@ -151,7 +153,7 @@ namespace AnimeStudio.GUI
             containerTextBox.Enabled = isEnabled;
             sourceTextBox.Enabled = isEnabled;
             pathTextBox.Enabled = isEnabled;
-            filterTypeCombo.Enabled = isEnabled;
+            filterSelectTypesBtn.Enabled = isEnabled;
             hashTextBox.Enabled = isEnabled;
             searchBtn.Enabled = isEnabled;
 
@@ -363,17 +365,18 @@ namespace AnimeStudio.GUI
                 exportableAssets.Add(assetItem);
             }
         }
+
         private void FilterAssetDataGrid()
         {
             TryAddFilter("Name", nameTextBox.Text);
             TryAddFilter("Container", containerTextBox.Text);
             TryAddFilter("Source", sourceTextBox.Text);
             TryAddFilter("PathID", pathTextBox.Text);
-            var typeFilter = filterTypeCombo.SelectedItem?.ToString();
-            if (typeFilter == "All")
-            {
-                typeFilter = "";
-            }
+
+            var typeFilter = (selectedTypes.Count > 0 && selectedTypes[0] != "All")
+                ? string.Join("|", selectedTypes)
+                : "";
+
             TryAddFilter("Type", typeFilter);
             TryAddFilter("SHA256Hash", hashTextBox.Text);
 
@@ -516,7 +519,6 @@ namespace AnimeStudio.GUI
         {
             ResourceMap.Clear();
             _assetEntries.Clear();
-            filterTypeCombo.Items.Clear();
             assetDataGridView.Rows.Clear();
         }
 
@@ -596,6 +598,103 @@ namespace AnimeStudio.GUI
             _secondAssetEntries.Clear();
             secondMapFilter.SelectedIndex = 0;
             updateDisplay();
+        }
+
+        private void filterSelectTypesBtn_Click(object sender, EventArgs e)
+        {
+            Form popup = new Form
+            {
+                FormBorderStyle = FormBorderStyle.FixedToolWindow,
+                StartPosition = FormStartPosition.Manual,
+                Size = new Size(300, 50 * types.Count()),
+                Location = this.PointToScreen(new Point(filterSelectTypesBtn.Left, filterSelectTypesBtn.Bottom)),
+                ShowInTaskbar = false,
+            };
+
+            var layout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                RowCount = 2,
+                ColumnCount = 1
+            };
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+
+            CheckedListBox clb = new CheckedListBox
+            {
+                Dock = DockStyle.Fill,
+                CheckOnClick = true,
+            };
+
+            clb.Items.AddRange(types.ToArray());
+
+            if (selectedTypes.Count == 0)
+                selectedTypes = clb.Items.Cast<string>().ToList();
+
+            // restore previous selection
+            for (int i = 0; i < clb.Items.Count; i++)
+            {
+                clb.SetItemChecked(i, selectedTypes.Contains(clb.Items[i].ToString()));
+            }
+
+            bool updating = false;
+
+            clb.ItemCheck += (s, e) =>
+            {
+                if (updating) return;
+                updating = true;
+
+                if (e.Index == 0) // "All" clicked
+                {
+                    bool checkAll = e.NewValue == CheckState.Checked;
+                    for (int i = 1; i < clb.Items.Count; i++)
+                        clb.SetItemChecked(i, checkAll);
+                }
+                else
+                {
+                    if (e.NewValue == CheckState.Checked)
+                    {
+                        bool allChecked = true;
+                        for (int i = 1; i < clb.Items.Count; i++)
+                            if (i == e.Index ? false : !clb.GetItemChecked(i)) { allChecked = false; break; }
+
+                        if (allChecked)
+                            clb.SetItemChecked(0, true);
+                    }
+                    else // one unchecked
+                    {
+                        clb.SetItemChecked(0, false);
+                        bool anyChecked = false;
+                        for (int i = 1; i < clb.Items.Count; i++)
+                            if (i == e.Index ? false : clb.GetItemChecked(i)) { anyChecked = true; break; }
+                        if (!anyChecked) // none left checked
+                            for (int i = 0; i < clb.Items.Count; i++)
+                                clb.SetItemChecked(i, false);
+                    }
+                }
+
+                updating = false;
+            };
+
+            Button ok = new Button
+            {
+                Dock = DockStyle.Fill,
+                Text = "OK"
+            };
+
+            ok.Click += (s, e) =>
+            {
+                var selected = clb.CheckedItems.Cast<string>().ToList();
+                selectedTypes.Clear();
+                selectedTypes.AddRange(selected);
+                popup.Close();
+            };
+
+            layout.Controls.Add(clb, 0, 0);
+            layout.Controls.Add(ok, 0, 1);
+            popup.Controls.Add(layout);
+
+            popup.ShowDialog(this);
         }
     }
 }
