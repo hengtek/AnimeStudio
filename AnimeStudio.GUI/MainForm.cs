@@ -1,29 +1,32 @@
 ﻿
-using Newtonsoft.Json;
-using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using static AnimeStudio.GUI.Studio;
-using OpenTK.Graphics;
-using OpenTK.Mathematics;
-using System.Text.RegularExpressions;
-using OpenTK.Audio.OpenAL;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Drawing.Drawing2D;
-using static AnimeStudio.AssetsManager;
+using System.Xml.Linq;
 using Microsoft.VisualBasic.Devices;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using OpenTK.Audio.OpenAL;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using Vortice.Win32;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static AnimeStudio.AssetsManager;
+using static AnimeStudio.GUI.Studio;
 
 namespace AnimeStudio.GUI
 {
@@ -452,8 +455,8 @@ namespace AnimeStudio.GUI
                 return;
             }
 
-            (var productName, var treeNodeCollection) = await Task.Run(BuildAssetData);
-            var typeMap = await Task.Run(BuildClassStructure);
+            (var productName, var treeNodeCollection) = await Task.Run(() => BuildAssetData(assetsManager));
+            var typeMap = await Task.Run(() => BuildClassStructure(assetsManager));
 
             if (string.IsNullOrEmpty(productName))
             {
@@ -478,6 +481,8 @@ namespace AnimeStudio.GUI
 
             assetListView.VirtualListSize = visibleAssets.Count;
 
+
+            // PROJECTS - OVERRIDE HERE FOR SCENE HIERARCHY //
             sceneTreeView.BeginUpdate();
             sceneTreeView.Nodes.AddRange(treeNodeCollection.ToArray());
             sceneTreeView.EndUpdate();
@@ -3199,6 +3204,21 @@ namespace AnimeStudio.GUI
         {
             unityCNEdit = new UnityCNEdit();
             unityCNEdit.ShowDialog();
+        }
+
+        private void pROJImportFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+            openFolderDialog.ShowDialog();
+            if (openFolderDialog.Folder != null)
+            {
+                Projects.DataImport.ImportFolder(openFolderDialog.Folder);
+            }
+            else
+            {
+                Logger.Error("No folder selected for import.");
+            }
+            //Projects.DataImport.ImportFolder("");
         }
     }
 }

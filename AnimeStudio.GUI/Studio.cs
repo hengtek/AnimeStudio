@@ -261,22 +261,22 @@ namespace AnimeStudio.GUI
             }
         }
 
-        public static (string, List<TreeNode>) BuildAssetData()
+        public static (string, List<TreeNode>) BuildAssetData(AssetsManager internalAssetsManager)
         {
             StatusStripUpdate("Building asset list...");
 
             int i = 0;
             string productName = null;
-            var objectCount = assetsManager.assetsFileList.Sum(x => x.Objects.Count);
+            var objectCount = internalAssetsManager.assetsFileList.Sum(x => x.Objects.Count);
             var objectAssetItemDic = new Dictionary<Object, AssetItem>(objectCount);
             var mihoyoBinDataNames = new List<(PPtr<Object>, string)>();
             var containers = new List<(PPtr<Object>, string)>();
             Progress.Reset();
-            foreach (var assetsFile in assetsManager.assetsFileList)
+            foreach (var assetsFile in internalAssetsManager.assetsFileList)
             {
                 foreach (var asset in assetsFile.Objects)
                 {
-                    if (assetsManager.tokenSource.IsCancellationRequested)
+                    if (internalAssetsManager.tokenSource.IsCancellationRequested)
                     {
                         Logger.Info("Building asset list has been cancelled !!");
                         return (string.Empty, Array.Empty<TreeNode>().ToList());
@@ -286,16 +286,16 @@ namespace AnimeStudio.GUI
 
                     if (asset is not AssetBundle && asset is not ResourceManager)
                     {
-                        if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
+                        if (internalAssetsManager.FilterData.Items.Count > 0 && !internalAssetsManager.FilterData.Items.Any(x =>
                         x.Name == assetItem.Text &&
                         x.PathID == assetItem.m_PathID &&
                         x.Type == assetItem.Type))
-                            {
-                                Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
-                                continue;
-                            }
+                        {
+                            Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
+                            continue;
+                        }
                     }
-                    
+
                     objectAssetItemDic.Add(asset, assetItem);
                     assetItem.UniqueID = "#" + i;
                     var exportable = false;
@@ -329,7 +329,7 @@ namespace AnimeStudio.GUI
                                     var preloadSize = m_Container.Value.preloadSize;
                                     var preloadEnd = preloadIndex + preloadSize;
 
-                                    switch(preloadIndex)
+                                    switch (preloadIndex)
                                     {
                                         case int n when n < 0:
                                             Logger.Warning($"preloadIndex {preloadIndex} is out of preloadTable range");
@@ -347,7 +347,7 @@ namespace AnimeStudio.GUI
                             exportable = ClassIDType.AssetBundle.CanExport();
                             break;
                         case IndexObject m_IndexObject:
-                            foreach(var index in m_IndexObject.AssetMap)
+                            foreach (var index in m_IndexObject.AssetMap)
                             {
                                 mihoyoBinDataNames.Add((index.Value.Object, index.Key));
                             }
@@ -387,9 +387,9 @@ namespace AnimeStudio.GUI
                     Progress.Report(++i, objectCount);
                 }
             }
-            foreach((var pptr, var name) in mihoyoBinDataNames)
+            foreach ((var pptr, var name) in mihoyoBinDataNames)
             {
-                if (assetsManager.tokenSource.IsCancellationRequested)
+                if (internalAssetsManager.tokenSource.IsCancellationRequested)
                 {
                     Logger.Info("Processing asset names has been cancelled !!");
                     return (string.Empty, Array.Empty<TreeNode>().ToList());
@@ -409,7 +409,7 @@ namespace AnimeStudio.GUI
             {
                 foreach ((var pptr, var container) in containers)
                 {
-                    if (assetsManager.tokenSource.IsCancellationRequested)
+                    if (internalAssetsManager.tokenSource.IsCancellationRequested)
                     {
                         Logger.Info("Processing containers been cancelled !!");
                         return (string.Empty, Array.Empty<TreeNode>().ToList());
@@ -430,7 +430,7 @@ namespace AnimeStudio.GUI
             }
             foreach (var tmp in exportableAssets)
             {
-                if (assetsManager.tokenSource.IsCancellationRequested)
+                if (internalAssetsManager.tokenSource.IsCancellationRequested)
                 {
                     Logger.Info("Processing subitems been cancelled !!");
                     return (string.Empty, Array.Empty<TreeNode>().ToList());
@@ -446,7 +446,7 @@ namespace AnimeStudio.GUI
             var treeNodeDictionary = new Dictionary<GameObject, GameObjectTreeNode>();
             int j = 0;
             Progress.Reset();
-            var files = assetsManager.assetsFileList.GroupBy(x => x.originalPath ?? string.Empty).OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.ToList());
+            var files = internalAssetsManager.assetsFileList.GroupBy(x => x.originalPath ?? string.Empty).OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.ToList());
             foreach (var (file, assetsFiles) in files)
             {
                 var fileNode = !string.IsNullOrEmpty(file) ? new TreeNode(Path.GetFileName(file)) : null; //RootNode
@@ -457,7 +457,7 @@ namespace AnimeStudio.GUI
 
                     foreach (var obj in assetsFile.Objects)
                     {
-                        if (assetsManager.tokenSource.IsCancellationRequested)
+                        if (internalAssetsManager.tokenSource.IsCancellationRequested)
                         {
                             Logger.Info("Building tree structure been cancelled !!");
                             return (string.Empty, Array.Empty<TreeNode>().ToList());
@@ -467,7 +467,7 @@ namespace AnimeStudio.GUI
 
                         if (obj is not GameObject)
                         {
-                            if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
+                            if (internalAssetsManager.FilterData.Items.Count > 0 && !internalAssetsManager.FilterData.Items.Any(x =>
                             x.Name == assetItem.Text &&
                             x.PathID == assetItem.m_PathID &&
                             x.Type == assetItem.Type))
@@ -493,7 +493,7 @@ namespace AnimeStudio.GUI
                                     {
                                         objectAssetItemDic[m_Component].TreeNode = currentNode;
                                     }
-                                    
+
                                     if (m_Component is MeshFilter m_MeshFilter)
                                     {
                                         if (m_MeshFilter.m_Mesh.TryGet(out var m_Mesh))
@@ -568,12 +568,12 @@ namespace AnimeStudio.GUI
             return (productName, treeNodeCollection);
         }
 
-        public static Dictionary<string, SortedDictionary<int, TypeTreeItem>> BuildClassStructure()
+        public static Dictionary<string, SortedDictionary<int, TypeTreeItem>> BuildClassStructure(AssetsManager internalAssetsManager)
         {
             var typeMap = new Dictionary<string, SortedDictionary<int, TypeTreeItem>>();
-            foreach (var assetsFile in assetsManager.assetsFileList)
+            foreach (var assetsFile in internalAssetsManager.assetsFileList)
             {
-                if (assetsManager.tokenSource.IsCancellationRequested)
+                if (internalAssetsManager.tokenSource.IsCancellationRequested)
                 {
                     Logger.Info("Processing class structure been cancelled !!");
                     return new Dictionary<string, SortedDictionary<int, TypeTreeItem>>();
