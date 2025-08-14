@@ -164,31 +164,37 @@ namespace AnimeStudio
                     case TextureFormat.ASTC_RGB_4x4: //test pass
                     case TextureFormat.ASTC_RGBA_4x4: //test pass
                     case TextureFormat.ASTC_HDR_4x4: //test pass
+                    case TextureFormat.ASTC_4x4: //test pass
                         flag = DecodeASTC(buff, bytes, 4);
                         break;
                     case TextureFormat.ASTC_RGB_5x5: //test pass
                     case TextureFormat.ASTC_RGBA_5x5: //test pass
                     case TextureFormat.ASTC_HDR_5x5: //test pass
+                    case TextureFormat.ASTC_5x5: //test pass
                         flag = DecodeASTC(buff, bytes, 5);
                         break;
                     case TextureFormat.ASTC_RGB_6x6: //test pass
                     case TextureFormat.ASTC_RGBA_6x6: //test pass
                     case TextureFormat.ASTC_HDR_6x6: //test pass
+                    case TextureFormat.ASTC_6x6: //test pass
                         flag = DecodeASTC(buff, bytes, 6);
                         break;
                     case TextureFormat.ASTC_RGB_8x8: //test pass
                     case TextureFormat.ASTC_RGBA_8x8: //test pass
                     case TextureFormat.ASTC_HDR_8x8: //test pass
+                    case TextureFormat.ASTC_8x8: //test pass
                         flag = DecodeASTC(buff, bytes, 8);
                         break;
                     case TextureFormat.ASTC_RGB_10x10: //test pass
                     case TextureFormat.ASTC_RGBA_10x10: //test pass
                     case TextureFormat.ASTC_HDR_10x10: //test pass
+                    case TextureFormat.ASTC_10x10: //test pass
                         flag = DecodeASTC(buff, bytes, 10);
                         break;
                     case TextureFormat.ASTC_RGB_12x12: //test pass
                     case TextureFormat.ASTC_RGBA_12x12: //test pass
                     case TextureFormat.ASTC_HDR_12x12: //test pass
+                    case TextureFormat.ASTC_12x12: //test pass
                         flag = DecodeASTC(buff, bytes, 12);
                         break;
                     case TextureFormat.RG16: //test pass
