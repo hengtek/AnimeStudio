@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -845,6 +846,14 @@ namespace AnimeStudio
             if (reader.Game.Type.IsZZZ())
             {
                 m_databaseData = reader.ReadUInt8Array();
+                if (m_databaseData.Length > 0)
+                {
+                    var database_header_sz = BitConverter.ToUInt32(m_databaseData);
+                    if (m_databaseData.Length != (int)database_header_sz)
+                    {
+                        Logger.Warning($"m_databaseData buffer/header size mismatch: {m_databaseData.Length} != {database_header_sz}");
+                    }
+                }
             }
         }
     }
@@ -979,6 +988,13 @@ namespace AnimeStudio
                 if (m_ClipData.Length > transform_data_size)
                 {
                     var scalar_data_offset = 16 * ((transform_data_size + 15) / 16);
+
+                    if (m_ClipData.Length == scalar_data_offset)
+                    {
+                        Logger.Warning($"ZZZACLClip lacks scalar tracks. Proceeding without...");
+                        return null;
+                    }
+
                     var scalar_data_size = (int)BitConverter.ToUInt32(m_ClipData, scalar_data_offset);
                     return (new ArraySegment<byte>(m_ClipData, scalar_data_offset, scalar_data_size)).ToArray();
                 }
@@ -2062,6 +2078,9 @@ namespace AnimeStudio
                         var resourceReader = new ResourceReader(m_StreamData.path, assetsFile, m_StreamData.offset, m_StreamData.size);
                         aclClip.m_DatabaseData = resourceReader.GetData();
                     }
+                } else
+                {
+                    Logger.Warning($"AnimationClip {Name} had no streaming data when it was expected!");
                 }
             }
         }

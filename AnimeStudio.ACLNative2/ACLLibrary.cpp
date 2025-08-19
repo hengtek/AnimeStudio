@@ -72,32 +72,55 @@ void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const a
 
 	acl::database_context<DatabaseSettings> database_context;
 
-	if (bulk_data != nullptr) {
-		// TODO: This is slightly incorrect as the bulk data should be different between tiers. However, ZZZ only uses 1 tier, so it's not relevant for this special case.
-		// I suspect if this breaks in the future it will be because they move to using two tiers that are concatenated together in the stream attached to the AnimationClip.
-		ACL_ASSERT(database->get_bulk_data_size(acl::quality_tier::medium_importance) == 0, "Support for multiple streamers is not implemented.");
-		acl::null_database_streamer medium_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::medium_importance));
-		acl::null_database_streamer low_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::lowest_importance));
-		spdlog::info("Initializing database with stripped bulk data");
-		database_context.initialize(allocator, *database, medium_streamer, low_streamer);
-		// The lowest importance data is the highest fidelity data
-		database_context.stream_in(acl::quality_tier::lowest_importance);
+	if (transform_tracks != nullptr) {
+		spdlog::info("Decompressing transform tracks. stripped: {}", transform_tracks->has_database() ? "True" : "False");
 	}
-	else {
-		spdlog::info("Initializing database with integral bulk data");
-		database_context.initialize(allocator, *database);
+
+	if (scalar_tracks != nullptr) {
+		spdlog::info("Decompressing scalar tracks. stripped: {}", scalar_tracks->has_database() ? "True" : "False");
+	}
+
+	if (database != nullptr) {
+		if (database->is_bulk_data_inline()) {
+			spdlog::info("Initializing database with integral bulk data");
+			database_context.initialize(allocator, *database);
+		}
+		else if (bulk_data != nullptr) {
+			// TODO: This is slightly incorrect as the bulk data should be different between tiers. However, ZZZ only uses 1 tier, so it's not relevant for this special case.
+			// I suspect if this breaks in the future it will be because they move to using two tiers that are concatenated together in the stream attached to the AnimationClip.
+			ACL_ASSERT(database->get_bulk_data_size(acl::quality_tier::medium_importance) == 0, "Support for multiple streamers is not implemented.");
+			acl::null_database_streamer medium_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::medium_importance));
+			acl::null_database_streamer low_streamer(bulk_data, database->get_bulk_data_size(acl::quality_tier::lowest_importance));
+			spdlog::info("Initializing database with stripped bulk data");
+			database_context.initialize(allocator, *database, medium_streamer, low_streamer);
+			// The lowest importance data is the highest fidelity data
+			database_context.stream_in(acl::quality_tier::lowest_importance);
+		}
+		else {
+			spdlog::error("A stripped database was provided, but bulk_data is null! Continuing without using the database...");
+		}
 	}
 
 	acl::decompression_context<TransformDecompressionSettings> transform_context;
 	if (transform_tracks != nullptr) {
 		spdlog::info("Initializing transform context from tracks: buf_sz: {}", transform_tracks->get_size());
-		transform_context.initialize(*transform_tracks, database_context);
+		if (transform_tracks->has_database() && database_context.is_initialized()) {
+			transform_context.initialize(*transform_tracks, database_context);
+		}
+		else {
+			transform_context.initialize(*transform_tracks);
+		}
 	}
 
 	acl::decompression_context<ScalarDecompressionSettings> scalar_context;
 	if (scalar_tracks != nullptr) {
 		spdlog::info("Initializing scalar context from tracks: buf_sz: {}", scalar_tracks->get_size());
-		scalar_context.initialize(*scalar_tracks, database_context);
+		if (scalar_tracks->has_database() && database_context.is_initialized()) {
+			scalar_context.initialize(*scalar_tracks, database_context);
+		}
+		else {
+			scalar_context.initialize(*scalar_tracks);
+		}
 	}
 	spdlog::info("Initialization done");
 
@@ -146,8 +169,8 @@ void DecompressTracksZZZ(const acl::compressed_tracks* transform_tracks, const a
 		}
 
 		if (scalar_context.is_initialized()) {
-			scalar_context.seek(timestep, acl::sample_rounding_policy::none);
-			scalar_context.decompress_tracks(writer);
+			// scalar_context.seek(timestep, acl::sample_rounding_policy::none);
+			// scalar_context.decompress_tracks(writer);
 		}
 	}
 }

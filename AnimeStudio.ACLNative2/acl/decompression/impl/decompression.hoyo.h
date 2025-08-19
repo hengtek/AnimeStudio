@@ -505,19 +505,19 @@ namespace acl
 				interpolation_alpha_per_policy[static_cast<int>(sample_rounding_policy::per_track)] = no_rounding_alpha;
 			}
 
-			const track_metadata* per_track_metadata;
-			const float* constant_values;
-			const float* range_values;
-			const uint8_t* animated_values;
+			track_metadata* per_track_metadata = nullptr;
+			float* constant_values = nullptr;
+			float* range_values = nullptr;
+			uint8_t* animated_values = nullptr;
 			if (context.has_database) {
-				constant_values = hoyo_header.get_database_constant_values();
-				range_values = hoyo_header.get_database_range_values();
+				constant_values = bit_cast<float*>(hoyo_header.get_database_constant_values());
+				range_values = bit_cast<float*>(hoyo_header.get_database_range_values());
 			}
 			else {
-				per_track_metadata = hoyo_header.get_track_metadata();
-				constant_values = hoyo_header.get_track_constant_values();
-				range_values = hoyo_header.get_track_range_values();
-				animated_values = hoyo_header.get_track_animated_values();
+				per_track_metadata = bit_cast<track_metadata*>(hoyo_header.get_track_metadata());
+				constant_values = bit_cast<float*>(hoyo_header.get_track_constant_values());
+				range_values = bit_cast<float*>(hoyo_header.get_track_range_values());
+				animated_values = bit_cast<uint8_t*>(hoyo_header.get_track_animated_values());
 			}
 
 			uint32_t track_bit_offset0 = context.key_frame_bit_offsets[0];
@@ -536,7 +536,7 @@ namespace acl
 			for (uint32_t track_index = 0; track_index < num_tracks; ++track_index)
 			{
 				if (!context.has_database) {
-					track_metadata& metadata = per_track_metadata[track_index];
+					const track_metadata& metadata = per_track_metadata[track_index];
 					const uint32_t bit_rate = metadata.bit_rate;
 					ACL_ASSERT(bit_rate < max_bit_rate, "Invalid bit rate: %u", bit_rate);
 					num_bits_per_component = num_bits_at_bit_rate[bit_rate];
