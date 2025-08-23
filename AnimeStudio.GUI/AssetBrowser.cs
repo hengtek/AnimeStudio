@@ -606,7 +606,7 @@ namespace AnimeStudio.GUI
             {
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
                 StartPosition = FormStartPosition.Manual,
-                Size = new Size(300, 50 * types.Count()),
+                Size = new Size(300, Math.Min(50 * types.Count(), 600)),
                 Location = this.PointToScreen(new Point(filterSelectTypesBtn.Left, filterSelectTypesBtn.Bottom)),
                 ShowInTaskbar = false,
             };

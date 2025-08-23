@@ -436,6 +436,11 @@ namespace AnimeStudio
                                 asset.Name = objectReader.ReadAlignedString();
                                 exportable = true;
                                 break;
+                            case ClassIDType.MonoBehaviour when ClassIDType.MonoBehaviour.CanParse():
+                                var monoBehaviour = new MonoBehaviour(objectReader);
+                                asset.Name = String.IsNullOrWhiteSpace(monoBehaviour.Name) ? objectReader.type.ToString() : monoBehaviour.Name;
+                                exportable = true;
+                                break;
                             default:
                                 asset.Name = objectReader.type.ToString();
                                 exportable = !Minimal;
