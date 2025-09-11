@@ -5,19 +5,25 @@
 
 ---
 
-# What is this ?
+# How do I use this ?
 
-After the official AssetStudio by Razmoth was discontinued, bugs started to arise as games evolved, and people started making forks to fix some of them, but each one would not support the fixes by the others and so on. This version aims at being the new start base for AssetStudio, renamed as AnimeStudio, it supports all 3 main hoyo games, and is open to any contribution !
+Compared to the original studio, the UI was slightly adjusted, but if you are familiar with AssetStudio, you should get the hang of it very quickly. For new people, there is not a tutorial for this one specifically yet, but I recommend looking at the original tutorial by Modder4869 to help [here](https://gist.github.com/Modder4869/0f5371f8879607eb95b8e63badca227e) (Make sure to download from this page and not using the link on the tutorial page !!) and look at the [original readme](https://github.com/RazTools/Studio/blob/main/README.md), otherwise you can ask in the [Discord](https://discord.gg/fzRdtVh).
 
 ---
 
-# Download
+# How do I download this ?
 
 ## [Download Studio for .NET 9 (recommended ✨)](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-net9.zip) or [Download Studio for .NET 8](https://nightly.link/Escartem/AnimeStudio/workflows/build/master/AnimeStudio-net8.zip)
 
 ---
 
-# What's changed ?
+# What is this ?
+
+It's an up-to-date fork of Razmoth's one. After his repo was discontinued, bugs started to arise as games evolved, and people started making forks to fix some of them, but each one would not support the fixes by the others and so on. This version aims at being the new start base for AssetStudio, renamed as AnimeStudio, it supports all 3 main hoyo games, and is open to any contribution !
+
+---
+
+# What changed ?
 
 This is a non-exhaustive list of modifications :
 - Removed usage of a [certain dll for a certain decryption](https://github.com/Escartem/AnimeStudio/commit/1fcfa9041e07cd0a98b4d23f1578e910256fa1f8) 👀
@@ -34,16 +40,10 @@ This is a non-exhaustive list of modifications :
 
 ---
 
-# How to use ?
-
-Compared to the original studio, the UI was slightly adjusted, but if you are familiar with AssetStudio, you should get the hang of it very quickly. For new people, there is not a tutorial for this one specifically yet, but I recommend looking at the original tutorial by Modder4869 to help [here](https://gist.github.com/Modder4869/0f5371f8879607eb95b8e63badca227e) (Make sure to download from this page and not using the link on the tutorial page !!) and look at the [original readme](https://github.com/RazTools/Studio/blob/main/README.md), otherwise you can ask in the [Discord](https://discord.gg/fzRdtVh).
-
----
-
 Special thanks to:
 - [hrothgar](https://github.com/hrothgar234567): Help in ZZZ fixes & some dll RE
-- Perfare: The real original AssetStudio - [[project](https://github.com/perfare/AssetStudio)]
 - Razmoth: Original AssetStudio for anime games support - [[project](https://github.com/RazTools/Studio)]
 - hashblen: ZZZ fixes fork - [[project](https://github.com/hashblen/ZZZ_Studio)]
 - yarik0chka: Genshin and Star Rail fixes fork - [[project](https://github.com/yarik0chka/YarikStudio)]
+- Perfare: The real original AssetStudio - [[project](https://github.com/perfare/AssetStudio)]
 - All of the others contributor of Razmoth's Studio
