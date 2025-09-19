@@ -20,6 +20,9 @@ namespace AnimeStudio
 
         public Blb3File(FileReader reader, string path)
         {
+            // normal blb3 init
+            BlbUtils.InitKeys(CryptoHelper.Blb3RC4Key, CryptoHelper.Blb3SBox, CryptoHelper.Blb3ShiftRow, CryptoHelper.Blb3Key, CryptoHelper.Blb3Mul);
+
             Offset = reader.Position;
             reader.Endian = EndianType.LittleEndian;
 
