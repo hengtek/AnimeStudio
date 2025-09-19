@@ -290,6 +290,18 @@ namespace AnimeStudio
         }
     }
 
+    public class BlendShapeAdditionalVertex
+    {
+        public Vector3 additionalNormal;
+
+        public BlendShapeAdditionalVertex() { }
+
+        public BlendShapeAdditionalVertex(ObjectReader reader)
+        {
+            additionalNormal = reader.ReadVector3();
+        }
+    }
+
     public class MeshBlendShape
     {
         public string name;
@@ -297,6 +309,7 @@ namespace AnimeStudio
         public uint vertexCount;
         public bool hasNormals;
         public bool hasTangents;
+        public bool hasAdditionalNormals;
 
         public MeshBlendShape(ObjectReader reader)
         {
@@ -315,6 +328,10 @@ namespace AnimeStudio
             }
             hasNormals = reader.ReadBoolean();
             hasTangents = reader.ReadBoolean();
+            if (reader.Game.Type.IsHNACB1())
+            {
+                hasAdditionalNormals = reader.ReadBoolean();
+            }
             if (!reader.Game.Type.IsLoveAndDeepspace() && version[0] > 4 || (version[0] == 4 && version[1] >= 3)) //4.3 and up
             {
                 reader.AlignStream();
@@ -344,6 +361,7 @@ namespace AnimeStudio
         public List<MeshBlendShape> shapes;
         public List<MeshBlendShapeChannel> channels;
         public float[] fullWeights;
+        public List<BlendShapeAdditionalVertex> additionalVertices;
 
         public BlendShapeData(ObjectReader reader)
         {
@@ -378,6 +396,21 @@ namespace AnimeStudio
                 }
 
                 fullWeights = reader.ReadSingleArray();
+
+                if (reader.Game.Type.IsHNACB1())
+                {
+                    additionalVertices = new List<BlendShapeAdditionalVertex>();
+                    var length = reader.ReadInt32();
+                    for (int i = 0; i < length; i++)
+                    {
+                        var additionalVertex = new BlendShapeAdditionalVertex(reader);
+                        if (additionalVertex != null)
+                        {
+                            additionalVertices.Add(additionalVertex);
+                        }
+                    }
+                }
+
                 if (reader.Game.Type.IsLoveAndDeepspace())
                 {
                     var varintVerticesSize = reader.ReadInt32();

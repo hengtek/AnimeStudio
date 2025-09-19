@@ -31,6 +31,7 @@ namespace AnimeStudio.GUI
             { GameType.ZZZ, "Live" },
             { GameType.ZZZ_CB1, "CBT 1" },
             { GameType.ZZZ_CB2, "CBT 2" },
+            { GameType.HNA_CB1, "CBT 1" },
             { GameType.TOT, "Live" },
             { GameType.Naraka, "Naraka" },
             { GameType.EnsembleStars, "Ensemble Stars" },
@@ -64,6 +65,7 @@ namespace AnimeStudio.GUI
             new[] { GameType.BH3, GameType.BH3Pre, GameType.BH3PrePre },
             new[] { GameType.SR, GameType.SR_CB2 },
             new[] { GameType.ZZZ, GameType.ZZZ_CB1, GameType.ZZZ_CB2 },
+            new[] { GameType.HNA_CB1 },
             new[] { GameType.TOT },
         };
 
@@ -99,7 +101,7 @@ namespace AnimeStudio.GUI
             switch (gameTypeCombo.SelectedIndex)
             {
                 case 0:
-                    gameCombo.Items.AddRange(["Genshin Impact", "Honkai Impact 3rd", "Honkai: Star Rail", "Zenless Zone Zero", "Tears of Themis"]);
+                    gameCombo.Items.AddRange(["Genshin Impact", "Honkai Impact 3rd", "Honkai: Star Rail", "Zenless Zone Zero", "Nexus Anima", "Tears of Themis"]);
                     break;
                 case 1:
                     gameCombo.Items.AddRange(sortedGames.Select(g => g.DisplayName).ToArray());

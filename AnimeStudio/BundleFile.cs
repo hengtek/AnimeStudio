@@ -534,6 +534,9 @@ namespace AnimeStudio
         {
             Logger.Verbose($"Writing block to blocks stream...");
 
+            byte[] firstBlockBytes = new byte[0];
+            Span<byte> firstBlockSpan = Span<byte>.Empty;
+
             for (int i = 0; i < m_BlocksInfo.Count; i++)
             {
                 Logger.Verbose($"Reading block {i}...");
@@ -613,6 +616,24 @@ namespace AnimeStudio
                                 var uncompressedBytesSpan = uncompressedBytes.AsSpan(0, uncompressedSize);
 
                                 reader.Read(compressedBytesSpan);
+
+                                if (Game.Type.IsHNACB1())
+                                {
+                                    if (i == 0)
+                                    {
+                                        // if first block, decrypt
+                                        WmvUtils.Decrypt(compressedBytesSpan);
+                                    }
+                                    else
+                                    {
+                                        // else, xor with first one
+                                        for (int j = 0; j < compressedBytesSpan.Length; j++)
+                                        {
+                                            compressedBytesSpan[j] ^= firstBlockSpan[j % firstBlockSpan.Length];
+                                        }
+                                    }
+                                }
+                                
                                 if (compressionType == CompressionType.Lz4Mr0k && Mr0kUtils.IsMr0k(compressedBytes))
                                 {
                                     Logger.Verbose($"Block encrypted with mr0k, decrypting...");
@@ -640,6 +661,14 @@ namespace AnimeStudio
                                 {
                                     throw new IOException($"Lz4 decompression error, write {numWrite} bytes but expected {uncompressedSize} bytes");
                                 }
+
+                                if (Game.Type.IsHNACB1() && i == 0)
+                                {
+                                    firstBlockBytes = ArrayPool<byte>.Shared.Rent(uncompressedSize);
+                                    firstBlockSpan = firstBlockBytes.AsSpan(0, uncompressedSize);
+                                    uncompressedBytesSpan.CopyTo(firstBlockSpan);
+                                }
+
                                 blocksStream.Write(uncompressedBytesSpan);
                             }
                             finally
@@ -744,6 +773,7 @@ namespace AnimeStudio
                         throw new IOException($"Unsupported compression type {compressionType}");
                 }
             }
+            ArrayPool<byte>.Shared.Return(firstBlockBytes, true);
             blocksStream.Position = 0;
         }
 

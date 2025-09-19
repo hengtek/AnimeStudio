@@ -40,6 +40,7 @@ namespace AnimeStudio
             Games.Add(index++, new Mhy(GameType.ZZZ, "Live", GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
             Games.Add(index++, new Mr0k(GameType.ZZZ_CB1, "CBT 1", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey));
             Games.Add(index++, new Mhy(GameType.ZZZ_CB2, "CBT 2", GIMhyShiftRow, GIMhyKey, GIMhyMul, null, GISBox, null, 0uL));
+            Games.Add(index++, new Game(GameType.HNA_CB1, "CBT 1"));
             Games.Add(index++, new Mr0k(GameType.TOT, "Live", Mr0kExpansionKey, initVector: Mr0kInitVector, blockKey: Mr0kBlockKey, postKey: ToTKey));
             Games.Add(index++, new Game(GameType.Naraka, "Naraka"));
             Games.Add(index++, new Game(GameType.EnsembleStars, "Ensemble Stars"));
@@ -196,6 +197,7 @@ namespace AnimeStudio
         ZZZ,
         ZZZ_CB1,
         ZZZ_CB2,
+        HNA_CB1,
         TOT,
         Naraka,
         EnsembleStars,
@@ -274,6 +276,7 @@ namespace AnimeStudio
         public static bool IsZZZ(this GameType type) => type == GameType.ZZZ;
         public static bool IsSRCB2(this GameType type) => type == GameType.SR_CB2;
         public static bool IsSR(this GameType type) => type == GameType.SR;
+        public static bool IsHNACB1(this GameType type) => type == GameType.HNA_CB1;
         public static bool IsTOT(this GameType type) => type == GameType.TOT;
         public static bool IsNaraka(this GameType type) => type == GameType.Naraka;
         public static bool IsOPFP(this GameType type) => type == GameType.OPFP;
