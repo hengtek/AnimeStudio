@@ -330,6 +330,8 @@ namespace AnimeStudio
             hasTangents = reader.ReadBoolean();
             if (reader.Game.Type.IsHNACB1())
             {
+                // god fears nothing but this simple function
+                reader.AlignStream();
                 hasAdditionalNormals = reader.ReadBoolean();
             }
             if (!reader.Game.Type.IsLoveAndDeepspace() && version[0] > 4 || (version[0] == 4 && version[1] >= 3)) //4.3 and up
