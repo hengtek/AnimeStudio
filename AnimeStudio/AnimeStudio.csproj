@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
-    <Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024-2025; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022-2024; Copyright © Perfare 2018-2022</Copyright>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<Copyright>Copyright © Escartem 2024-2025; Copyright © yarik0chka 2024-2025; Copyright © Hashblen 2024-2025; Copyright © Razmoth 2022-2024; Copyright © Perfare 2018-2022</Copyright>
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Kyaru.Texture2DDecoder" Version="0.17.0" />
-    <PackageReference Include="Kyaru.Texture2DDecoder.Windows" Version="0.1.0" />
-	<PackageReference Include="MessagePack" Version="2.6.100-alpha" />
-	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	<PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
-	<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Kyaru.Texture2DDecoder" Version="0.17.0" />
+		<PackageReference Include="Kyaru.Texture2DDecoder.Windows" Version="0.1.0" />
+		<PackageReference Include="MessagePack" Version="2.6.100-alpha" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="ZstdSharp.Port" Version="0.7.2" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="CNKeys.json">
@@ -22,9 +22,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="..\AnimeStudio.Libraries\oodle.dll">
+		<Content Include="..\AnimeStudio.Libraries\ooz.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
-	
+
 </Project>
