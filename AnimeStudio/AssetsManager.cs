@@ -171,6 +171,7 @@ namespace AnimeStudio
                     var assetsFile = new SerializedFile(reader, this);
                     CheckStrippedVersion(assetsFile);
                     assetsFileList.Add(assetsFile);
+                    assetsFileIndexCache.Add(assetsFile.fileName, assetsFileList.Count - 1);
                     assetsFileListHash.Add(assetsFile.fileName);
 
                     foreach (var sharedFile in assetsFile.m_Externals)
@@ -235,6 +236,7 @@ namespace AnimeStudio
                     }
                     CheckStrippedVersion(assetsFile);
                     assetsFileList.Add(assetsFile);
+                    assetsFileIndexCache.Add(assetsFile.fileName, assetsFileList.Count - 1);
                     assetsFileListHash.Add(assetsFile.fileName);
                 }
                 catch (Exception e)
@@ -434,7 +436,7 @@ namespace AnimeStudio
                 foreach (var offset in stream.GetOffsets(reader.FullPath))
                 {
                     var name = offset.ToString("X8");
-                    Logger.Info($"Loading Block {name}");
+                    Logger.Debug($"Loading Block {name}");
 
                     var dummyPath = Path.Combine(Path.GetDirectoryName(reader.FullPath), name);
                     var subReader = new FileReader(dummyPath, stream, true);
@@ -471,7 +473,7 @@ namespace AnimeStudio
                 foreach (var offset in stream.GetOffsets(reader.FullPath))
                 {
                     var name = offset.ToString("X8");
-                    Logger.Info($"Loading Block {name}");
+                    Logger.Debug($"Loading Block {name}");
 
                     var dummyPath = Path.Combine(Path.GetDirectoryName(reader.FullPath), name);
                     var subReader = new FileReader(dummyPath, stream, true);

@@ -134,7 +134,7 @@ namespace AnimeStudio.GUI
             label2.Name = "label2";
             label2.Size = new Size(752, 75);
             label2.TabIndex = 0;
-            label2.Text = "Updated AssetStudio supporting GI 5.7+, HSR 3.4+, ZZZ 2.1+ with improvements and new features !";
+            label2.Text = "Updated AssetStudio supporting GI, HSR, ZZZ (and more) with improvements and new features !";
             label2.UseCompatibleTextRendering = true;
             // 
             // textBox2

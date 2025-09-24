@@ -117,7 +117,7 @@ namespace AnimeStudio
             }
 
             var buffer = ArrayPool<byte>.Shared.Rent(0x1000);
-            List<byte> result = new List<byte>();
+            List<byte> result = new List<byte>(count);
             do
             {
                 var readNum = Math.Min(count, buffer.Length);
