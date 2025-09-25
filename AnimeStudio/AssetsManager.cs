@@ -41,6 +41,22 @@ namespace AnimeStudio
             public List<AssetFilterDataItem> Items { get; set; }
         }
 
+        public class AssetFilterDataItemEqualityComparer : IEqualityComparer<AssetFilterDataItem>
+        {
+            public bool Equals(AssetFilterDataItem? d1, AssetFilterDataItem? d2)
+            {
+                if (ReferenceEquals(d1, d2))
+                    return true;
+
+                if (d2 is null || d1 is null)
+                    return false;
+
+                return d1.Type == d2.Type && d1.PathID == d2.PathID && d1.Name.Equals(d2.Name, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int GetHashCode(AssetFilterDataItem d) => HashCode.Combine(d.Name, d.PathID, d.Type);
+        }
+
         public AssetFilterData FilterData = new AssetFilterData { Items = new List<AssetFilterDataItem>() };
 
         public void LoadFiles(params string[] files)
@@ -618,8 +634,8 @@ namespace AnimeStudio
             tokenSource.Dispose();
             tokenSource = new CancellationTokenSource();
 
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            // GC.WaitForPendingFinalizers();
+            // GC.Collect();
         }
 
         private void ReadAssets()
