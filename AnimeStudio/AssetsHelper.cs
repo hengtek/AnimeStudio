@@ -104,7 +104,6 @@ namespace AnimeStudio
                     }
                 }
             }
-
         }
 
         public static bool FindCAB(string path, out HashSet<string> cabs)
