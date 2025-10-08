@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using static AnimeStudio.GUI.Exporter;
+using static AnimeStudio.AssetsManager;
 
 namespace AnimeStudio.GUI
 {
@@ -272,6 +273,9 @@ namespace AnimeStudio.GUI
             var mihoyoBinDataNames = new List<(PPtr<Object>, string)>();
             var containers = new List<(PPtr<Object>, string)>();
             Progress.Reset();
+            Logger.Info($"Loading {objectCount} objects from {assetsManager.assetsFileList.Count} files.");
+
+            var fastAssetItemFilterData = new HashSet<AssetFilterDataItem>(assetsManager.FilterData.Items, new AssetFilterDataItemEqualityComparer());
             foreach (var assetsFile in assetsManager.assetsFileList)
             {
                 foreach (var asset in assetsFile.Objects)
@@ -286,14 +290,11 @@ namespace AnimeStudio.GUI
 
                     if (asset is not AssetBundle && asset is not ResourceManager)
                     {
-                        if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
-                        x.Name == assetItem.Text &&
-                        x.PathID == assetItem.m_PathID &&
-                        x.Type == assetItem.Type))
-                            {
-                                Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
-                                continue;
-                            }
+                        if (fastAssetItemFilterData.Count > 0 && !fastAssetItemFilterData.Contains(new AssetFilterDataItem { Source = assetItem.SourceFile.fullName, Name = assetItem.Text, PathID = assetItem.m_PathID, Type = assetItem.Type }))
+                        {
+                            Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
+                            continue;
+                        }
                     }
                     
                     objectAssetItemDic.Add(asset, assetItem);
@@ -467,10 +468,7 @@ namespace AnimeStudio.GUI
 
                         if (obj is not GameObject)
                         {
-                            if (assetsManager.FilterData.Items.Count > 0 && !assetsManager.FilterData.Items.Any(x =>
-                            x.Name == assetItem.Text &&
-                            x.PathID == assetItem.m_PathID &&
-                            x.Type == assetItem.Type))
+                            if (fastAssetItemFilterData.Count > 0 && !fastAssetItemFilterData.Contains(new AssetFilterDataItem { Source = assetItem.SourceFile.fullName, Name = assetItem.Text, PathID = assetItem.m_PathID, Type = assetItem.Type }))
                             {
                                 Logger.Verbose($"Skipped {(assetItem.Text.Length > 0 ? assetItem.Text : "an asset")} because filter data was set and it was missing from it");
                                 continue;

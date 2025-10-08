@@ -78,11 +78,12 @@ namespace AnimeStudio
             return false;
         }
 
-        public static void AddCABOffsets(string[] paths, List<string> cabs)
+        public static void AddCABOffsetsFast(HashSet<string> paths, HashSet<string> cabs)
         {
-            for (int i = 0; i < cabs.Count; i++)
+            Queue<string> work = new Queue<string>(cabs);
+            while (work.Count > 0)
             {
-                var cab = cabs[i];
+                var cab = work.Dequeue();
                 if (CABMap.TryGetValue(cab, out var entry))
                 {
                     var fullPath = Path.Combine(BaseFolder, entry.Path);
@@ -96,32 +97,36 @@ namespace AnimeStudio
                     foreach (var dep in entry.Dependencies)
                     {
                         if (!cabs.Contains(dep))
+                        {
                             cabs.Add(dep);
+                            work.Enqueue(dep);
+                        }
                     }
                 }
             }
         }
 
-        public static bool FindCAB(string path, out List<string> cabs)
+        public static bool FindCAB(string path, out HashSet<string> cabs)
         {
             var relativePath = Path.GetRelativePath(BaseFolder, path);
-            cabs = CABMap.AsParallel().Where(x => x.Value.Path.Equals(relativePath, StringComparison.OrdinalIgnoreCase)).Select(x => x.Key).Distinct().ToList();
+            cabs = CABMap.AsParallel().Where(x => x.Value.Path.Equals(relativePath, StringComparison.OrdinalIgnoreCase)).Select(x => x.Key).Distinct().ToHashSet(StringComparer.OrdinalIgnoreCase);
             Logger.Verbose($"Found {cabs.Count} that belongs to {relativePath}");
             return cabs.Count != 0;
         }
 
-        public static string[] ProcessFiles(string[] files)
+        public static string[] ProcessFiles(string[] files_list)
         {
+            HashSet<string> files = new HashSet<string>(files_list, StringComparer.OrdinalIgnoreCase);
             foreach (var file in files)
             {
                 Offsets.TryAdd(file, new HashSet<long>());
                 Logger.Verbose($"Added {file} to Offsets dictionary");
                 if (FindCAB(file, out var cabs))
                 {
-                    AddCABOffsets(files, cabs);
+                    AddCABOffsetsFast(files, cabs);
                 }
             }
-            Logger.Verbose($"Finished resolving dependncies, the original {files.Length} files will be loaded entirely, and the {Offsets.Count - files.Length} dependicnes will be loaded from cached offsets only");
+            Logger.Verbose($"Finished resolving dependncies, the original {files.Count} files will be loaded entirely, and the {Offsets.Count - files.Count} dependicnes will be loaded from cached offsets only");
             return Offsets.Keys.ToArray();
         }
 
