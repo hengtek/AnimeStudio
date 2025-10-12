@@ -217,7 +217,15 @@ namespace AnimeStudio.GUI
             var loggerEventTypes = Enum.GetValues<LoggerEvent>().ToArray()[1..^1];
             foreach (var loggerEvent in loggerEventTypes)
             {
-                var menuItem = new ToolStripMenuItem(loggerEvent.ToString()) { CheckOnClick = true, Checked = loggerEventType.HasFlag(loggerEvent), Tag = (int)loggerEvent };
+                var menuItem = new ToolStripMenuItem(loggerEvent.ToString())
+                {
+                    CheckOnClick = true,
+                    Checked = loggerEventType.HasFlag(loggerEvent),
+                    Tag = loggerEvent
+                };
+
+                menuItem.Click += LoggerEventMenuItem_Click;
+
                 loggedEventsMenuItem.DropDownItems.Add(menuItem);
             }
             Logger.Flags = loggerEventType;
@@ -2527,6 +2535,26 @@ namespace AnimeStudio.GUI
             Properties.Settings.Default.Save();
 
             Logger.FileLogging = enableFileLogging.Checked;
+        }
+
+        private void LoggerEventMenuItem_Click(object? sender, EventArgs e)
+        {
+            if (sender is not ToolStripMenuItem clickedItem) return;
+            if (clickedItem.Tag is not LoggerEvent clickedEvent) return;
+
+            var currentFlags = Logger.Flags;
+
+            if (clickedItem.Checked)
+                currentFlags |= clickedEvent;
+            else
+                currentFlags &= ~clickedEvent;
+
+            Logger.Flags = currentFlags;
+
+            Properties.Settings.Default.loggerEventType = (int)currentFlags;
+            Properties.Settings.Default.Save();
+
+            Logger.Info($"Logger events updated: {clickedItem.Tag} set to {clickedItem.Checked}");
         }
 
         private void loggedEventsMenuItem_DropDownClosing(object sender, ToolStripDropDownClosingEventArgs e)
