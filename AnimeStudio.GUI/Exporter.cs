@@ -616,6 +616,8 @@ namespace AnimeStudio.GUI
                     return ExportMiHoYoBinData(item, exportPath);
                 case ClassIDType.Material:
                     return ExportJSONFile(item, exportPath);
+                case ClassIDType.NapAssetBundleIndex:
+                    return ExportJSONFile(item, exportPath);
                 default:
                     return ExportRawFile(item, exportPath);
             }

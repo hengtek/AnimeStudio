@@ -418,6 +418,12 @@ namespace AnimeStudio
                                 asset.Name = objectReader.type.ToString();
                                 exportable = ClassIDType.MiHoYoBinData.CanExport();
                                 break;
+                            case ClassIDType.NapAssetBundleIndex when ClassIDType.NapAssetBundleIndex.CanParse():
+                                var NapAssetBundleIndex = new NapAssetBundleIndex(objectReader);
+                                obj = NapAssetBundleIndex;
+                                asset.Name = obj.Name;
+                                exportable = ClassIDType.NapAssetBundleIndex.CanExport();
+                                break;
                             case ClassIDType.IndexObject when ClassIDType.IndexObject.CanParse():
                                 var indexObject = new IndexObject(objectReader);
                                 obj = null;

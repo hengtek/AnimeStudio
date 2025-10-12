@@ -1043,6 +1043,9 @@ namespace AnimeStudio.GUI
                         PreviewText(m_MiHoYoBinData.AsString);
                         StatusStripUpdate("Can be exported/previewed as JSON if data is a valid JSON (check XOR).");
                         break;
+                    case NapAssetBundleIndex m_NapAssetBundleIndex:
+                        PreviewText(DumpAsset(assetItem.Asset));
+                        break;
                     default:
                         var str = assetItem.Asset.Dump();
                         if (str != null)
