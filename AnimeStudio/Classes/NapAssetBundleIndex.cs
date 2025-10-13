@@ -12,71 +12,76 @@ namespace AnimeStudio
 {
     public sealed class NapAssetBundleIndex : NamedObject
     {
-        public int AssetCount;
-        public List<Asset> Assets;
-        public int BundleCount;
-        public List<Bundle> Bundles;
-        public int BlockCount;
-        public List<Block> Blocks;
+        public List<IndexAssetRef> m_AssetArray;
+        public List<IndexBundleRef> m_BundleArray;
+        public List<IndexBlockRef> m_BlockArray;
+        public List<uint> m_ChildrenIndexArray;
 
         public NapAssetBundleIndex(ObjectReader reader) : base(reader)
         {
-            AssetCount = reader.ReadInt32();
-            Assets = new List<Asset>(AssetCount);
-            for (int i = 0; i < AssetCount; i++)
-                Assets.Add(new Asset(reader));
+            var m_AssetArraySize = reader.ReadInt32();
+            m_AssetArray = new List<IndexAssetRef>(m_AssetArraySize);
+            for (int i = 0; i < m_AssetArraySize; i++)
+                m_AssetArray.Add(new IndexAssetRef(reader));
 
-            BundleCount = reader.ReadInt32();
-            Bundles = new List<Bundle>(BundleCount);
-            for (int i = 0; i < BundleCount; i++)
-                Bundles.Add(new Bundle(reader));
+            var m_BundleArraySize = reader.ReadInt32();
+            m_BundleArray = new List<IndexBundleRef>(m_BundleArraySize);
+            for (int i = 0; i < m_BundleArraySize; i++)
+                m_BundleArray.Add(new IndexBundleRef(reader));
 
-            BlockCount = reader.ReadInt32();
-            Blocks = new List<Block>(BlockCount);
-            for (int i = 0; i < BlockCount; i++)
-                Blocks.Add(new Block(reader));
+            var m_BlockArraySize = reader.ReadInt32();
+            m_BlockArray = new List<IndexBlockRef>(m_BlockArraySize);
+            for (int i = 0; i < m_BlockArraySize; i++)
+                m_BlockArray.Add(new IndexBlockRef(reader));
+
+            reader.AlignStream();
+
+            var m_ChildrenIndexArraySize = reader.ReadInt32();
+            m_ChildrenIndexArray = new List<uint>(m_ChildrenIndexArraySize);
+            for (int i = 0; i < m_ChildrenIndexArraySize; i++)
+                m_ChildrenIndexArray.Add(reader.ReadUInt32());
         }
 
-        public class Asset
+        public class IndexAssetRef
         {
-            public uint Bundle;
-            public long PathHash;
-            public Asset(ObjectReader reader)
+            public uint bundle;
+            public long pathHash;
+            public IndexAssetRef(ObjectReader reader)
             {
-                Bundle = reader.ReadUInt32();
-                PathHash = reader.ReadInt64();
+                bundle = reader.ReadUInt32();
+                pathHash = reader.ReadInt64();
             }
         }
 
-        public class Bundle
+        public class IndexBundleRef
         {
-            public uint BlockIndex;
-            public ulong BundleHashName;
-            public ulong BundleHash;
-            public uint Offset;
-            public uint ChildrenStartIndex;
-            public uint ChildrenEndIndex;
-            public uint FileSize;
-            public Bundle(ObjectReader reader)
+            public uint blockIndex;
+            public ulong bundleHashName;
+            public ulong bundleHash;
+            public uint offset;
+            public uint childrenStartIndex;
+            public uint childrenEndIndex;
+            public uint fileSize;
+            public IndexBundleRef(ObjectReader reader)
             {
-                BlockIndex = reader.ReadUInt32();
-                BundleHashName = reader.ReadUInt64();
-                BundleHash = reader.ReadUInt64();
-                Offset = reader.ReadUInt32();
-                ChildrenStartIndex = reader.ReadUInt32();
-                ChildrenEndIndex = reader.ReadUInt32();
-                FileSize = reader.ReadUInt32();
+                blockIndex = reader.ReadUInt32();
+                bundleHashName = reader.ReadUInt64();
+                bundleHash = reader.ReadUInt64();
+                offset = reader.ReadUInt32();
+                childrenStartIndex = reader.ReadUInt32();
+                childrenEndIndex = reader.ReadUInt32();
+                fileSize = reader.ReadUInt32();
             }
         }
 
-        public class Block
+        public class IndexBlockRef
         {
-            public ulong BlockHashName;
-            public string Location;
-            public Block(ObjectReader reader)
+            public ulong blockHashName;
+            public byte location;
+            public IndexBlockRef(ObjectReader reader)
             {
-                BlockHashName = reader.ReadUInt64();
-                Location = Encoding.UTF8.GetString(reader.ReadBytes(1));
+                blockHashName = reader.ReadUInt64();
+                location = reader.ReadByte();
             }
         }
     }
