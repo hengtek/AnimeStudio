@@ -146,9 +146,29 @@ namespace AnimeStudio
             m_TransitionOffset = reader.ReadSingle();
             if (version[0] >= 5) //5.0 and up
             {
+                if (reader.Game.Type.IsZZZCB2() || reader.Game.Type.IsZZZ())
+                {
+                    var m_AutoTransitionOffsetValue = reader.ReadSingle();
+                    var m_AutoTransitionOffsetRatio = reader.ReadSingle();
+                }
                 m_ExitTime = reader.ReadSingle();
+                if (reader.Game.Type.IsZZZCB2() || reader.Game.Type.IsZZZ())
+                {
+                    var m_FrameCount = reader.ReadInt32();
+                    var m_TransitionOffsetCount = reader.ReadInt32();
+                    var m_TotalFramesSrc = reader.ReadInt32();
+                    var m_TotalFramesDest = reader.ReadInt32();
+                }
                 m_HasExitTime = reader.ReadBoolean();
+                if (reader.Game.Type.IsZZZCB2() || reader.Game.Type.IsZZZ())
+                {
+                    var m_UseFrameCount = reader.ReadBoolean();
+                }
                 m_HasFixedDuration = reader.ReadBoolean();
+                if (reader.Game.Type.IsZZZCB2() || reader.Game.Type.IsZZZ())
+                {
+                    var m_AutoTransitionOffset = reader.ReadBoolean();
+                }
                 reader.AlignStream();
                 m_InterruptionSource = reader.ReadInt32();
                 m_OrderedInterruption = reader.ReadBoolean();
@@ -349,6 +369,8 @@ namespace AnimeStudio
         public bool m_Loop;
         public bool m_Mirror;
 
+        private static bool HasMDBBlendRate(SerializedType type) => type.Match("EC609A57E104C0459D2694035D42E771");
+
         public StateConstant(ObjectReader reader)
         {
             var version = reader.version;
@@ -406,6 +428,10 @@ namespace AnimeStudio
             if (version[0] > 4 || (version[0] == 4 && version[1] >= 1)) //4.1 and up
             {
                 m_CycleOffset = reader.ReadSingle();
+            }
+            if (HasMDBBlendRate(reader.serializedType))
+            {
+                var m_MDBBlendRate = reader.ReadSingle();
             }
             m_IKOnFeet = reader.ReadBoolean();
             if (version[0] >= 5) //5.0 and up
