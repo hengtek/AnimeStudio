@@ -50,6 +50,7 @@ namespace AnimeStudio.GUI
             { GameType.GirlsFrontline, "Girls Frontline" },
             { GameType.Reverse1999, "Reverse: 1999" },
             { GameType.ArknightsEndfield, "Arknights Endfield" },
+            { GameType.Arknights, "Arknights" },
             { GameType.JJKPhantomParade, "JJK Phantom Parade" },
             { GameType.MuvLuvDimensions, "Muv Luv Dimensions" },
             { GameType.PartyAnimals, "Party Animals" },
