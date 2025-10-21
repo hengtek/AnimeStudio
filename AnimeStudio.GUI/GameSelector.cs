@@ -13,53 +13,6 @@ namespace AnimeStudio.GUI
     partial class GameSelector : Form
     {
         #region Games
-        static readonly Dictionary<GameType, string> GameDisplayNames = new()
-        {
-            { GameType.Normal, "Unity" },
-            { GameType.UnityCN, "Unity CN" },
-            { GameType.GI, "Live" },
-            { GameType.GI_Pack, "Pack" },
-            { GameType.GI_CB1, "CBT 1" },
-            { GameType.GI_CB2, "CBT 2" },
-            { GameType.GI_CB3, "CBT 3" },
-            { GameType.GI_CB3Pre, "CBT 3 Pre" },
-            { GameType.BH3, "Live" },
-            { GameType.BH3Pre, "Pre" },
-            { GameType.BH3PrePre, "Pre Pre" },
-            { GameType.SR, "Live" },
-            { GameType.SR_CB2, "CBT 2" },
-            { GameType.ZZZ, "Live" },
-            { GameType.ZZZ_CB1, "CBT 1" },
-            { GameType.ZZZ_CB2, "CBT 2" },
-            { GameType.HNA_CB1, "CBT 1" },
-            { GameType.TOT, "Live" },
-            { GameType.Naraka, "Naraka" },
-            { GameType.EnsembleStars, "Ensemble Stars" },
-            { GameType.OPFP, "OPFP" },
-            { GameType.FakeHeader, "Fake Header" },
-            { GameType.FantasyOfWind, "Fantasy of Wind" },
-            { GameType.ShiningNikki, "Shining Nikky" },
-            { GameType.HelixWaltz2, "Helix Waltz 2" },
-            { GameType.NetEase, "Net Ease" },
-            { GameType.AnchorPanic, "Anchor Panic" },
-            { GameType.DreamscapeAlbireo, "Dreamscape Albireo" },
-            { GameType.ImaginaryFest, "Imaginary Fest" },
-            { GameType.AliceGearAegis, "Alice Gear Aegis" },
-            { GameType.ProjectSekai, "Project Sekai" },
-            { GameType.CodenameJump, "Codename Jump" },
-            { GameType.GirlsFrontline, "Girls Frontline" },
-            { GameType.Reverse1999, "Reverse: 1999" },
-            { GameType.ArknightsEndfield, "Arknights Endfield" },
-            { GameType.Arknights, "Arknights" },
-            { GameType.JJKPhantomParade, "JJK Phantom Parade" },
-            { GameType.MuvLuvDimensions, "Muv Luv Dimensions" },
-            { GameType.PartyAnimals, "Party Animals" },
-            { GameType.LoveAndDeepspace, "Love and Deepspace" },
-            { GameType.SchoolGirlStrikers, "School Girl Strikers" },
-            { GameType.ExAstris, "Ex Astris" },
-            { GameType.PerpetualNovelty, "Perpetual Novelty" },
-        };
-
         static readonly List<GameType[]> HoyoGames = new List<GameType[]>
         {
             new[] { GameType.GI, GameType.GI_Pack, GameType.GI_CB1, GameType.GI_CB2, GameType.GI_CB3, GameType.GI_CB3Pre },
@@ -72,10 +25,9 @@ namespace AnimeStudio.GUI
 
         static readonly Game[] UnityGames = GameManager.GetGames().Where(x => x.Category == GameCategory.Unity).ToArray();
 
-        static readonly string[] OtherGames = GameManager.GetGames().Where(x => x.Category == GameCategory.Other).Select(x => x.DisplayName).ToArray();
+        static readonly Game[] OtherGames = GameManager.GetGames().Where(x => x.Category == GameCategory.Other).OrderBy(g => g.DisplayName).ToArray();
         #endregion
 
-        private List<Game> sortedGames;
         private Game selectedGame = GameManager.GetGame(0);
         private readonly MainForm _parent;
 
@@ -83,11 +35,6 @@ namespace AnimeStudio.GUI
         {
             InitializeComponent();
             _parent = parent;
-
-            sortedGames = OtherGames
-            .Select(x => GameManager.GetGameByDisplayName(x))
-            .OrderBy(g => g.DisplayName)
-            .ToList();
         }
 
         private void gameTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,7 +52,7 @@ namespace AnimeStudio.GUI
                     gameCombo.Items.AddRange(["Genshin Impact", "Honkai Impact 3rd", "Honkai: Star Rail", "Zenless Zone Zero", "Nexus Anima", "Tears of Themis"]);
                     break;
                 case 1:
-                    gameCombo.Items.AddRange(sortedGames.Select(g => g.DisplayName).ToArray());
+                    gameCombo.Items.AddRange(OtherGames.Select(g => g.DisplayName).ToArray());
                     break;
                 case 2:
                     gameCombo.Items.AddRange(UnityGames.Select(x => x.DisplayName).ToArray());
@@ -124,12 +71,12 @@ namespace AnimeStudio.GUI
             {
                 case 0:
                     hoyoCombo.Items.Clear();
-                    hoyoCombo.Items.AddRange(HoyoGames[gameCombo.SelectedIndex].Select(x => GameDisplayNames[x]).ToArray());
+                    hoyoCombo.Items.AddRange(HoyoGames[gameCombo.SelectedIndex].Select(x => GameManager.GetGame(x).DisplayName).ToArray());
                     hoyoCombo.SelectedIndex = 0;
                     hoyoCombo.Enabled = true;
                     break;
                 case 1:
-                    selectedGame = sortedGames[gameCombo.SelectedIndex];
+                    selectedGame = OtherGames[gameCombo.SelectedIndex];
                     break;
                 case 2:
                     selectedGame = UnityGames[gameCombo.SelectedIndex];
