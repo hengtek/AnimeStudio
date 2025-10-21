@@ -59,6 +59,7 @@ namespace AnimeStudio
             Games.Add(index++, new Game(GameType.GirlsFrontline, "Girls Frontline"));
             Games.Add(index++, new Game(GameType.Reverse1999, "Reverse: 1999"));
             Games.Add(index++, new Game(GameType.ArknightsEndfield, "Arknights Endfield"));
+            Games.Add(index++, new Game(GameType.Arknights, "Arknights"));
             Games.Add(index++, new Game(GameType.JJKPhantomParade, "JJK Phantom Parade"));
             Games.Add(index++, new Game(GameType.MuvLuvDimensions, "Muv-Luv Dimensions"));
             Games.Add(index++, new Game(GameType.PartyAnimals, "Party Animals"));
@@ -216,6 +217,7 @@ namespace AnimeStudio
         GirlsFrontline,
         Reverse1999,
         ArknightsEndfield,
+        Arknights,
         JJKPhantomParade,
         MuvLuvDimensions,
         PartyAnimals,
@@ -282,6 +284,7 @@ namespace AnimeStudio
         public static bool IsOPFP(this GameType type) => type == GameType.OPFP;
         public static bool IsNetEase(this GameType type) => type == GameType.NetEase;
         public static bool IsArknightsEndfield(this GameType type) => type == GameType.ArknightsEndfield;
+        public static bool IsArknights(this GameType type) => type == GameType.Arknights;
         public static bool IsLoveAndDeepspace(this GameType type) => type == GameType.LoveAndDeepspace;
         public static bool IsExAstris(this GameType type) => type == GameType.ExAstris;
         public static bool IsPerpetualNovelty(this GameType type) => type == GameType.PerpetualNovelty;
