@@ -221,13 +221,25 @@ namespace AnimeStudio
         ETC2_RGBA1 = 46, // ETC2 (GL ES 3.0) 4 bits/pixel RGB+1-bit alpha texture format.
         ETC2_RGBA8 = 47, // ETC2 (GL ES 3.0) 8 bits/pixel compressed RGBA texture format.
         ASTC_4x4 = 48, // ASTC (4x4 pixel block in 128 bits) compressed RGB(A) texture format.
+        ASTC_RGB_4x4 = -48, // Same as above
         ASTC_5x5 = 49, // ASTC (5x5 pixel block in 128 bits) compressed RGB(A) texture format.
+        ASTC_RGB_5x5 = -49, // Same as above
         ASTC_6x6 = 50, // ASTC (6x6 pixel block in 128 bits) compressed RGB(A) texture format.
+        ASTC_RGB_6x6 = -50, // Same as above
         ASTC_8x8 = 51, // ASTC (8x8 pixel block in 128 bits) compressed RGB(A) texture format.
+        ASTC_RGB_8x8 = -51, // Same as above
         ASTC_10x10 = 52, // ASTC (10x10 pixel block in 128 bits) compressed RGB(A) texture format.
+        ASTC_RGB_10x10 = -52, // Same as above
         ASTC_12x12 = 53, // ASTC (12x12 pixel block in 128 bits) compressed RGB(A) texture format.
-        ETC_RGB4_3DS = -60, // Obsolete. Enum member ETC_RGB4_3DS is obsolete. Nintendo 3DS is no longer supported.
-        ETC_RGBA8_3DS = -61, // Obsolete. Enum member ETC_RGB4_3DS is obsolete. Nintendo 3DS is no longer supported.
+        ASTC_RGB_12x12 = -53, // Same as above
+        ASTC_RGBA_4x4 = 54, // Obsolete. Use TextureFormat.ASTC_4x4 instead.
+        ASTC_RGBA_5x5 = 55, // Obsolete. Use TextureFormat.ASTC_5x5 instead.
+        ASTC_RGBA_6x6 = 56, // Obsolete. Use TextureFormat.ASTC_6x6 instead.
+        ASTC_RGBA_8x8 = 57, // Obsolete. Use TextureFormat.ASTC_8x8 instead.
+        ASTC_RGBA_10x10 = 58, // Obsolete. Use TextureFormat.ASTC_10x10 instead.
+        ASTC_RGBA_12x12 = 59, // Obsolete. Use TextureFormat.ASTC_12x12 instead.
+        ETC_RGB4_3DS = 60, // Obsolete. Enum member ETC_RGB4_3DS is obsolete. Nintendo 3DS is no longer supported.
+        ETC_RGBA8_3DS = 61, // Obsolete. Enum member ETC_RGB4_3DS is obsolete. Nintendo 3DS is no longer supported.
         RG16 = 62, // Two channel (RG) texture format, 8-bits unsigned integer per channel.
         R8 = 63, // Single channel (R) texture format, 8-bits unsigned integer.
         ETC_RGB4Crunched = 64, // Compressed color texture format with Crunch compression for smaller storage sizes.
@@ -249,17 +261,5 @@ namespace AnimeStudio
         RG32_SIGNED = 80, // Two channel (RG) texture format, 16-bits signed integer per channel.
         RGB48_SIGNED = 81, // Three color (RGB) texture format, 16-bits signed integer per channel.
         RGBA64_SIGNED = 82, // Four channel (RGBA) texture format, 16-bits signed integer per channel.
-        ASTC_RGB_4x4 = -48, // Obsolete. Use TextureFormat.ASTC_4x4 instead.
-        ASTC_RGB_5x5 = -49, // Obsolete. Use TextureFormat.ASTC_5x5 instead.
-        ASTC_RGB_6x6 = -50, // Obsolete. Use TextureFormat.ASTC_6x6 instead.
-        ASTC_RGB_8x8 = -51, // Obsolete. Use TextureFormat.ASTC_8x8 instead.
-        ASTC_RGB_10x10 = -52, // Obsolete. Use TextureFormat.ASTC_10x10 instead.
-        ASTC_RGB_12x12 = -53, // Obsolete. Use TextureFormat.ASTC_12x12 instead.
-        ASTC_RGBA_4x4 = -54, // Obsolete. Use TextureFormat.ASTC_4x4 instead.
-        ASTC_RGBA_5x5 = -55, // Obsolete. Use TextureFormat.ASTC_5x5 instead.
-        ASTC_RGBA_6x6 = -56, // Obsolete. Use TextureFormat.ASTC_6x6 instead.
-        ASTC_RGBA_8x8 = -57, // Obsolete. Use TextureFormat.ASTC_8x8 instead.
-        ASTC_RGBA_10x10 = -58, // Obsolete. Use TextureFormat.ASTC_10x10 instead.
-        ASTC_RGBA_12x12 = -59 // Obsolete. Use TextureFormat.ASTC_12x12 instead.
     }
 }
